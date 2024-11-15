@@ -8,6 +8,9 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Nationalized;
 
+import lombok.Data;
+
+@Data
 @Entity
 @Table(name = "KHOA")
 public class Khoa {
@@ -19,20 +22,6 @@ public class Khoa {
     @Column(name = "TENKHOA", nullable = false, length = 50)
     private String tenkhoa;
 
-    public String getMakhoa() {
-        return makhoa;
-    }
-
-    public void setMakhoa(String makhoa) {
-        this.makhoa = makhoa;
-    }
-
-    public String getTenkhoa() {
-        return tenkhoa;
-    }
-
-    public void setTenkhoa(String tenkhoa) {
-        this.tenkhoa = tenkhoa;
-    }
+    
 
 }

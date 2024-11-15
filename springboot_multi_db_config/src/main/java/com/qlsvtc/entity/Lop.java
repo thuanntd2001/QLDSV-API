@@ -11,6 +11,9 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Nationalized;
 
+import lombok.Data;
+
+@Data
 @Entity
 @Table(name = "LOP")
 public class Lop {
@@ -24,12 +27,8 @@ public class Lop {
     private String tenlop;
 
     @Nationalized
-    @Column(name = "TRANGTHAI")
-    private boolean trangThai;
-
-    @Nationalized
     @Column(name = "KHOAHOC", nullable = false, length = 9)
-    private String khoahoc;
+    private int khoahoc;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "MAKHOA", nullable = false)
@@ -37,59 +36,5 @@ public class Lop {
 
 
 
-    public Lop() {
-    }
-
-    public String getMalop() {
-        return malop;
-    }
-
-    public void setMalop(String malop) {
-        this.malop = malop;
-    }
-
-    public String getTenlop() {
-        return tenlop;
-    }
-
-    public void setTenlop(String tenlop) {
-        this.tenlop = tenlop;
-    }
-
-    public String getKhoahoc() {
-        return khoahoc;
-    }
-
-    public void setKhoahoc(String khoahoc) {
-        this.khoahoc = khoahoc;
-    }
-
-    public Khoa getMakhoa() {
-        return makhoa;
-    }
-
-    public void setMakhoa(Khoa makhoa) {
-        this.makhoa = makhoa;
-    }
-
-
-    public boolean isTrangThai() {
-        return trangThai;
-    }
-
-    public void setTrangThai(boolean trangThai) {
-        this.trangThai = trangThai;
-    }
-
-    @Override
-    public String toString() {
-        return "Lop{" +
-                "malop='" + malop + '\'' +
-                ", tenlop='" + tenlop + '\'' +
-                ", trangThai=" + trangThai +
-                ", khoahoc='" + khoahoc + '\'' +
-                ", makhoa=" + makhoa.toString() +
-                
-                '}';
-    }
+  
 }

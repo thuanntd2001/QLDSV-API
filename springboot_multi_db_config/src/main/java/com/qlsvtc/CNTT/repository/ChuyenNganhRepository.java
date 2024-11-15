@@ -8,10 +8,10 @@ import com.qlsvtc.entity.ChuyenNganh;
 import java.util.List;
 import java.util.Map;
 
-public interface NganhRepository extends JpaRepository<ChuyenNganh, Integer> {
-    public ChuyenNganh findByid(int id);
+public interface ChuyenNganhRepository extends JpaRepository<ChuyenNganh, Integer> {
 
-    public ChuyenNganh findByten(String tenNganh);
+
+    public ChuyenNganh findBytenCN(String tenNganh);
     @Query(value = "{call SP_FIND_LIST_NGANH()}", nativeQuery = true)
     List<Map<String,Object>> findDanhSachNganh();
 }

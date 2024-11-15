@@ -1,7 +1,5 @@
 package com.qlsvtc.entity;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -9,70 +7,28 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Nationalized;
 
+import lombok.Data;
+
+@Data
 @Entity
 @Table(name = "MONHOC")
 public class MonHoc {
-    @Id
-    @Nationalized
-    @Column(name = "MAMH", nullable = false, length = 10)
-    @JsonProperty("MAMH")
-    private String mamh;
+	@Id
+	@Nationalized
+	@Column(name = "MAMH", nullable = false, length = 10)
 
-    @Nationalized
-    @Column(name = "TENMH", nullable = false, length = 50)
-    @JsonProperty("TENMH")
-    private String tenmh;
+	private String mamh;
 
-    @Column(name = "SOTIET_LT", nullable = false)
-    @JsonProperty("SOTIET_LT")
-    private Integer sotietLt;
+	@Nationalized
+	@Column(name = "TENMH", nullable = false, length = 50)
 
-    @JsonProperty("SOTIET_TH")
-    @Column(name = "SOTIET_TH", nullable = false)
-    private Integer sotietTh;
+	private String tenmh;
 
-    @Column(name = "SOTINCHI")
-    @JsonProperty("SOTINCHI")
-    private Integer sotinchi;
+	@Column(name = "SOTIET_LT", nullable = false)
 
-    public String getMamh() {
-        return mamh;
-    }
+	private Integer sotietLt;
 
-    public void setMamh(String mamh) {
-        this.mamh = mamh;
-    }
-
-    public String getTenmh() {
-        return tenmh;
-    }
-
-    public void setTenmh(String tenmh) {
-        this.tenmh = tenmh;
-    }
-
-    public Integer getSotietLt() {
-        return sotietLt;
-    }
-
-    public void setSotietLt(Integer sotietLt) {
-        this.sotietLt = sotietLt;
-    }
-
-    public Integer getSotietTh() {
-        return sotietTh;
-    }
-
-    public void setSotietTh(Integer sotietTh) {
-        this.sotietTh = sotietTh;
-    }
-
-    public Integer getSotinchi() {
-        return sotinchi;
-    }
-
-    public void setSotinchi(Integer sotinchi) {
-        this.sotinchi = sotinchi;
-    }
+	@Column(name = "SOTIET_TH", nullable = false)
+	private Integer sotietTh;
 
 }

@@ -1,20 +1,19 @@
 package com.qlsvtc.CNTT.repository;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.query.Procedure;
 import org.springframework.data.repository.query.Param;
 
 import com.qlsvtc.DTO.SinhVienDTO;
-import com.qlsvtc.entity.Lop;
 import com.qlsvtc.entity.SinhVien;
-
-import java.util.List;
-import java.util.Map;
 
 public interface SinhVienRepository extends JpaRepository<SinhVien, String> {
     SinhVien findBymasv(String maSV);
-    List<SinhVien> findBymalop(Lop maLop);
+
 
     List<SinhVien> findAll();
 

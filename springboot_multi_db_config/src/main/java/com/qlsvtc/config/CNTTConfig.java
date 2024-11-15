@@ -18,7 +18,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement
 @EnableJpaRepositories(
 		basePackages = {
-				"com.ashokit.CNTT.repository"
+				"com.qlsvtc.CNTT.repository"
 		}
 )
 public class CNTTConfig {

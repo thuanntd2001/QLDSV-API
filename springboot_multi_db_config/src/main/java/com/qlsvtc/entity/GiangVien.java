@@ -10,6 +10,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import org.hibernate.annotations.Nationalized;
 
+import lombok.Data;
+
+@Data
 @Entity
 @Table(name = "GIANGVIEN")
 public class GiangVien {
@@ -41,101 +44,10 @@ public class GiangVien {
     @Column(name = "CHUYENMON", length = 50)
     private String chuyenmon;
 
-    @Column(name = "HINHANH")
-    private String hinhanh;
 
 
-    @Column(name = "SDT")
-    private String sdt;
-
-
-    @Column(name = "EMAIL")
-    private String email;
 
     
 
-
-    public String getSdt() {
-        return sdt;
-    }
-
-    public void setSdt(String sdt) {
-        this.sdt = sdt;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-
-
-
-    public String getMagv() {
-        return magv;
-    }
-
-    public void setMagv(String magv) {
-        this.magv = magv;
-    }
-
-    public Khoa getMakhoa() {
-        return makhoa;
-    }
-
-    public void setMakhoa(Khoa makhoa) {
-        this.makhoa = makhoa;
-    }
-
-    public String getHo() {
-        return ho;
-    }
-
-    public void setHo(String ho) {
-        this.ho = ho;
-    }
-
-    public String getTen() {
-        return ten;
-    }
-
-    public void setTen(String ten) {
-        this.ten = ten;
-    }
-
-    public String getHocvi() {
-        return hocvi;
-    }
-
-    public void setHocvi(String hocvi) {
-        this.hocvi = hocvi;
-    }
-
-    public String getHocham() {
-        return hocham;
-    }
-
-    public void setHocham(String hocham) {
-        this.hocham = hocham;
-    }
-
-    public String getChuyenmon() {
-        return chuyenmon;
-    }
-
-    public void setChuyenmon(String chuyenmon) {
-        this.chuyenmon = chuyenmon;
-    }
-
-    public String getHinhanh() {
-        return hinhanh;
-    }
-
-    public void setHinhanh(String hinhanh) {
-        this.hinhanh = hinhanh;
-    }
 
 }
