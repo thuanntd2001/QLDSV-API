@@ -10,7 +10,7 @@ import com.qlsvtc.entity.DangKy;
 
 
 
-public interface DangKyRepository extends JpaRepository<DangKy, Integer>{
+public interface DangKyRepositoryCNTT extends JpaRepository<DangKy, Integer>{
     
     
     @Query(value = " EXECUTE SP_BO_DANG_KY :MASV,:MALTC",nativeQuery = true)

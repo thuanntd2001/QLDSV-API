@@ -9,7 +9,7 @@ import org.springframework.data.repository.query.Param;
 
 import com.qlsvtc.entity.LopTinChi;
 
-public interface LopTinChiRepository extends JpaRepository<LopTinChi, Integer> {
+public interface LopTinChiRepositoryCNTT extends JpaRepository<LopTinChi, Integer> {
     @Query(value = "{call SP_DANH_SACH_LTC_THEO_MAGV(:magv)}", nativeQuery = true)
     public List<Map<String, ?>> danhSachLTCTheoMaGV(String magv);
 

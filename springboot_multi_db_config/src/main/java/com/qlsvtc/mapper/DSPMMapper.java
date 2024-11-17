@@ -13,7 +13,7 @@ public class DSPMMapper implements RowMapper<DSPMModel>{
 		try {
 			DSPMModel DSPM = new DSPMModel();
 		
-			DSPM.setTenCN(resultSet.getString("TENCN"));
+			DSPM.setTenKhoa(resultSet.getString("TENKHOA"));
 			DSPM.setTenServer(resultSet.getString("TENSERVER"));
 		
 			return DSPM;

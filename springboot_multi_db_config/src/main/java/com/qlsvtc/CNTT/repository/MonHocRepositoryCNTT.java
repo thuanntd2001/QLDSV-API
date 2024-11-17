@@ -9,7 +9,7 @@ import org.springframework.data.repository.query.Param;
 
 import com.qlsvtc.entity.MonHoc;
 
-public interface MonHocRepository extends JpaRepository<MonHoc, String> {
+public interface MonHocRepositoryCNTT extends JpaRepository<MonHoc, String> {
     MonHoc findBymamh(String maMh);
 
     @Query(value = "{call SP_GET_STC_MON_HOC(:tenmh)}", nativeQuery = true)

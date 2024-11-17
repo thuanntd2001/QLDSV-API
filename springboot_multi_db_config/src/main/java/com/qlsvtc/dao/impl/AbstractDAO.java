@@ -344,67 +344,6 @@ public class AbstractDAO<T> implements IGenericDAO<T>{
 		}
 	}
 
-	//TC
-	
-	
-	public Connection getConnectionTC() {
-		try {
-			Class.forName(InfoConnection.getDriverTC());
-			String url = InfoConnection.getUrlTC();
-			String user = InfoConnection.getUserNameTC();
-			String password = InfoConnection.getPassWordTC();
-			try {
-				return DriverManager.getConnection(url, user, password);
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				System.out.print("ket noi that bai side tra cuu");
-				return null;
-			}
-		} catch (ClassNotFoundException e) {
-
-			e.printStackTrace();
-			return null;
-		}
-	}
-	
-	
-	
-	@Override
-	public <T> List<T> queryTC(String sql, RowMapper<T> rowMapper, Object... parameters){
-		List<T> results = new ArrayList<>();
-		Connection connection = null;
-		PreparedStatement statement = null;
-		ResultSet resultSet = null;
-		try {
-			connection = getConnectionTC();
-			statement = connection.prepareStatement(sql);
-			setParameter(statement, parameters);
-			resultSet = statement.executeQuery();
-			while (resultSet.next()) {
-				results.add(rowMapper.mapRow(resultSet));
-			}
-			return results;
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return null;
-		} finally {
-			try {
-				if (connection != null) {
-					connection.close();
-				}
-				if (statement != null) {
-					statement.close();
-				}
-				if (resultSet != null) {
-					resultSet.close();
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-				return null;
-			}
-		}
-	}
 
 
 

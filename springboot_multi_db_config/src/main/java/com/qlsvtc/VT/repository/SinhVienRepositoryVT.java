@@ -1,4 +1,4 @@
-package com.qlsvtc.CNTT.repository;
+package com.qlsvtc.VT.repository;
 
 import java.util.List;
 import java.util.Map;
@@ -11,7 +11,7 @@ import org.springframework.data.repository.query.Param;
 import com.qlsvtc.DTO.SinhVienDTO;
 import com.qlsvtc.entity.SinhVien;
 
-public interface SinhVienRepository extends JpaRepository<SinhVien, String> {
+public interface SinhVienRepositoryVT extends JpaRepository<SinhVien, String> {
     SinhVien findBymasv(String maSV);
 
 

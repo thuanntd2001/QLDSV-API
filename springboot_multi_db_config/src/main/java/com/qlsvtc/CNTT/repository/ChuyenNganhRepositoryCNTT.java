@@ -8,7 +8,7 @@ import com.qlsvtc.entity.ChuyenNganh;
 import java.util.List;
 import java.util.Map;
 
-public interface ChuyenNganhRepository extends JpaRepository<ChuyenNganh, Integer> {
+public interface ChuyenNganhRepositoryCNTT extends JpaRepository<ChuyenNganh, Integer> {
 
 
     public ChuyenNganh findBytenCN(String tenNganh);

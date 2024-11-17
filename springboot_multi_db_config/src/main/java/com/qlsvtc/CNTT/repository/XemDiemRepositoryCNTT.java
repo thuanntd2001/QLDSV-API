@@ -9,7 +9,7 @@ import com.qlsvtc.entity.LopTinChi;
 import java.util.List;
 import java.util.Map;
 
-public interface XemDiemRepository extends JpaRepository<LopTinChi, Integer> {
+public interface XemDiemRepositoryCNTT extends JpaRepository<LopTinChi, Integer> {
 
     @Query(value = "{call SP_GET_DANH_SACH_NAM_HOC(:masv)}", nativeQuery = true)
     public List<String> danhSachNamHoc(@Param("masv") String masv);

@@ -4,7 +4,7 @@ public class InfoConnection {
 
 	private static String userNameChu="sa";
 	private static String passWordChu="1234";
-	private static String urlChu="jdbc:sqlserver://GHDBP-20210702Z; Database=QLVT_DATHANG";
+	private static String urlChu="jdbc:sqlserver://DESKTOP-DH2SJV4\\MSSQLSERVER0; Database=QLSVTC";
 	private static String driverChu="com.microsoft.sqlserver.jdbc.SQLServerDriver";
 
 	
@@ -13,10 +13,6 @@ public class InfoConnection {
 	private static String urlPM;
 	private static String driverPM="com.microsoft.sqlserver.jdbc.SQLServerDriver";
 	
-	private static String userNameTC="sa";
-	private static String passWordTC="1234";
-	private static String urlTC="jdbc:sqlserver://GHDBP-20210702Z\\SQLSV3; Database=QLVT_DATHANG";
-	private static String driverTC="com.microsoft.sqlserver.jdbc.SQLServerDriver";
 	public static String getUserNameChu() {
 		return userNameChu;
 	}
@@ -57,7 +53,7 @@ public class InfoConnection {
 		return urlPM;
 	}
 	public static void setUrlPM(String urlPM) {
-		InfoConnection.urlPM = "jdbc:sqlserver://"+urlPM+"; Database=QLVT_DATHANG";
+		InfoConnection.urlPM = "jdbc:sqlserver://"+urlPM+"; Database=QLSVTC";
 	}
 	public static String getDriverPM() {
 		return driverPM;
@@ -65,31 +61,7 @@ public class InfoConnection {
 	public static void setDriverPM(String driverPM) {
 		InfoConnection.driverPM = driverPM;
 	}
-	public static String getUserNameTC() {
-		return userNameTC;
-	}
-	public static void setUserNameTC(String userNameTC) {
-		InfoConnection.userNameTC = userNameTC;
-	}
-	public static String getPassWordTC() {
-		return passWordTC;
-	}
-	public static void setPassWordTC(String passWordTC) {
-		InfoConnection.passWordTC = passWordTC;
-	}
-	public static String getUrlTC() {
-		return urlTC;
-	}
-	public static void setUrlTC(String urlTC) {
-		InfoConnection.urlTC = urlTC;
-	}
-	public static String getDriverTC() {
-		return driverTC;
-	}
-	public static void setDriverTC(String driverTC) {
-		InfoConnection.driverTC = driverTC;
-	}
-	
+
 	
 	
 

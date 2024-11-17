@@ -11,7 +11,7 @@ import com.qlsvtc.entity.GiangVien;
 import java.util.List;
 import java.util.Map;
 
-public interface GiangVienRepository extends JpaRepository<GiangVien, String> {
+public interface GiangVienRepositoryCNTT extends JpaRepository<GiangVien, String> {
     @Query(value = "{call SP_THONG_TIN_GV(:magv)}", nativeQuery = true)
     public Map<String, ?> thongTinCaNhanGiangVien(@Param("magv") String magv);
 

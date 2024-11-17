@@ -1,4 +1,4 @@
-package com.qlsvtc.CNTT.repository;
+package com.qlsvtc.VT.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -10,7 +10,7 @@ import com.qlsvtc.entity.Khoa;
 import java.util.List;
 import java.util.Map;
 
-public interface KhoaRepository extends JpaRepository<Khoa, String> {
+public interface KhoaRepositoryVT extends JpaRepository<Khoa, String> {
     public Khoa findBymakhoa(String makhoa);
 
     @Query(value = "{call SP_FIND_LIST_MA_KHOA()}", nativeQuery = true)

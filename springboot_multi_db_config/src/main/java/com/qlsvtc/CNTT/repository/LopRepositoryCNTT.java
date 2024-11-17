@@ -9,7 +9,7 @@ import com.qlsvtc.entity.Lop;
 import java.util.List;
 import java.util.Map;
 
-public interface LopRepository extends JpaRepository<Lop, String> {
+public interface LopRepositoryCNTT extends JpaRepository<Lop, String> {
     @Query(value = "{call SP_DANH_SACH_LOP_CUA_KHOA(:magv, :trangthai)}", nativeQuery = true)
     public List<Map<String, ?>> danhSachLopCuaKhoa(String magv, int trangthai);
 
