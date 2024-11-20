@@ -1,14 +1,15 @@
 package com.qlsvtc.service.impl;
 
+import javax.servlet.http.HttpSession;
+
 import com.qlsvtc.dao.impl.AbstractDAO;
-import com.qlsvtc.service.ICheckService;
 
-public class CheckService implements ICheckService{
+public class CheckService {
 
-	@Override
-	public boolean ckUserPassword(String user, String pass) {
+	
+	public boolean ckUserPassword(HttpSession session) {
 		// TODO Auto-generated method stub
-		if (new AbstractDAO().getConnectionPM(user, pass)==null)
+		if (new AbstractDAO().getConnectionPM(session)==null)
 		return false;
 		else
 			return true;

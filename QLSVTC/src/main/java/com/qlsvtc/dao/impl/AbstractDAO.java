@@ -10,11 +10,12 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.qlsvtc.dao.IGenericDAO;
+import javax.servlet.http.HttpSession;
+
 import com.qlsvtc.mapper.RowMapper;
 import com.qlsvtc.statics.InfoConnection;
 
-public class AbstractDAO<T> implements IGenericDAO<T> {
+public class AbstractDAO<T>  {
 
 	// PARA
 
@@ -41,50 +42,16 @@ public class AbstractDAO<T> implements IGenericDAO<T> {
 	}
 
 //PHANMANH
-	@Override
-	public <T> List<T> queryPM(String username, String password, String sql, RowMapper<T> rowMapper,
-			Object... parameters) {
-		List<T> results = new ArrayList<>();
-		Connection connection = null;
-		PreparedStatement statement = null;
-		ResultSet resultSet = null;
-		try {
-			connection = getConnectionPM(username, password);
-			statement = connection.prepareStatement(sql);
-			setParameter(statement, parameters);
-			//System.out.print(statement.toString();
-			resultSet = statement.executeQuery();
-			while (resultSet.next()) {
-				results.add(rowMapper.mapRow(resultSet));
-			}
-			return results;
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return null;
-		} finally {
-			try {
-				if (connection != null) {
-					connection.close();
-				}
-				if (statement != null) {
-					statement.close();
-				}
-				if (resultSet != null) {
-					resultSet.close();
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-				return null;
-			}
-		}
-	}
 
-	public Connection getConnectionPM(String rUser, String rPassword) {
+
+	
+
+	public Connection getConnectionPM(HttpSession session) {
 		try {
 			Class.forName(InfoConnection.getDriverPM());
-			String url = InfoConnection.getUrlPM();
-			String user = rUser;
-			String password = rPassword;
+			String url = (String)session.getAttribute("url");
+			String user = (String)session.getAttribute("username");
+			String password = (String)session.getAttribute("password");
 			try {
 				return DriverManager.getConnection(url, user, password);
 			} catch (SQLException e) {
@@ -100,101 +67,7 @@ public class AbstractDAO<T> implements IGenericDAO<T> {
 		}
 	}
 
-	public Connection getConnectionPM() {
-		try {
-			Class.forName(InfoConnection.getDriverPM());
-			String url = InfoConnection.getUrlPM();
-			String user = InfoConnection.getUserNamePM();
-			String password = InfoConnection.getPassWordPM();
-			try {
-				return DriverManager.getConnection(url, user, password);
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				System.out.print("ket noi that bai side PM");
-				return null;
-			}
-		} catch (ClassNotFoundException e) {
-
-			e.printStackTrace();
-			return null;
-		}
-	}
-
-	public void updatePM(String sql, Object... parameters) {
-		Connection connection = null;
-		PreparedStatement statement = null;
-		try {
-			connection = getConnectionPM();
-			connection.setAutoCommit(false);
-			statement = connection.prepareStatement(sql);
-			setParameter(statement, parameters);
-			statement.executeUpdate();
-			connection.commit();
-		} catch (SQLException e) {
-			if (connection != null) {
-				try {
-					connection.rollback();
-				} catch (SQLException e1) {
-					e1.printStackTrace();
-				}
-			}
-		} finally {
-			try {
-				if (connection != null) {
-					connection.close();
-				}
-				if (statement != null) {
-					statement.close();
-				}
-			} catch (SQLException e2) {
-				e2.printStackTrace();
-			}
-		}
-	}
-
-	public Long insertPM(String sql, Object... parameters) throws SQLException {
-		Connection connection = null;
-		PreparedStatement statement = null;
-		ResultSet resultSet = null;
-		try {
-			Long id = null;
-			connection = getConnectionPM();
-			connection.setAutoCommit(false);
-			statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-			setParameter(statement, parameters);
-			statement.executeUpdate();
-			resultSet = statement.getGeneratedKeys();
-
-			connection.commit();
-			return id;
-		} catch (SQLException e) {
-			if (connection != null) {
-				try {
-					connection.rollback();
-				} catch (SQLException e1) {
-					e1.printStackTrace();
-				}
-				throw e;
-			}
-		} finally {
-			try {
-				if (connection != null) {
-					connection.close();
-				}
-				if (statement != null) {
-					statement.close();
-				}
-				if (resultSet != null) {
-					resultSet.close();
-				}
-			} catch (SQLException e2) {
-				e2.printStackTrace();
-			}
-		}
-		return null;
-	}
-
+	
 	// CHU
 
 	public Connection getConnectionChu() {
@@ -218,7 +91,6 @@ public class AbstractDAO<T> implements IGenericDAO<T> {
 		}
 	}
 
-	@Override
 	public void updateChu(String sql, Object... parameters) {
 		Connection connection = null;
 		PreparedStatement statement = null;
@@ -251,7 +123,7 @@ public class AbstractDAO<T> implements IGenericDAO<T> {
 		}
 	}
 
-	@Override
+	
 	public Long insertChu(String sql, Object... parameters) {
 		Connection connection = null;
 		PreparedStatement statement = null;
@@ -295,8 +167,7 @@ public class AbstractDAO<T> implements IGenericDAO<T> {
 		return null;
 	}
 
-	@SuppressWarnings("hiding")
-	@Override
+
 	public <T> List<T> queryChu(String sql, RowMapper<T> rowMapper, Object... parameters) {
 		List<T> results = new ArrayList<>();
 		Connection connection = null;
@@ -331,5 +202,101 @@ public class AbstractDAO<T> implements IGenericDAO<T> {
 			}
 		}
 	}
+	
+	public <T> List<T> queryPM(String url ,String username, String password, String sql, RowMapper<T> rowMapper,
+			Object... parameters) {
+		List<T> results = new ArrayList<>();
+		Connection connection = null;
+		PreparedStatement statement = null;
+		ResultSet resultSet = null;
+		try {
+			connection = getConnectionPM(url ,username, password);
+			statement = connection.prepareStatement(sql);
+			setParameter(statement, parameters);
+			//System.out.print(statement.toString();
+			resultSet = statement.executeQuery();
+			while (resultSet.next()) {
+				results.add(rowMapper.mapRow(resultSet));
+			}
+			return results;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			try {
+				if (connection != null) {
+					connection.close();
+				}
+				if (statement != null) {
+					statement.close();
+				}
+				if (resultSet != null) {
+					resultSet.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return null;
+			}
+		}
+	}
+
+	public Connection getConnectionPM(String url, String rUser, String rPassword) {
+		try {
+			Class.forName(InfoConnection.getDriverPM());
+			String user = rUser;
+			String password = rPassword;
+			try {
+				return DriverManager.getConnection(url, user, password);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				System.out.print("ket noi that bai side PM");
+				return null;
+			}
+		} catch (ClassNotFoundException e) {
+
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	public <T> List<T> queryPM(HttpSession session, String sql, RowMapper<T> rowMapper,
+			Object... parameters) {
+		List<T> results = new ArrayList<>();
+		Connection connection = null;
+		PreparedStatement statement = null;
+		ResultSet resultSet = null;
+		try {
+			connection = getConnectionPM((String)session.getAttribute("url"),(String)session.getAttribute("username"),(String)session.getAttribute("password"));
+			statement = connection.prepareStatement(sql);
+			setParameter(statement, parameters);
+			//System.out.print(statement.toString();
+			resultSet = statement.executeQuery();
+			while (resultSet.next()) {
+				results.add(rowMapper.mapRow(resultSet));
+			}
+			return results;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			try {
+				if (connection != null) {
+					connection.close();
+				}
+				if (statement != null) {
+					statement.close();
+				}
+				if (resultSet != null) {
+					resultSet.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return null;
+			}
+		}
+	}
+
+	
 
 }
