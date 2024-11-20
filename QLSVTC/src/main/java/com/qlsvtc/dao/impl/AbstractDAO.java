@@ -16,6 +16,8 @@ import com.qlsvtc.mapper.RowMapper;
 import com.qlsvtc.statics.InfoConnection;
 
 public class AbstractDAO<T>  {
+	
+	InfoConnection infoConnection = new InfoConnection();
 
 	// PARA
 
@@ -48,7 +50,7 @@ public class AbstractDAO<T>  {
 
 	public Connection getConnectionPM(HttpSession session) {
 		try {
-			Class.forName(InfoConnection.getDriverPM());
+			Class.forName(infoConnection.getDriverPM());
 			String url = (String)session.getAttribute("url");
 			String user = (String)session.getAttribute("username");
 			String password = (String)session.getAttribute("password");
@@ -72,10 +74,10 @@ public class AbstractDAO<T>  {
 
 	public Connection getConnectionChu() {
 		try {
-			Class.forName(InfoConnection.getDriverChu());
-			String url = InfoConnection.getUrlChu();
-			String user = InfoConnection.getUserNameChu();
-			String password = InfoConnection.getPassWordChu();
+			Class.forName(infoConnection.getDriverChu());
+			String url = infoConnection.getUrlChu();
+			String user = infoConnection.getUserNameChu();
+			String password = infoConnection.getPassWordChu();
 			try {
 				return DriverManager.getConnection(url, user, password);
 			} catch (SQLException e) {
@@ -242,7 +244,7 @@ public class AbstractDAO<T>  {
 
 	public Connection getConnectionPM(String url, String rUser, String rPassword) {
 		try {
-			Class.forName(InfoConnection.getDriverPM());
+			Class.forName(infoConnection.getDriverPM());
 			String user = rUser;
 			String password = rPassword;
 			try {

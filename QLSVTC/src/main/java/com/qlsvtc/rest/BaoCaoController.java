@@ -3,6 +3,7 @@ package com.qlsvtc.rest;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.qlsvtc.dao.impl.BCBangDiemMonHocLTCDAO;
@@ -21,6 +22,7 @@ import javax.servlet.http.HttpSession;
 
 
 @RestController
+@RequestMapping("/api")
 public class BaoCaoController {
 
 	

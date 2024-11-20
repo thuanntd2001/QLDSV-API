@@ -28,13 +28,19 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 public class VTConfig {
 	@Value("${app.DBVTurl}")
     private String dburl;
+	@Value("${app.DBpassVT}")
+    private String dbpass;	
+	@Value("${app.DBuserVT}")
+    private String dbuser;
+	@Value("${app.driver}")
+    private String driver;
 	
 	 @Bean public DataSource DataSourceCN2() {
 	        DriverManagerDataSource dataSource = new DriverManagerDataSource();
-	        dataSource.setDriverClassName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+			dataSource.setDriverClassName(driver);
 			dataSource.setUrl(dburl);
-			dataSource.setUsername("sa");
-			dataSource.setPassword("1234");
+			dataSource.setUsername(dbuser);
+			dataSource.setPassword(dbpass);
 	        return dataSource;
 	    }
 

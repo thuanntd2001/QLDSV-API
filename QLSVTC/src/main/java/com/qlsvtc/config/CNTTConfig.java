@@ -26,7 +26,12 @@ public class CNTTConfig {
 	
 	@Value("${app.DBCNTTurl}")
     private String dburl;
-
+	@Value("${app.DBpassCNTT}")
+    private String dbpass;	
+	@Value("${app.DBuserCNTT}")
+    private String dbuser;
+	@Value("${app.driver}")
+    private String driver;
 
 	@Bean
 	public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
@@ -54,10 +59,10 @@ public class CNTTConfig {
 	@Bean
 	public DataSource dataSource() {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
-		dataSource.setDriverClassName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+		dataSource.setDriverClassName(driver);
 		dataSource.setUrl(dburl);
-		dataSource.setUsername("sa");
-		dataSource.setPassword("1234");
+		dataSource.setUsername(dbuser);
+		dataSource.setPassword(dbpass);
 
 		return dataSource;
 	}
