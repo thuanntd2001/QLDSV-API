@@ -55,10 +55,10 @@
 				</c:if>
 				<div class="card-body">
 					<div class="form-group">
-						<label for="username">Chi Nhánh</label> <br> <select
+						<label for="username">Khoa</label> <br> <select
 							class="selectpicker" name="chiNhanh">
 							<c:forEach items="${DSPMs }" var="pm">
-								<option value="${pm.tenServer}">${pm.tenCN}</option>
+								<option value="${pm.tenServer}">${pm.tenKhoa}</option>
 							</c:forEach>
 						</select>
 
