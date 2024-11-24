@@ -87,12 +87,11 @@ public class LoginUIController {
 
 
 					if (login.getTenNhom().equals("SV"))
-						return "redirect:quanly/sinhvien";
+						return "redirect:sinhvien";
 					if (login.getTenNhom().equals("KHOA"))
-						return "redirect:quanly/giangvien";
+						return "redirect:khoa";
 					if (login.getTenNhom().equals("PGV"))
-
-						return "redirect:quanly/nhanvien";
+						return "redirect:nhanvien";
 
 				}
 
