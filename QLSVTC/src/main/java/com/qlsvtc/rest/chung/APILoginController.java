@@ -20,7 +20,7 @@ import com.qlsvtc.service.impl.CheckService;
 
 @RestController
 @RequestMapping("/api")
-public class LoginController {
+public class APILoginController {
 
 
 	DSPMDAO dspmDAO = new DSPMDAO();
@@ -58,10 +58,7 @@ public class LoginController {
 				if (login!=null) {
 				login.setKhoa(model.getMaKhoa());
 
-		        session.setAttribute("khoa", login.getKhoa());
-		        session.setAttribute("manv", login.getMaNV());
-		        session.setAttribute("hoten", login.getHoTen());
-		        session.setAttribute("quyen", login.getTenNhom());
+				session.setAttribute("USERMODEL", login);
 		        
 				login.setMessage("thanh cong ket noi phan manh " + (String)session.getAttribute("url"));
 				login.setStatus("200");}

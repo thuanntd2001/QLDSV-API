@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
@@ -13,12 +14,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.qlsvtc.dao.impl.DSPMDAO;
 import com.qlsvtc.dao.impl.NhanVienDAO;
 import com.qlsvtc.model.DSPMModel;
+import com.qlsvtc.model.NhanVienLoginModel;
 import com.qlsvtc.model.UserModel;
 import com.qlsvtc.service.impl.CheckService;
 import com.qlsvtc.utils.FormUtil;
@@ -27,8 +30,6 @@ import com.qlsvtc.utils.SessionUtil;
 @Controller
 public class LoginUIController {
 
-	@Autowired
-	HttpRequest session;
 	@Autowired
 	ServletContext application;
 	ResourceBundle resourceBundle = ResourceBundle.getBundle("message");
@@ -64,74 +65,42 @@ public class LoginUIController {
 			return "redirect:dang-nhap?action=login";
 		}
 	}
-/*
-	@RequestMapping(value = "dang-nhap", method = RequestMethod.POST)
-	private String doPost(HttpServletRequest request, HttpServletResponse response) {
-		String action = request.getParameter("action");
 
-		if (action != null && action.equals("login")) {
+	@PostMapping("dang-nhap")
+	private String doPost(UserModel model, HttpSession session) {
+		NhanVienLoginModel login;
+		if (model != null) {
+			// kt nv co tk trong sqlserver ko
+			boolean flag = false;
+			// set server ma nv chon de thu ket noi
+			session.setAttribute("url", "jdbc:sqlserver://" + model.getKhoaURL() + "; Database=QLSVTC");
+			session.setAttribute("password", model.getPasswd());
+			session.setAttribute("username", model.getUserName());
 
-			UserModel model = FormUtil.toModel(UserModel.class, request);
+			flag = ck.ckUserPassword(session);
+			if (flag) {
+				login = nvdao.login(session);
+				if (login != null) {
+					login.setKhoa(model.getMaKhoa());
 
-			if (model != null) {
-				// kt nv co tk trong sqlserver ko
-				boolean flag = false;
-				// set server ma nv chon de thu ket noi
-				InfoConnection.setUrlPM(model.getChiNhanh());
-				flag = ck.ckUserPassword(model.getUserName(), model.getPasswd());
-				// neu ket noi dc setup thuoc tinh cho nhan vien sap dang nhap
-				if (flag) {
-					InfoConnection.setUrlPM(model.getChiNhanh());
+					session.setAttribute("USERMODEL", login);
 
-					InfoConnection.setPassWordPM(model.getPasswd());
-					InfoConnection.setUserNamePM(model.getUserName());
 
-					System.out.print("thanh cong ket noi phan manh" + InfoConnection.getUrlPM());
+					if (login.getTenNhom().equals("SV"))
+						return "redirect:quanly/sinhvien";
+					if (login.getTenNhom().equals("KHOA"))
+						return "redirect:quanly/giangvien";
+					if (login.getTenNhom().equals("PGV"))
 
-					NhanVienLoginModel login = nvdao.login(model.getUserName(), model.getPasswd());
+						return "redirect:quanly/nhanvien";
 
-					model.setMaNV(login.getMaNV());
-					model.setHoTen(login.getHoTen());
-					model.setRoleID(login.getTenNhom());
-
-					SessionUtil.getInstance().putValue(request, "USERMODEL", model);
-					session.setAttribute("USERMODEL", model);
-
-					if (model.getChiNhanh().equals("GHDBP-20210702Z\\SQLSV1")) {
-						model.setMaChiNhanh("CN1");
-						if (model.getRoleID().equals("CONGTY"))
-
-							return "redirect:quanlynhanvien/cn1/congty.htm";
-						if (model.getRoleID().equals("CHINHANH"))
-
-							return "redirect:quanlynhanvien/cn1/chinhanh.htm";
-						if (model.getRoleID().equals("USER"))
-
-							return "redirect:quanlynhanvien/cn1/user.htm";
-					}
-
-					else if (model.getChiNhanh().equals("GHDBP-20210702Z\\SQLSV2"))
-					{
-						model.setMaChiNhanh("CN2");
-						// tra ra view
-						if (model.getRoleID().equals("CONGTY"))
-
-							return "redirect:quanlynhanvien/cn2/congty.htm";
-						if (model.getRoleID().equals("CHINHANH"))
-
-							return "redirect:quanlynhanvien/cn2/chinhanh.htm";
-						if (model.getRoleID().equals("USER"))
-
-							return "redirect:quanlynhanvien/cn2/user.htm";
-					}
 				}
 
 			}
-			System.out.print("ket noi that bai " + "user " + model.getUserName() + "pass " + model.getPasswd());
 
 		}
+		System.out.print("ket noi that bai " + "user " + model.getUserName() + "pass " + model.getPasswd());
+		return "redirect:dang-nhap?action=login&message=username_password_invalid&alert=danger";
 
-		return "redirect:dang-nhap.htm?action=login&message=username_password_invalid&alert=danger";
-
-	}*/
+	}
 }

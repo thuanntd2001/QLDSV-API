@@ -56,7 +56,7 @@
 				<div class="card-body">
 					<div class="form-group">
 						<label for="username">Khoa</label> <br> <select
-							class="selectpicker" name="chiNhanh">
+							class="selectpicker" name="khoaURL">
 							<c:forEach items="${DSPMs }" var="pm">
 								<option value="${pm.tenServer}">${pm.tenKhoa}</option>
 							</c:forEach>

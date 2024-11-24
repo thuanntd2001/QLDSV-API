@@ -18,7 +18,7 @@ public class UserModel {
 	
 	private String hoTen;
 	
-	private int maNV;
+	private String maNV;
 	
 	
 }

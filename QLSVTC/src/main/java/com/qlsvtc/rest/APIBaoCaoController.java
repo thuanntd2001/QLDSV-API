@@ -23,7 +23,7 @@ import javax.servlet.http.HttpSession;
 
 @RestController
 @RequestMapping("/api")
-public class BaoCaoController {
+public class APIBaoCaoController {
 
 	
 	BCBangDiemMonHocLTCDAO bcbangdiemmonhocltc = new BCBangDiemMonHocLTCDAO();

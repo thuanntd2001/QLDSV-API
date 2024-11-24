@@ -17,7 +17,7 @@ import com.qlsvtc.model.MaKhoaModel;
 
 @RestController
 @RequestMapping("/api")
-public class SVController {
+public class APISVController {
 
 	@Autowired
 	SinhVienRepositoryCNTT svrepocn;
