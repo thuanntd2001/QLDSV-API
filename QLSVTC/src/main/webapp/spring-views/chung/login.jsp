@@ -48,7 +48,7 @@
 			<div class="card">
 
 				<div class="card-header">
-					<h4 >  Đăng nhập</h4>
+					<h4>Đăng nhập</h4>
 				</div>
 				<c:if test="${not empty message}">
 					<div class="alert alert-${alert}">${message}</div>
@@ -56,13 +56,15 @@
 				<div class="card-body">
 					<div class="form-group">
 						<label for="username">Khoa</label> <br> <select
-							class="selectpicker" name="khoaURL">
-							<c:forEach items="${DSPMs }" var="pm">
-								<option value="${pm.tenServer}">${pm.tenKhoa}</option>
+							class="selectpicker" name="khoaURL" id="khoaSelect"
+							onchange="updateKhoa()">
+							<c:forEach items="${DSPMs}" var="pm">
+								<option value="${pm.tenServer}" data-tenkhoa="${pm.tenKhoa}">${pm.tenKhoa}</option>
 							</c:forEach>
 						</select>
-
 					</div>
+
+
 
 
 					<div class="form-group">
@@ -93,6 +95,8 @@
 	</div>
 	</section> <footer class="row"></footer> </main>
 	<!-- Optional JavaScript -->
+	
+
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
 		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"

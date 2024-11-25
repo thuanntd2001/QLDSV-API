@@ -26,8 +26,8 @@
 <body>
 
 
-	<jsp:include page="/template/cn1/khoa/header.jsp" />
-	<jsp:include page="/template/cn1/khoa/sidebar.jsp" />
+	<jsp:include page="/template/cn1/sv/header.jsp" />
+	<jsp:include page="/template/cn1/sv/sidebar.jsp" />
 
 
 
@@ -80,7 +80,7 @@
 											<form:form modelAttribute="nv,user" method="post">
 												<h5 class="card-title">Thông Tin Cá Nhân</h5>
 												<div class="row">
-													<div class="col-lg-3 col-md-4 label ">Mã Giảng viên</div>
+													<div class="col-lg-3 col-md-4 label ">Mã Sinh Viên</div>
 													<div class="col-lg-9 col-md-8">${sessionScope.USERMODEL.maNV}
 													</div>
 												</div>
@@ -138,7 +138,7 @@
 	</div>
 
 	s
-	<jsp:include page="/template/cn1/khoa/footer.jsp" />
+	<jsp:include page="/template/cn1/sv/footer.jsp" />
 
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js">

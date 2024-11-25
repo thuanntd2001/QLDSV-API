@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.qlsvtc.dao.impl.DSPMDAO;
 import com.qlsvtc.dao.impl.NhanVienDAO;
@@ -80,18 +81,18 @@ public class LoginUIController {
 			flag = ck.ckUserPassword(session);
 			if (flag) {
 				login = nvdao.login(session);
-				if (login != null) {
+				if (login!= null) {
 					login.setKhoa(model.getMaKhoa());
+					
 
 					session.setAttribute("USERMODEL", login);
 
-
 					if (login.getTenNhom().equals("SV"))
-						return "redirect:sinhvien";
+						return "redirect:sv";
 					if (login.getTenNhom().equals("KHOA"))
 						return "redirect:khoa";
 					if (login.getTenNhom().equals("PGV"))
-						return "redirect:nhanvien";
+						return "redirect:pgv";
 
 				}
 
