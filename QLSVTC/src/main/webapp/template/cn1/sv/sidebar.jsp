@@ -17,6 +17,10 @@
 			href="quanlykho/cn1/chinhanh.htm"> <i class="bi bi-house-fill"></i>
 				<span>Đăng ký LTC</span>
 		</a></li>
+			<li class="nav-item"><a class="nav-link collapsed"
+			href="xembaocao/sv"> <i class="bi bi-house-fill"></i> <span>Xem báo cáo</span>
+		</a></li>
+		
 
 	</ul>
 	${message}

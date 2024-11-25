@@ -49,10 +49,7 @@
 								</tr>
 							</thead>
 							<tbody>
-									<tr>
-										<th scope="row">Danh sách sinh viên</th>
-										<td><a href="baocaodanhsachnhanvien/cn1/khoa.htm" class="fa fa-eye"></a></td>
-									</tr>
+
 									<tr>
 										<th scope="row">Danh sách lớp tín chỉ</th>
 										<td><a href="baocaodanhsachvattu/cn1/khoa.htm" class="fa fa-eye"></a></td>
@@ -60,19 +57,12 @@
 									<tr>
 										<th scope="row">Danh sách sinh viên đăng ký lớp tín chỉ</th>
 										<td><a href="baocaodondathangkhongcophieunhap/cn1/khoa.htm" class="fa fa-eye"></a></td>
-									</tr>
-									<tr>
-										<th scope="row">Bảng điểm môn học của 1 lớp tín chỉ</th>
-										<td><a href="chitietsoluongtrigiahanghoanhapxuat/cn1/khoa/nhap.htm" class="fa fa-eye"></a></td>
-									</tr>
+									</tr>						
 									<tr>
 										<th scope="row">Phiếu Điểm</th>
 										<td><a href="chitietsoluongtrigiahanghoanhapxuat/cn1/khoa/xuat.htm" class="fa fa-eye"></a></td>
 									</tr>
-									<tr>
-										<th scope="row">Bảng điểm tổng kết</th>
-										<td><a href= "hoatdongnhanvien/cn1/khoa/nhap.htm" class="fa fa-eye"></a></td>
-									</tr>
+									
 									
 							</tbody>
 						</table>
