@@ -31,6 +31,7 @@
 			<li class="nav-item"><a class="nav-link" href="xembaocao/cn1/chinhanh">Xem báo
 					cáo</a></li>
 			<li class="nav-item"><a class="nav-link" href="taologin/cn1/chinhanh">Tạo Login cho hệ thống</a></li>
+			<li class="nav-item"><a class="nav-link" href="dang-nhap?action=logout">Đăng xuất</a></li>
 		 
 		</ul>
 	</div>

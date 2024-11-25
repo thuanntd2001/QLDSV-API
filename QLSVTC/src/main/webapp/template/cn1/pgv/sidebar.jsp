@@ -8,6 +8,11 @@
 <aside id="sidebar" class="sidebar">
 
 	<ul class="sidebar-nav" id="sidebar-nav">
+	
+			<li class="nav-item"><a class="nav-link collapsed"
+			href="pgv"> <i
+				class="bi bi-person-fill"></i> <span>Thông tin</span>
+		</a></li>
 
 		<li class="nav-item"><a class="nav-link collapsed"
 			href="quanlynhanvien/cn1/chinhanh.htm"> <i

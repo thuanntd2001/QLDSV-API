@@ -10,16 +10,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>UIS</title>
 
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-<link
-	href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
-	rel="stylesheet">
-
-<link href="<c:url value='/template/web/styles.css'/>" rel="stylesheet"
-	type="text/css">
+<jsp:include page="/template/cn1/pgv/head.jsp" />
 
 </head>
 
@@ -35,19 +26,19 @@
 		<div class="container">
 			<div class="content">
 				<div class="header-content d-flex justify-content-center">
-					THÔNG TIN TÀI KHOẢN</div>
+					<h3>THÔNG TIN TÀI KHOẢN</h3></div>
 				<section class="section profile">
 					<div class="row">
 						<div class="col-xl-4">
 
-							<div class="card">
+						<%-- 	<div class="card">
 								<form:form modelAttribute="user"
 									class="card-body profile-card pt-4 d-flex flex-column align-items-center">
 
 									<h2>${sessionScope.USERMODEL.hoTen }</h2>
 									<h3>${sessionScope.USERMODEL.maNV }</h3>
 								</form:form>
-							</div>
+							</div> --%>
 
 						</div>
 						<div class="col-xl-8">
@@ -91,7 +82,7 @@
 												</div>
 
 												<div class="row">
-													<div class="col-lg-3 col-md-4 label">Vai trỏ</div>
+													<div class="col-lg-3 col-md-4 label">Vai trò</div>
 													<div class="col-lg-9 col-md-8">${sessionScope.USERMODEL.tenNhom }</div>
 												</div>
 
@@ -137,7 +128,7 @@
 		</div>
 	</div>
 
-	s
+
 	<jsp:include page="/template/cn1/pgv/footer.jsp" />
 
 	<script
