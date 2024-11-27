@@ -49,10 +49,11 @@ public class XemBaoCaoKhoaController {
 	BCDssvDkLTCDAO bcdssvdkltc = new BCDssvDkLTCDAO();
 	BCPhieuDiemDAO bcphieudiem = new BCPhieuDiemDAO();
 	
-	@GetMapping("/bcbangdiemmonhocltc")
-	public List<BCBangDiemMonHocLTC> bcbangdiemmonhocltc(HttpSession session,ParaBCBangDiemMonHocLTC para) {
-		// tao dspm set ra view
-		return bcbangdiemmonhocltc.findAll(session,para.getNk(),para.getHk(),para.getMaMH(),para.getNhom());
+	@GetMapping("/bcbangdiemmonhocltc/khoa")
+	public String bcbangdiemmonhocltc(HttpSession session,ParaBCBangDiemMonHocLTC para,ModelMap model) {
+		List<BCBangDiemMonHocLTC> lst= bcbangdiemmonhocltc.findAll(session, para.getNk(),para.getHk(),para.getMaMH(),para.getNhom());
+		model.addAttribute("lst", lst);
+		return "khoa/baocao/bcbangdiemmonhocltc";
 	}
 	
 	@GetMapping("/bcdsltc")

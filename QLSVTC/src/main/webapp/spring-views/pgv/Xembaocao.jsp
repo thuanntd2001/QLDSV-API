@@ -12,18 +12,18 @@
 
 <title>UIS</title>
 <!-- ======= Head ======= -->
-<jsp:include page="/template/cn1/khoa/head.jsp" />
+<jsp:include page="/template/cn1/pgv/head.jsp" />
 
 </head>
 <body>
 
 	<!-- ======= Header ======= -->
-	<jsp:include page="/template/cn1/khoa/header.jsp" />
+	<jsp:include page="/template/cn1/pgv/header.jsp" />
 
 	<!-- End Header -->
 
 	<!-- ======= Sidebar ======= -->
-	<jsp:include page="/template/cn1/khoa/sidebar.jsp" />
+	<jsp:include page="/template/cn1/pgv/sidebar.jsp" />
 
 	<!-- End Sidebar-->
 
@@ -86,7 +86,7 @@
 	</main>
 	<!-- End #main -->
 
-	<jsp:include page="/template/cn1/khoa/footer.jsp" />
+	<jsp:include page="/template/cn1/pgv/footer.jsp" />
 </body>
 
 </html>
