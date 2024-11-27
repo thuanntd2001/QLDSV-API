@@ -90,6 +90,10 @@
 													<div class="col-lg-3 col-md-4 label">Tên Tài Khoản</div>
 													<div class="col-lg-9 col-md-8">${sessionScope.username }</div>
 												</div>
+												<div class="row">
+													<div class="col-lg-3 col-md-4 label">Khoa</div>
+													<div class="col-lg-9 col-md-8">${USERMODEL.khoa }</div>
+												</div>
 
 											</form:form>
 										</div>

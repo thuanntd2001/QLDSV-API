@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -60,7 +61,11 @@ public class LoginUIController {
 			return "redirect:dang-nhap?action=login";
 		}
 	}
-
+	@Value("${app.DBCNTTurl}")
+    private String dbCNurl;
+	@Value("${app.DBCNTTurl}")
+    private String dbVTurl;
+	
 	@PostMapping("dang-nhap")
 	private String doPost(UserModel model, HttpSession session) {
 		NhanVienLoginModel login;
@@ -77,7 +82,14 @@ public class LoginUIController {
 				login = nvdao.login(session);
 				if (login!= null) {
 					login.setKhoa(model.getMaKhoa());
-					
+					if (login.getKhoa()==null) {
+						if (dbCNurl.contains((String) session.getAttribute("url"))){
+							login.setKhoa("CNTT");
+						}
+						else if (dbVTurl.contains((String) session.getAttribute("url"))){
+							login.setKhoa("VT");
+						}
+					}
 
 					session.setAttribute("USERMODEL", login);
 

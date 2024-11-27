@@ -25,7 +25,7 @@ import com.qlsvtc.model.para.ParaPhieuDiem;
 
 @Controller
 @RequestMapping(value = "xembaocao")
-public class XemBaoCaoKhoaController {
+public class XemBaoCaoController {
 
 //==============================khoa============================//
 	@RequestMapping(value = { "khoa"}, method = RequestMethod.GET)
@@ -53,6 +53,7 @@ public class XemBaoCaoKhoaController {
 	public String bcbangdiemmonhocltc(HttpSession session,ParaBCBangDiemMonHocLTC para,ModelMap model) {
 		List<BCBangDiemMonHocLTC> lst= bcbangdiemmonhocltc.findAll(session, para.getNk(),para.getHk(),para.getMaMH(),para.getNhom());
 		model.addAttribute("lst", lst);
+		model.addAttribute("para", para);
 		return "khoa/baocao/bcbangdiemmonhocltc";
 	}
 	

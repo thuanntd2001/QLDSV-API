@@ -17,8 +17,7 @@
 </head>
 <body>
 
-	<main id="mains" class="mains">
-	<!-- End Page Title -->
+	<main id="mains" class="mains"> <!-- End Page Title -->
 
 	<section class="section">
 		<div class="row">
@@ -33,24 +32,31 @@
 							<b>Độc Lập - Tự Do - Hạnh Phúc</b>
 						</h5>
 						<br>
-						<h6 style="margin-left:890px;">............,ngày.....tháng.....năm 202......</h6>
+						<h6 style="margin-left: 550px;">............,ngày.....tháng.....năm
+							20....</h6>
 						<br> <br>
 						<h3
 							style="margin: 20px; text-align: center; text-transform: uppercaguse">
 							<strong>Báo cáo <br> Bảng điểm môn học lớp tín chỉ
 							</strong>
+
 						</h3>
+
 						<h5 style="margin: 20px; text-align: center">
-							<b>Chi nhánh 1</b>
+							<b>Khoa : ${USERMODEL.khoa}</b>
 						</h5>
 						<br> <br>
-						<p>
-							<b>Họ và Tên : ${USERMODEL.hoTen}</b>
-						</p>
-						<p>
-							<%-- <b>Chi Nhánh : ${USERMODEL.maChiNhanh}</b> --%>
+						<p style="margin: 20px; text-align: right">
+							<b>Họ và Tên : ${USERMODEL.hoTen}</b> <br> <b>Mã NV :
+								${USERMODEL.maNV}</b> <br> <b>Vai trò :
+								${USERMODEL.tenNhom}</b> <br>
+
 						</p>
 						<br>
+						<p style="margin: 20px; text-align: center">Mã MH:
+							${para.maMH} , Niên khóa: ${para.nk} , Học kỳ: ${para.hk} , Nhóm:
+							${para.nhom}</p>
+
 						<table class="table table-bordered border-bottom-0 border-dark">
 							<thead class="reports head">
 								<tr>
@@ -80,8 +86,9 @@
 							</tbody>
 						</table>
 						<br> <br>
-						<p style="margin-left:950px;">
-							<b> Người báo cáo</b>
+						<p
+							style="margin: 20px; text-align: center; text-transform: uppercaguse">
+							<b> Người lập báo cáo</b>
 						</p>
 						<br> <br> <br> <br>
 
