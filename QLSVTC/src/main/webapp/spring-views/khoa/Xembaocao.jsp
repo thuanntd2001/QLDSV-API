@@ -63,7 +63,7 @@
 									</tr>
 									<tr>
 										<th scope="row">Bảng điểm môn học của 1 lớp tín chỉ</th>
-										<td><a href="chitietsoluongtrigiahanghoanhapxuat/cn1/khoa/nhap.htm" class="fa fa-eye"></a></td>
+										<td><a href="xembaocao/bcbangdiemmonhocltc/khoa" class="fa fa-eye"></a></td>
 									</tr>
 									<tr>
 										<th scope="row">Phiếu Điểm</th>

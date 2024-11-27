@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -50,6 +51,13 @@ public class XemBaoCaoController {
 	BCPhieuDiemDAO bcphieudiem = new BCPhieuDiemDAO();
 	
 	@GetMapping("/bcbangdiemmonhocltc/khoa")
+	public String getbcbangdiemmonhocltc(ModelMap model) {
+		ParaBCBangDiemMonHocLTC para = new ParaBCBangDiemMonHocLTC();
+		model.addAttribute("para", para);
+		return "khoa/form/fbcbangdiemmonhocltc";
+	}
+	
+	@PostMapping("/bcbangdiemmonhocltc/khoa")
 	public String bcbangdiemmonhocltc(HttpSession session,ParaBCBangDiemMonHocLTC para,ModelMap model) {
 		List<BCBangDiemMonHocLTC> lst= bcbangdiemmonhocltc.findAll(session, para.getNk(),para.getHk(),para.getMaMH(),para.getNhom());
 		model.addAttribute("lst", lst);
