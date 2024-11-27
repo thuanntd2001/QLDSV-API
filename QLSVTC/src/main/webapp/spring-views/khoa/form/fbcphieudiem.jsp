@@ -37,41 +37,20 @@
 
 				<div class="card">
 					<div class="card-body">
-						<h5 class="card-title">Bảng điểm LTC</h5>
+						<h5 class="card-title">Danh sách LTC</h5>
 						${message}
 
 
-						<form:form action="xembaocao/bcbangdiemmonhocltc/khoa" method="post"
+						<form:form action="xembaocao/bcphieudiem/khoa" method="post"
 							modelAttribute="para" class="row g-3">
+							
+
 							<div class="col-md-10">
-								<label for="inputEmail5" class="form-label">Mã Môn Học</label>
-								<form:input path="maMH" class="form-control" id="inputEmail5" />
+								<label for="inputEmail5" class="form-label">Mã Sinh Viên</label>
+								<form:input path="maSV" class="form-control" id="inputEmail5" />
 							</div>
 
-							<div class="col-md-6">
-								<label style="margin-left: 13px; margin-top: 15px">Niên
-									Khóa :</label>
-								<div class="col-md-12">
-									<form:input type="text" path="nk" style="margin-left: 10px" />
-								</div>
-							</div>
-
-							<div class="col-md-6">
-								<label style="margin-left: 13px; margin-top: 15px">Học
-									kỳ :</label>
-								<div class="col-md-12">
-									<form:input type="number" path="hk" style="margin-left: 10px" />
-								</div>
-							</div>
-
-							<div class="col-md-6">
-								<label style="margin-left: 13px; margin-top: 15px">Nhóm
-									:</label>
-								<div class="col-md-12">
-									<form:input type="number" path="nhom" style="margin-left: 10px" />
-								</div>
-							</div>
-
+							
 							<div class="col-md-12">
 								<div class="text-center" style="margin-top: 20px">
 									<button type="submit" class="btn btn-primary">Next</button>

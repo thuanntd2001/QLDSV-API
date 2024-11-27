@@ -37,12 +37,14 @@
 
 				<div class="card">
 					<div class="card-body">
-						<h5 class="card-title">Bảng điểm LTC</h5>
+						<h5 class="card-title">Danh sách LTC</h5>
 						${message}
 
 
-						<form:form action="xembaocao/bcbangdiemmonhocltc/khoa" method="post"
+						<form:form action="xembaocao/bcdssvdkltc/khoa" method="post"
 							modelAttribute="para" class="row g-3">
+							
+
 							<div class="col-md-10">
 								<label for="inputEmail5" class="form-label">Mã Môn Học</label>
 								<form:input path="maMH" class="form-control" id="inputEmail5" />

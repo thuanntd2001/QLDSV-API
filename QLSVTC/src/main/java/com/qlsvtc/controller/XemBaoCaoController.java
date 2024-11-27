@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.qlsvtc.dao.impl.BCBangDiemMonHocLTCDAO;
 import com.qlsvtc.dao.impl.BCDsLTCDAO;
@@ -65,21 +64,47 @@ public class XemBaoCaoController {
 		return "khoa/baocao/bcbangdiemmonhocltc";
 	}
 	
-	@GetMapping("/bcdsltc")
-	public List<BCDsLTC> bcdsltc(HttpSession session,ParaBCDsLTC para) {
-		// tao dspm set ra view
-		return bcdsltc.findAll(session,para.getNk(),para.getHk());
+	@GetMapping("/bcdsltc/khoa")
+	public String getbcdsltc(ModelMap model) {
+		ParaBCDsLTC para = new ParaBCDsLTC();
+		model.addAttribute("para", para);
+		return "khoa/form/fbcdsltc";
 	}
 	
-	@GetMapping("/bcdssvdkltc")
-	public List<BCDssvDkLTC> bcdssvdkltc(HttpSession session,ParaBCBangDiemMonHocLTC para) {
-		// tao dspm set ra view
-		return bcdssvdkltc.findAll(session,para.getNk(),para.getHk(),para.getMaMH(),para.getNhom());
+	@PostMapping("/bcdsltc/khoa")
+	public String bcdsltc(HttpSession session,ParaBCDsLTC para,ModelMap model) {
+		List<BCDsLTC> lst= bcdsltc.findAll(session, para.getNk(),para.getHk());		
+		model.addAttribute("lst", lst);
+		model.addAttribute("para", para);
+		return "khoa/baocao/bcdsltc";
 	}
 	
-	@GetMapping("/bcphieudiem")
-	public List<BCPhieuDiem> bcphieudiem(HttpSession session,ParaPhieuDiem para) {
-		// tao dspm set ra view
-		return bcphieudiem.findAll(session,para.getMaSV());
+	@GetMapping("/bcdssvdkltc/khoa")
+	public String getbcdssvdkltc(ModelMap model) {
+		ParaBCBangDiemMonHocLTC para = new ParaBCBangDiemMonHocLTC();
+		model.addAttribute("para", para);
+		return "khoa/form/fbcdssvdkltc";
+	}
+	@PostMapping("/bcdssvdkltc/khoa")
+	public String bcdssvdkltc(HttpSession session,ParaBCBangDiemMonHocLTC para,ModelMap model) {
+		List<BCDssvDkLTC> lst=  bcdssvdkltc.findAll(session,para.getNk(),para.getHk(),para.getMaMH(),para.getNhom());
+		model.addAttribute("lst", lst);
+		model.addAttribute("para", para);
+		return "khoa/baocao/bcdssvdkltc";
+	}
+	
+	@GetMapping("/bcphieudiem/khoa")
+	public String getbcphieudiem(ModelMap model) {
+		ParaPhieuDiem para = new ParaPhieuDiem();
+		model.addAttribute("para", para);
+		return "khoa/form/fbcphieudiem";
+		}
+	
+	@PostMapping("/bcphieudiem/khoa")
+	public String bcphieudiem(HttpSession session,ParaPhieuDiem para,ModelMap model) {
+		List<BCPhieuDiem> lst= bcphieudiem.findAll(session,para.getMaSV());
+		model.addAttribute("lst", lst);
+		model.addAttribute("para", para);
+		return "khoa/baocao/bcphieudiem";
 	}
 }
