@@ -1,6 +1,12 @@
 package com.qlsvtc.controller.khoa;
 
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -12,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.qlsvtc.dao.impl.BCBangDiemMonHocLTCDAO;
+import com.qlsvtc.dao.impl.BCBangDiemTongKetDAO;
 import com.qlsvtc.dao.impl.BCDsLTCDAO;
 import com.qlsvtc.dao.impl.BCDssvDkLTCDAO;
 import com.qlsvtc.dao.impl.BCPhieuDiemDAO;
@@ -21,6 +28,7 @@ import com.qlsvtc.model.baocao.BCDssvDkLTC;
 import com.qlsvtc.model.baocao.BCPhieuDiem;
 import com.qlsvtc.model.para.ParaBCBangDiemMonHocLTC;
 import com.qlsvtc.model.para.ParaBCDsLTC;
+import com.qlsvtc.model.para.ParaBangDiemTongKet;
 import com.qlsvtc.model.para.ParaPhieuDiem;
 
 @Controller
@@ -31,6 +39,7 @@ public class XemBaoCaoKhoaController {
 	BCDsLTCDAO bcdsltc = new BCDsLTCDAO();
 	BCDssvDkLTCDAO bcdssvdkltc = new BCDssvDkLTCDAO();
 	BCPhieuDiemDAO bcphieudiem = new BCPhieuDiemDAO();
+	BCBangDiemTongKetDAO bcbangdiemtongket = new BCBangDiemTongKetDAO();
 	
 	@GetMapping("/bcbangdiemmonhocltc/khoa")
 	public String getbcbangdiemmonhocltc(ModelMap model) {
@@ -89,5 +98,22 @@ public class XemBaoCaoKhoaController {
 		model.addAttribute("lst", lst);
 		model.addAttribute("para", para);
 		return "khoa/baocao/bcphieudiem";
+	}
+	
+	@GetMapping("/bcbangdiemtongket/khoa")
+	public String getbcbangdiemtongket(ModelMap model) {
+		ParaBangDiemTongKet para = new ParaBangDiemTongKet();
+		model.addAttribute("para", para);
+		return "khoa/form/fbcbangdiemtongket";
+		}
+	
+	@PostMapping("/bcbangdiemtongket/khoa")
+	public String bcbangdiemtongket(HttpSession session,ParaBangDiemTongKet para,ModelMap model) throws SQLException {
+		List<Map<String, Object>> dataList= bcbangdiemtongket.findAll(session,para.getMaLop());
+		
+	    model.addAttribute("dataList", dataList);		
+		model.addAttribute("para", para);
+
+		return "khoa/baocao/bcbangdiemtongket";
 	}
 }

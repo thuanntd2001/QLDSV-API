@@ -4,11 +4,14 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -299,19 +302,31 @@ public class AbstractDAO<T>  {
 		}
 	}
 
-	public ResultSet queryPMResultSet(HttpSession session, String sql, 
+	public List<Map<String, Object>> queryPMResultSet(HttpSession session, String sql, 
 			Object... parameters) {
 		Connection connection = null;
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;
+        List<Map<String, Object>> dataList = new ArrayList<>();
 		try {
 			connection = getConnectionPM((String)session.getAttribute("url"),(String)session.getAttribute("username"),(String)session.getAttribute("password"));
 			statement = connection.prepareStatement(sql);
 			setParameter(statement, parameters);
 			//System.out.print(statement.toString();
 			resultSet = statement.executeQuery();
-			
-			return resultSet;
+			ResultSetMetaData metaData = resultSet.getMetaData();
+            int columnCount = metaData.getColumnCount();
+
+            while (resultSet.next()) {
+                Map<String, Object> row = new HashMap<>();
+                for (int i = 1; i <= columnCount; i++) {
+                    String columnName = metaData.getColumnName(i);
+                    Object value = resultSet.getObject(i);
+                    row.put(columnName, value);
+                }
+                dataList.add(row);
+            }
+			return dataList;
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;

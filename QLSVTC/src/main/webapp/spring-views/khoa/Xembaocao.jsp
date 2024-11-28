@@ -80,7 +80,7 @@
 
 								<tr>
 									<th scope="row">Bảng điểm tổng kết</th>
-									<td><a href="hoatdongnhanvien/cn1/khoa/nhap.htm"
+									<td><a href="xembaocao/bcbangdiemtongket/khoa"
 										class="fa fa-eye"></a></td>
 								</tr>
 
