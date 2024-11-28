@@ -299,6 +299,40 @@ public class AbstractDAO<T>  {
 		}
 	}
 
+	public ResultSet queryPMResultSet(HttpSession session, String sql, 
+			Object... parameters) {
+		Connection connection = null;
+		PreparedStatement statement = null;
+		ResultSet resultSet = null;
+		try {
+			connection = getConnectionPM((String)session.getAttribute("url"),(String)session.getAttribute("username"),(String)session.getAttribute("password"));
+			statement = connection.prepareStatement(sql);
+			setParameter(statement, parameters);
+			//System.out.print(statement.toString();
+			resultSet = statement.executeQuery();
+			
+			return resultSet;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			try {
+				if (connection != null) {
+					connection.close();
+				}
+				if (statement != null) {
+					statement.close();
+				}
+				if (resultSet != null) {
+					resultSet.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return null;
+			}
+		}
+	}
+	
 	
 
 }
