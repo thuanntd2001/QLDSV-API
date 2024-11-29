@@ -73,6 +73,7 @@ public class CNTTConfig {
 		Properties properties = new Properties();
 		/* properties.setProperty("hibernate.hbm2ddl.auto", "create-drop"); */
 		properties.setProperty("hibernate.hbm2ddl.auto", "none");
+		properties.setProperty("hibernate.dialect", "org.hibernate.dialect.SQLServerDialect"); // Add this line
 		return properties;
 	}
 

@@ -3,9 +3,9 @@ package com.qlsvtc.controller;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import javax.annotation.PostConstruct;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,8 @@ import com.qlsvtc.utils.SessionUtil;
 
 @Controller
 public class LoginUIController {
-
+	//InfoConnection infoConnection = new InfoConnection();
+	
 	@Autowired
 	ServletContext application;
 	ResourceBundle resourceBundle = ResourceBundle.getBundle("message");
@@ -34,7 +35,7 @@ public class LoginUIController {
 	private CheckService ck = new CheckService();
 
 	@GetMapping("dang-nhap")
-	private String doGet(ModelMap model, HttpServletRequest request, HttpServletResponse response) {
+	private String doGet(ModelMap model, HttpServletRequest request) {
 		// tao dspm set ra view
 		if (application.getAttribute("DSPM") == null) {
 			List<DSPMModel> DSPMs = dspmDAO.findAll();
@@ -52,6 +53,7 @@ public class LoginUIController {
 				request.setAttribute("message", resourceBundle.getString(message));
 				request.setAttribute("alert", alert);
 			}
+		System.out.println("voo controler login r nhe");
 
 			return "chung/login";
 		} else if (action != null && action.equals("logout")) {
