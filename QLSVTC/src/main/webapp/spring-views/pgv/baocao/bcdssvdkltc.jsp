@@ -51,10 +51,10 @@
 
 						</p>
 						<br>
-						<p style="margin: 20px; text-align: center">Mã MH:
-							${para.maMH} , Niên khóa: ${para.nk} , Học kỳ: ${para.hk} , Nhóm:
-							${para.nhom}</p>
-
+						<p style="margin: 20px; text-align: center">
+							Niên khóa: ${para.nk} , Học kỳ: ${para.hk} <br> Mã MH:
+							${para.maMH} , Nhóm: ${para.nhom}
+						</p>
 						<table class="table table-bordered border-bottom-0 border-dark">
 							<thead class="reports head">
 								<tr>
