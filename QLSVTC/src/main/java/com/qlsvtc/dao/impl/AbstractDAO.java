@@ -15,12 +15,17 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.qlsvtc.config.DSTS;
 import com.qlsvtc.mapper.RowMapper;
 import com.qlsvtc.statics.InfoConnection;
 
 public class AbstractDAO<T>  {
 	
-	InfoConnection infoConnection = new InfoConnection();
+	
+	
+	//InfoConnection infoConnection = new InfoConnection();
 
 	// PARA
 
@@ -53,7 +58,7 @@ public class AbstractDAO<T>  {
 
 	public Connection getConnectionPM(HttpSession session) {
 		try {
-			Class.forName(infoConnection.getDriverPM());
+			Class.forName(DSTS.getDriverPM());
 			String url = (String)session.getAttribute("url");
 			String user = (String)session.getAttribute("username");
 			String password = (String)session.getAttribute("password");
@@ -77,10 +82,10 @@ public class AbstractDAO<T>  {
 
 	public Connection getConnectionChu() {
 		try {
-			Class.forName(infoConnection.getDriverChu());
-			String url = infoConnection.getUrlChu();
-			String user = infoConnection.getUserNameChu();
-			String password = infoConnection.getPassWordChu();
+			Class.forName(DSTS.getDriverChu());
+			String url = DSTS.getUrlChu();
+			String user = DSTS.getUserNameChu();
+			String password = DSTS.getPassWordChu();
 			try {
 				return DriverManager.getConnection(url, user, password);
 			} catch (SQLException e) {
@@ -247,7 +252,7 @@ public class AbstractDAO<T>  {
 
 	public Connection getConnectionPM(String url, String rUser, String rPassword) {
 		try {
-			Class.forName(infoConnection.getDriverPM());
+			Class.forName(DSTS.getDriverPM());
 			String user = rUser;
 			String password = rPassword;
 			try {
