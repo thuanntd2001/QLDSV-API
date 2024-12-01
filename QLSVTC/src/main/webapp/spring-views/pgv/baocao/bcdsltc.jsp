@@ -37,7 +37,7 @@
 						<br> <br>
 						<h3
 							style="margin: 20px; text-align: center; text-transform: uppercaguse">
-							<strong>Báo cáo <br> Danh sách lớp tín chỉ
+							<strong>  Danh sách lớp tín chỉ
 							</strong>
 
 						</h3>
@@ -47,9 +47,8 @@
 						</h5>
 						<br> <br>
 						<p style="margin: 20px; text-align: right">
-							<b>Họ và Tên : ${USERMODEL.hoTen}</b> <br> <b>Mã NV :
-								${USERMODEL.maNV}</b> <br> <b>Vai trò :
-								${USERMODEL.tenNhom}</b> <br>
+						
+
 
 						</p>
 						<br>

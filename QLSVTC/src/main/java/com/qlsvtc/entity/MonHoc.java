@@ -17,18 +17,18 @@ public class MonHoc {
 	@Nationalized
 	@Column(name = "MAMH", nullable = false, length = 10)
 
-	private String mamh;
+	private String maMH;
 
 	@Nationalized
-	@Column(name = "TENMH", nullable = false, length = 50)
+	@Column(name = "TENMONHOC", nullable = false, length = 50)
 
-	private String tenmh;
+	private String tenMH;
 
-	@Column(name = "SOTIET_LT", nullable = false)
+	@Column(name = "SOTIETLT", nullable = false)
 
-	private Integer sotietLt;
+	private Integer sotietLT;
 
-	@Column(name = "SOTIET_TH", nullable = false)
-	private Integer sotietTh;
+	@Column(name = "SOTIETTH", nullable = false)
+	private Integer sotietTH;
 
 }

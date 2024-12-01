@@ -44,8 +44,14 @@
 						<form:form action="xembaocao/bcbangdiemmonhocltc/pgv" method="post"
 							modelAttribute="para" class="row g-3">
 							<div class="col-md-10">
-								<label for="inputEmail5" class="form-label">Mã Môn Học</label>
-								<form:input path="maMH" class="form-control" id="inputEmail5" />
+								<label for="inputEmail5" class="form-label">Khoa</label> <br>
+								<form:select class="selectpicker" path="maMH">
+									<c:forEach items="${lstMH}" var="item">
+										<option value="${item.maMH}">${item.maMH}-
+											${item.tenMH}</option>
+									</c:forEach>
+								</form:select>
+
 							</div>
 
 							<div class="col-md-6">

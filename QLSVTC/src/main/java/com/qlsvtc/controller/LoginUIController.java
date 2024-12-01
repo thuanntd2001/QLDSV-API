@@ -65,7 +65,7 @@ public class LoginUIController {
 	}
 	@Value("${app.DBCNTTurl}")
     private String dbCNurl;
-	@Value("${app.DBCNTTurl}")
+	@Value("${app.DBVTurl}")
     private String dbVTurl;
 	
 	@PostMapping("dang-nhap")
@@ -85,6 +85,7 @@ public class LoginUIController {
 				if (login!= null) {
 					login.setKhoa(model.getMaKhoa());
 					if (login.getKhoa()==null) {
+						
 						if (dbCNurl.contains((String) session.getAttribute("url"))){
 							login.setKhoa("CNTT");
 						}

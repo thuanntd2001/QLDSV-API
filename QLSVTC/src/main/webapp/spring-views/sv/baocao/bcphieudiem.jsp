@@ -37,7 +37,7 @@
 						<br> <br>
 						<h3
 							style="margin: 20px; text-align: center; text-transform: uppercaguse">
-							<strong>Báo cáo <br> Phiếu điểm
+							<strong>  Phiếu điểm
 							</strong>
 
 						</h3>

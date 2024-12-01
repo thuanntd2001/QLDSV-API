@@ -1,22 +1,21 @@
 package com.qlsvtc.controller.khoa;
 
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.qlsvtc.CNTT.repository.MonHocRepositoryCNTT;
+import com.qlsvtc.CNTT.repository.SinhVienRepositoryCNTT;
+import com.qlsvtc.VT.repository.SinhVienRepositoryVT;
 import com.qlsvtc.dao.impl.BCBangDiemMonHocLTCDAO;
 import com.qlsvtc.dao.impl.BCBangDiemTongKetDAO;
 import com.qlsvtc.dao.impl.BCDsLTCDAO;
@@ -34,6 +33,9 @@ import com.qlsvtc.model.para.ParaPhieuDiem;
 @Controller
 @RequestMapping(value = "xembaocao")
 public class XemBaoCaoKhoaController {
+	
+	@Autowired
+	MonHocRepositoryCNTT repocn;
 
 	BCBangDiemMonHocLTCDAO bcbangdiemmonhocltc = new BCBangDiemMonHocLTCDAO();
 	BCDsLTCDAO bcdsltc = new BCDsLTCDAO();
@@ -45,6 +47,7 @@ public class XemBaoCaoKhoaController {
 	public String getbcbangdiemmonhocltc(ModelMap model) {
 		ParaBCBangDiemMonHocLTC para = new ParaBCBangDiemMonHocLTC();
 		model.addAttribute("para", para);
+		model.addAttribute("lstMH", repocn.findAll());
 		return "khoa/form/fbcbangdiemmonhocltc";
 	}
 	
@@ -75,6 +78,8 @@ public class XemBaoCaoKhoaController {
 	public String getbcdssvdkltc(ModelMap model) {
 		ParaBCBangDiemMonHocLTC para = new ParaBCBangDiemMonHocLTC();
 		model.addAttribute("para", para);
+		model.addAttribute("lstMH", repocn.findAll());
+
 		return "khoa/form/fbcdssvdkltc";
 	}
 	@PostMapping("/bcdssvdkltc/khoa")
@@ -82,6 +87,7 @@ public class XemBaoCaoKhoaController {
 		List<BCDssvDkLTC> lst=  bcdssvdkltc.findAll(session,para.getNk(),para.getHk(),para.getMaMH(),para.getNhom());
 		model.addAttribute("lst", lst);
 		model.addAttribute("para", para);
+
 		return "khoa/baocao/bcdssvdkltc";
 	}
 	
