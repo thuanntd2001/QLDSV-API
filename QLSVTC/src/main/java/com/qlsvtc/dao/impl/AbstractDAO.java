@@ -19,7 +19,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.qlsvtc.config.DSTS;
 import com.qlsvtc.mapper.RowMapper;
-import com.qlsvtc.statics.InfoConnection;
 
 public class AbstractDAO<T>  {
 	
