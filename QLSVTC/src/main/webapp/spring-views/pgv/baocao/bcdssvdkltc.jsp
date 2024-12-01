@@ -37,8 +37,7 @@
 						<br> <br>
 						<h3
 							style="margin: 20px; text-align: center; text-transform: uppercaguse">
-							<strong>  Danh sách sinh viên đăng ký lớp tín chỉ
-							</strong>
+							<strong> Danh sách sinh viên đăng ký lớp tín chỉ </strong>
 
 						</h3>
 
@@ -46,10 +45,7 @@
 							<b>Khoa : ${USERMODEL.khoa}</b>
 						</h5>
 						<br> <br>
-						<p style="margin: 20px; text-align: right">
-							
-
-						</p>
+						<p style="margin: 20px; text-align: right"></p>
 						<br>
 						<p style="margin: 20px; text-align: center">
 							Niên khóa: ${para.nk} , Học kỳ: ${para.hk} <br> Mã MH:
@@ -63,7 +59,7 @@
 									<th scope="col">Tên</th>
 									<th scope="col">Phái</th>
 									<th scope="col">Mã lớp</th>
-							
+
 								</tr>
 							</thead>
 							<tbody class="reports body">
@@ -73,9 +69,10 @@
 										<th scope="row">${item.maSV}</th>
 										<td>${item.ho}</td>
 										<td>${item.ten}</td>
-										<td>${item.phai}</td>
+										<td><c:if test="${item.phai == true}"> Nam </c:if> <c:if
+												test="${item.phai == false}">Nữ </c:if></td>
 										<td>${item.maLop}</td>
-					
+
 									</tr>
 								</c:forEach>
 

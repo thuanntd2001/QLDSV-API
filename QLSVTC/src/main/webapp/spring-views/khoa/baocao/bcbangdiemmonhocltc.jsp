@@ -37,8 +37,7 @@
 						<br> <br>
 						<h3
 							style="margin: 20px; text-align: center; text-transform: uppercaguse">
-							<strong>Bảng điểm môn học lớp tín chỉ
-							</strong>
+							<strong>Bảng điểm môn học lớp tín chỉ </strong>
 
 						</h3>
 
@@ -46,16 +45,12 @@
 							<b>Khoa : ${USERMODEL.khoa}</b>
 						</h5>
 						<br> <br>
-						<p style="margin: 20px; text-align: right">
-							
-
-
-						</p>
+						<p style="margin: 20px; text-align: right"></p>
 						<br>
-						<p style="margin: 20px; text-align: center"> Niên khóa: ${para.nk} , Học kỳ: ${para.hk} ,<br>
-						Mã MH:
-							${para.maMH} , Nhóm:
-							${para.nhom}</p>
+						<p style="margin: 20px; text-align: center">
+							Niên khóa: ${para.nk} , Học kỳ: ${para.hk} <br> Mã MH:
+							${para.maMH} , Nhóm: ${para.nhom}
+						</p>
 
 						<table class="table table-bordered border-bottom-0 border-dark">
 							<thead class="reports head">
