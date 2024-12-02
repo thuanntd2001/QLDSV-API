@@ -7,6 +7,7 @@ import javax.sql.DataSource;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -24,6 +25,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 		, transactionManagerRef="TransactionManagerCN2", 
 				entityManagerFactoryRef="EmfBeanCN2"
 )
+@DependsOn("DSTS")
 public class VTConfig {
     private String dburl=DSTS.getUrlVT();
     private String dbpass=DSTS.getPassWordVT();	

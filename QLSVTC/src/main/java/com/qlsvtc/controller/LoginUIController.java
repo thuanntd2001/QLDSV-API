@@ -13,9 +13,12 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.qlsvtc.CNTT.repository.SinhVienRepositoryCNTT;
+import com.qlsvtc.VT.repository.SinhVienRepositoryVT;
 import com.qlsvtc.config.DSTS;
 import com.qlsvtc.dao.impl.DSPMDAO;
 import com.qlsvtc.dao.impl.NhanVienDAO;
+import com.qlsvtc.entity.SinhVien;
 import com.qlsvtc.model.DSPMModel;
 import com.qlsvtc.model.NhanVienLoginModel;
 import com.qlsvtc.model.UserModel;
@@ -24,14 +27,12 @@ import com.qlsvtc.utils.SessionUtil;
 
 @Controller
 public class LoginUIController {
-	//InfoConnection infoConnection = new InfoConnection();
-	
+	// InfoConnection infoConnection = new InfoConnection();
+
 	@Autowired
 	ServletContext application;
 	ResourceBundle resourceBundle = ResourceBundle.getBundle("message");
 	DSPMDAO dspmDAO = new DSPMDAO();
-	NhanVienDAO nvdao = new NhanVienDAO();
-	private CheckService ck = new CheckService();
 
 	@GetMapping("dang-nhap")
 	private String doGet(ModelMap model, HttpServletRequest request) {
@@ -39,7 +40,6 @@ public class LoginUIController {
 		if (application.getAttribute("DSPM") == null) {
 			List<DSPMModel> DSPMs = dspmDAO.findAll();
 			if (DSPMs != null) {
-
 				application.setAttribute("DSPMs", DSPMs);
 			}
 		}
@@ -52,7 +52,7 @@ public class LoginUIController {
 				request.setAttribute("message", resourceBundle.getString(message));
 				request.setAttribute("alert", alert);
 			}
-		System.out.println("voo controler login r nhe");
+			System.out.println("voo controler login r nhe");
 
 			return "chung/login";
 		} else if (action != null && action.equals("logout")) {
@@ -62,12 +62,20 @@ public class LoginUIController {
 			return "redirect:dang-nhap?action=login";
 		}
 	}
-    private String dbCNurl=DSTS.getUrlCNTT();
-    private String dbVTurl=DSTS.getUserNameVT();
+
+	private String dbCNurl = DSTS.getUrlCNTT();
+	private String dbVTurl = DSTS.getUrlVT();
+	NhanVienDAO nvdao = new NhanVienDAO();
+	private CheckService ck = new CheckService();
+	@Autowired
+	SinhVienRepositoryCNTT svrepocn;
+	@Autowired
+	SinhVienRepositoryVT svrepovt;
 	
 	@PostMapping("dang-nhap")
 	private String doPost(UserModel model, HttpSession session) {
-		NhanVienLoginModel login;
+		NhanVienLoginModel login = null;
+		String strKhoa = "";
 		if (model != null) {
 			// kt nv co tk trong sqlserver ko
 			boolean flag = false;
@@ -76,36 +84,52 @@ public class LoginUIController {
 			session.setAttribute("password", model.getPasswd());
 			session.setAttribute("username", model.getUserName());
 
+			if (dbCNurl.contains((String) session.getAttribute("url"))) {
+				strKhoa = "CNTT";
+			} else if (dbVTurl.contains((String) session.getAttribute("url"))) {
+				strKhoa = "VT";
+			}
 			flag = ck.ckUserPassword(session);
 			if (flag) {
 				login = nvdao.login(session);
-				if (login!= null) {
-					login.setKhoa(model.getMaKhoa());
-					if (login.getKhoa()==null) {
-						
-						if (dbCNurl.contains((String) session.getAttribute("url"))){
-							login.setKhoa("CNTT");
-						}
-						else if (dbVTurl.contains((String) session.getAttribute("url"))){
-							login.setKhoa("VT");
-						}
-					}
-
-					session.setAttribute("USERMODEL", login);
-
-					if (login.getTenNhom().equals("SV"))
-						return "redirect:sv";
-					if (login.getTenNhom().equals("KHOA"))
-						return "redirect:khoa";
-					if (login.getTenNhom().equals("PGV"))
-						return "redirect:pgv";
-
+				if (login != null) {
+					login.setKhoa(strKhoa);
 				}
 
+				session.setAttribute("USERMODEL", login);
+				if (login.getTenNhom().equals("KHOA"))
+					return "redirect:khoa";
+				if (login.getTenNhom().equals("PGV"))
+					return "redirect:pgv";
+
+			}
+			else {
+				System.out.println("Ko phai khoa va PGV");
+
+				SinhVien svEntity=null;
+				if (strKhoa.equals("CNTT")) {
+					svEntity = svrepocn.findByMaSVAndPasswordAndDaNghiHoc(model.getUserName(), model.getPasswd(), false);
+				}
+				else if (strKhoa.equals("VT")) {
+					svEntity = svrepovt.findByMaSVAndPasswordAndDaNghiHoc(model.getUserName(), model.getPasswd(), false);
+				}
+				if (svEntity!=null) {
+					login = new NhanVienLoginModel();
+					login.setHoTen(svEntity.getHo() + " " + svEntity.getTen());
+					login.setTenNhom("SV");
+					login.setMaNV(model.getUserName());
+					login.setKhoa(strKhoa);
+					
+					session.setAttribute("password", DSTS.getPwsv());
+					session.setAttribute("username", DSTS.getTksv());
+					session.setAttribute("USERMODEL", login);
+					return "redirect:sv";
+				}
 			}
 
 		}
-		System.out.print("ket noi that bai " + "user " + model.getUserName() + "pass " + model.getPasswd());
+
+		System.out.println("ket noi that bai " + "user " + model.getUserName() + "pass " + model.getPasswd());
 		return "redirect:dang-nhap?action=login&message=username_password_invalid&alert=danger";
 
 	}

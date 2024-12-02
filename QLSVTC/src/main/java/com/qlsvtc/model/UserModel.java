@@ -12,7 +12,6 @@ public class UserModel {
 
 	private String khoaURL;
 	
-	private String maKhoa;
 	
 	private String roleID;
 	

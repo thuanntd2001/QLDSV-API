@@ -30,7 +30,7 @@ public class AuthorizationFilter implements Filter {
 		String url = request.getRequestURI();
 		NhanVienLoginModel model = (NhanVienLoginModel) session.getAttribute("USERMODEL");
 		// neu la dang nhap thi cho qua
-		if (url.indexOf("/dang-nhap") != -1 || url.equals("/")) {
+		if (url.indexOf("/dang-nhap") != -1 || url.equals("/") || url.indexOf("/api") != -1 ) {
 			filterChain.doFilter(servletRequest, servletResponse);
 		}
 

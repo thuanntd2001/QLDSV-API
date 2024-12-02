@@ -7,6 +7,7 @@ import javax.sql.DataSource;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -21,6 +22,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 				"com.qlsvtc.CNTT.repository"
 		}
 )
+@DependsOn("DSTS")
 public class CNTTConfig {
 	
     private String dburl=DSTS.getUrlCNTT();
@@ -56,6 +58,7 @@ public class CNTTConfig {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setDriverClassName(driver);
 		dataSource.setUrl(dburl);
+		System.out.println("url : "+ dburl);
 		dataSource.setUsername(dbuser);
 		dataSource.setPassword(dbpass);
 

@@ -3,9 +3,9 @@ package com.qlsvtc.config;
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
+import org.springframework.context.annotation.Configuration;
 
-@Component
+@Configuration
 public class DSTS {
 	@Value("${app.DBuserChu}")
 	private String appuserNameChu;

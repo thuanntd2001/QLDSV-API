@@ -56,7 +56,7 @@ public class APILoginController {
 		
 				login = nvdao.login(session);
 				if (login!=null) {
-				login.setKhoa(model.getMaKhoa());
+		
 
 				session.setAttribute("USERMODEL", login);
 		        

@@ -20,7 +20,7 @@ public class SinhVien {
     @Id
     @Nationalized
     @Column(name = "MASV", nullable = false, length = 10)
-    private String masv;
+    private String maSV;
 
     @Nationalized
     @Column(name = "HO", nullable = false, length = 50)
@@ -35,10 +35,10 @@ public class SinhVien {
 
     @Nationalized
     @Column(name = "DIACHI", length = 100)
-    private String diachi;
+    private String diaChi;
 
     @Column(name = "NGAYSINH")
-    private String ngaysinh;
+    private String ngaySinh;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "MALOP", nullable = false)
@@ -50,7 +50,7 @@ public class SinhVien {
     private ChuyenNganh CN;
     
     @Column(name = "DANGHIHOC", nullable = false)
-    private Boolean danghihoc = false;
+    private Boolean daNghiHoc ;
 
     @Column(name = "PASSWORD", nullable = true)
     private String password ;
