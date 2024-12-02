@@ -42,7 +42,7 @@ jobs:
     - uses: mr-smithers-excellent/docker-build-push@v6
       name: Build & push api Docker image
       with:
-        image: thuanntd2001/QLSVTC
+        image: thuanntd2001/qlsvtc
         tags: ${{ github.sha }}
         registry: docker.io
         dockerfile: QLSVTC/Dockerfile
