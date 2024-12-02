@@ -5,7 +5,6 @@ import java.util.Properties;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
@@ -24,14 +23,10 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 )
 public class CNTTConfig {
 	
-	@Value("${app.DBCNTTurl}")
-    private String dburl;
-	@Value("${app.DBpassCNTT}")
-    private String dbpass;	
-	@Value("${app.DBuserCNTT}")
-    private String dbuser;
-	@Value("${app.driver}")
-    private String driver;
+    private String dburl=DSTS.getUrlCNTT();
+    private String dbpass=DSTS.getPassWordCNTT();	
+    private String dbuser=DSTS.getUserNameCNTT();
+    private String driver=DSTS.getDriverPM();
 
 	@Bean
 	public LocalContainerEntityManagerFactoryBean entityManagerFactory() {

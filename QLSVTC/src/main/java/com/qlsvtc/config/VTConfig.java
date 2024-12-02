@@ -5,7 +5,6 @@ import java.util.Properties;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
@@ -26,14 +25,12 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 				entityManagerFactoryRef="EmfBeanCN2"
 )
 public class VTConfig {
-	@Value("${app.DBVTurl}")
-    private String dburl;
-	@Value("${app.DBpassVT}")
-    private String dbpass;	
-	@Value("${app.DBuserVT}")
-    private String dbuser;
-	@Value("${app.driver}")
-    private String driver;
+    private String dburl=DSTS.getUrlVT();
+    private String dbpass=DSTS.getPassWordVT();	
+    private String dbuser=DSTS.getUserNameVT();
+    private String driver=DSTS.getDriverPM();
+
+
 	
 	 @Bean public DataSource DataSourceCN2() {
 	        DriverManagerDataSource dataSource = new DriverManagerDataSource();

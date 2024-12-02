@@ -3,18 +3,17 @@ package com.qlsvtc.controller;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import javax.annotation.PostConstruct;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.qlsvtc.config.DSTS;
 import com.qlsvtc.dao.impl.DSPMDAO;
 import com.qlsvtc.dao.impl.NhanVienDAO;
 import com.qlsvtc.model.DSPMModel;
@@ -63,10 +62,8 @@ public class LoginUIController {
 			return "redirect:dang-nhap?action=login";
 		}
 	}
-	@Value("${app.DBCNTTurl}")
-    private String dbCNurl;
-	@Value("${app.DBVTurl}")
-    private String dbVTurl;
+    private String dbCNurl=DSTS.getUrlCNTT();
+    private String dbVTurl=DSTS.getUserNameVT();
 	
 	@PostMapping("dang-nhap")
 	private String doPost(UserModel model, HttpSession session) {
