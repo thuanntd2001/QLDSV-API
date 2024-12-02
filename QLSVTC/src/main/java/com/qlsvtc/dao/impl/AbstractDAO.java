@@ -15,8 +15,6 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import com.qlsvtc.config.DSTS;
 import com.qlsvtc.mapper.RowMapper;
 
@@ -50,10 +48,28 @@ public class AbstractDAO<T>  {
 		}
 	}
 
-//PHANMANH
+//Connection PHANMANH
 
 
-	
+	public Connection getConnectionPM(String url, String rUser, String rPassword) {
+		try {
+			Class.forName(DSTS.getDriverPM());
+			String user = rUser;
+			String password = rPassword;
+			try {
+				return DriverManager.getConnection(url, user, password);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				System.out.print("ket noi that bai side PM");
+				return null;
+			}
+		} catch (ClassNotFoundException e) {
+
+			e.printStackTrace();
+			return null;
+		}
+	}
 
 	public Connection getConnectionPM(HttpSession session) {
 		try {
@@ -77,7 +93,7 @@ public class AbstractDAO<T>  {
 	}
 
 	
-	// CHU
+	//Connection CHU
 
 	public Connection getConnectionChu() {
 		try {
@@ -99,6 +115,8 @@ public class AbstractDAO<T>  {
 			return null;
 		}
 	}
+	
+	// XTXS chu
 
 	public void updateChu(String sql, Object... parameters) {
 		Connection connection = null;
@@ -212,6 +230,9 @@ public class AbstractDAO<T>  {
 		}
 	}
 	
+	
+	// XTXS Phan manh
+
 	public <T> List<T> queryPM(String url ,String username, String password, String sql, RowMapper<T> rowMapper,
 			Object... parameters) {
 		List<T> results = new ArrayList<>();
@@ -249,25 +270,7 @@ public class AbstractDAO<T>  {
 		}
 	}
 
-	public Connection getConnectionPM(String url, String rUser, String rPassword) {
-		try {
-			Class.forName(DSTS.getDriverPM());
-			String user = rUser;
-			String password = rPassword;
-			try {
-				return DriverManager.getConnection(url, user, password);
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				System.out.print("ket noi that bai side PM");
-				return null;
-			}
-		} catch (ClassNotFoundException e) {
-
-			e.printStackTrace();
-			return null;
-		}
-	}
+	
 	
 	public <T> List<T> queryPM(HttpSession session, String sql, RowMapper<T> rowMapper,
 			Object... parameters) {
@@ -304,6 +307,42 @@ public class AbstractDAO<T>  {
 				return null;
 			}
 		}
+	}
+	
+	public int spPM(HttpSession session,String sql, Object... parameters) {
+		Connection connection = null;
+		PreparedStatement statement = null;
+		try {
+			connection = getConnectionPM((String)session.getAttribute("url"),(String)session.getAttribute("username"),(String)session.getAttribute("password"));
+			connection.setAutoCommit(false);
+			statement = connection.prepareStatement(sql);
+			setParameter(statement, parameters);
+			int kq=statement.executeUpdate();
+			
+			connection.commit();
+			return kq;
+		} catch (SQLException e) {
+			if (connection != null) {
+				try {
+					connection.rollback();
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+			}
+		} finally {
+			try {
+				if (connection != null) {
+					connection.close();
+				}
+				if (statement != null) {
+					statement.close();
+				}
+				
+			} catch (SQLException e2) {
+				e2.printStackTrace();
+			}
+		}
+		return -2;
 	}
 
 	public List<Map<String, Object>> queryPMResultSet(HttpSession session, String sql, 

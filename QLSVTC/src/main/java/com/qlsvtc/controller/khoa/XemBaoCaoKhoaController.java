@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.qlsvtc.CNTT.repository.MonHocRepositoryCNTT;
-import com.qlsvtc.CNTT.repository.SinhVienRepositoryCNTT;
-import com.qlsvtc.VT.repository.SinhVienRepositoryVT;
 import com.qlsvtc.dao.impl.BCBangDiemMonHocLTCDAO;
 import com.qlsvtc.dao.impl.BCBangDiemTongKetDAO;
 import com.qlsvtc.dao.impl.BCDsLTCDAO;
