@@ -120,4 +120,21 @@ public class XemBaoCaoKhoaController {
 
 		return "khoa/baocao/bcbangdiemtongket";
 	}
+	
+	@GetMapping("/bcdssv/khoa")
+	public String bcdssv(ModelMap model) {
+		ParaBangDiemTongKet para = new ParaBangDiemTongKet();
+		model.addAttribute("para", para);
+		return "khoa/form/fbcbangdiemtongket";
+		}
+	
+	@PostMapping("/bcdssv/khoa")
+	public String bcdssv(HttpSession session,ParaBangDiemTongKet para,ModelMap model) throws SQLException {
+		List<Map<String, Object>> dataList= bcbangdiemtongket.findAll(session,para.getMaLop());
+		
+	    model.addAttribute("dataList", dataList);		
+		model.addAttribute("para", para);
+
+		return "khoa/baocao/bcbangdiemtongket";
+	}
 }

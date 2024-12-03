@@ -1,12 +1,13 @@
 USE [QLSVTC]
 GO
 
-/****** Object:  StoredProcedure [dbo].[SP_CHUYENLOPSV]    Script Date: 11/15/2024 8:53:56 AM ******/
+/****** Object:  StoredProcedure [dbo].[SP_CHUYENLOPSV]    Script Date: 12/3/2024 5:19:30 PM ******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
 GO
+
 
 CREATE PROCEDURE [dbo].[SP_CHUYENLOPSV] 
     @MASV_ARRAY NVARCHAR(MAX),  -- Mảng MASV, dưới dạng chuỗi JSON
@@ -106,5 +107,6 @@ BEGIN
 
     RETURN @TransactionStatus;
 END;
+
 GO
 
