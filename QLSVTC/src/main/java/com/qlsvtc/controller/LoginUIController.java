@@ -93,6 +93,8 @@ public class LoginUIController {
 			if (flag) {
 				login = nvdao.login(session);
 				if (login != null) {
+					System.out.println("khoa hoac PGV");
+
 					login.setKhoa(strKhoa);
 				}
 

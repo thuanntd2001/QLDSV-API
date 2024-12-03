@@ -1,12 +1,14 @@
 package com.qlsvtc.model.baocao;
 
 
+import java.util.Date;
+
 import lombok.Data;
 
 @Data
 public class BCSinhVien {
 
-    private String masv;
+    private String maSV;
 
 
     private String ho;
@@ -15,20 +17,20 @@ public class BCSinhVien {
     private String ten;
 
 
-    private Boolean phai = false;
+    private Boolean phai;
 
 
-    private String diachi;
+    private String diaChi;
 
 
-    private String ngaysinh;
+    private Date ngaySinh;
 
     private String lop;
 
 
     private String CN;
     
-    private Boolean danghihoc = false;
+    private Boolean daNghiHoc;
 
     private String password ;
  

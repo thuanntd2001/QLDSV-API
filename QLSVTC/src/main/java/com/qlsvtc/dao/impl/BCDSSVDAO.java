@@ -15,14 +15,14 @@ import com.qlsvtc.model.baocao.BCSinhVien;
 public class BCDSSVDAO extends AbstractDAO<BCSinhVien> {
 
 	public List<BCSinhVien> findAllKhoa(HttpSession session,String maLop){
-		String sql = "Select * from SINHVIEN where maLop = ?";
+		String sql = "EXEC SP_REPORT_IN_DSSV_1 ?";
 		List<BCSinhVien> bc =queryPM(session,sql,new BCSinhVienMapper(),maLop);
 		
 		return bc;
 	}
 
 	public List<BCSinhVien> findAllPGV(HttpSession session,String maLop){
-		String sql = "";
+		String sql = "EXEC SP_REPORT_IN_DSSV_2 ?";
 		List<BCSinhVien> bc =queryPM(session,sql,new BCSinhVienMapper(),maLop);
 		
 		return bc;

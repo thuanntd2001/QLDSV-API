@@ -72,7 +72,7 @@
 								</tr>
 								<tr>
 									<th scope="row">Danh sách sinh viên</th>
-									<td><a href="baocaodanhsachnhanvien/cn1/khoa.htm"
+									<td><a href="xembaocao/bcdssv/khoa"
 										class="fa fa-eye"></a></td>
 								</tr>
 

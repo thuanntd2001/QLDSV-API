@@ -11,15 +11,15 @@ public class BCSinhVienMapper implements RowMapper<BCSinhVien> {
         try {
             BCSinhVien sinhVien = new BCSinhVien();
             
-            sinhVien.setMasv(resultSet.getString("MASV"));
+            sinhVien.setMaSV(resultSet.getString("MASV"));
             sinhVien.setHo(resultSet.getString("HO"));
             sinhVien.setTen(resultSet.getString("TEN"));
             sinhVien.setPhai(resultSet.getBoolean("PHAI"));
-            sinhVien.setDiachi(resultSet.getString("DIACHI"));
-            sinhVien.setNgaysinh(resultSet.getString("NGAYSINH"));
-            sinhVien.setLop(resultSet.getString("LOP"));
-            sinhVien.setCN(resultSet.getString("CN"));
-            sinhVien.setDanghihoc(resultSet.getBoolean("DANGHIHOC"));
+            sinhVien.setDiaChi(resultSet.getString("DIACHI"));
+            sinhVien.setNgaySinh(resultSet.getDate("NGAYSINH"));
+            sinhVien.setLop(resultSet.getString("MALOP"));
+            sinhVien.setCN(resultSet.getString("MACN"));
+            sinhVien.setDaNghiHoc(resultSet.getBoolean("DANGHIHOC"));
             sinhVien.setPassword(resultSet.getString("PASSWORD"));
             
             return sinhVien;

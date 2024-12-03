@@ -1,6 +1,5 @@
 package com.qlsvtc.dao.impl;
 
-import java.sql.ResultSet;
 import java.util.List;
 import java.util.Map;
 

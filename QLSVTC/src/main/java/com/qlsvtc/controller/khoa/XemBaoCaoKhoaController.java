@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.qlsvtc.CNTT.repository.MonHocRepositoryCNTT;
 import com.qlsvtc.dao.impl.BCBangDiemMonHocLTCDAO;
 import com.qlsvtc.dao.impl.BCBangDiemTongKetDAO;
+import com.qlsvtc.dao.impl.BCDSSVDAO;
 import com.qlsvtc.dao.impl.BCDsLTCDAO;
 import com.qlsvtc.dao.impl.BCDssvDkLTCDAO;
 import com.qlsvtc.dao.impl.BCPhieuDiemDAO;
@@ -23,9 +24,11 @@ import com.qlsvtc.model.baocao.BCBangDiemMonHocLTC;
 import com.qlsvtc.model.baocao.BCDsLTC;
 import com.qlsvtc.model.baocao.BCDssvDkLTC;
 import com.qlsvtc.model.baocao.BCPhieuDiem;
+import com.qlsvtc.model.baocao.BCSinhVien;
 import com.qlsvtc.model.para.ParaBCBangDiemMonHocLTC;
 import com.qlsvtc.model.para.ParaBCDsLTC;
 import com.qlsvtc.model.para.ParaBangDiemTongKet;
+import com.qlsvtc.model.para.ParaLop;
 import com.qlsvtc.model.para.ParaPhieuDiem;
 
 @Controller
@@ -40,6 +43,7 @@ public class XemBaoCaoKhoaController {
 	BCDssvDkLTCDAO bcdssvdkltc = new BCDssvDkLTCDAO();
 	BCPhieuDiemDAO bcphieudiem = new BCPhieuDiemDAO();
 	BCBangDiemTongKetDAO bcbangdiemtongket = new BCBangDiemTongKetDAO();
+	BCDSSVDAO bcdssv = new BCDSSVDAO();
 	
 	@GetMapping("/bcbangdiemmonhocltc/khoa")
 	public String getbcbangdiemmonhocltc(ModelMap model) {
@@ -123,18 +127,18 @@ public class XemBaoCaoKhoaController {
 	
 	@GetMapping("/bcdssv/khoa")
 	public String bcdssv(ModelMap model) {
-		ParaBangDiemTongKet para = new ParaBangDiemTongKet();
+		ParaLop para = new ParaLop();
 		model.addAttribute("para", para);
-		return "khoa/form/fbcbangdiemtongket";
+		return "khoa/form/fbcdssv";
 		}
 	
 	@PostMapping("/bcdssv/khoa")
-	public String bcdssv(HttpSession session,ParaBangDiemTongKet para,ModelMap model) throws SQLException {
-		List<Map<String, Object>> dataList= bcbangdiemtongket.findAll(session,para.getMaLop());
-		
-	    model.addAttribute("dataList", dataList);		
+	public String bcdssv(HttpSession session,ParaLop para,ModelMap model) throws SQLException {
+		List<BCSinhVien> lst= bcdssv.findAllKhoa(session,para.getMaLop());
+		System.out.println("masv: "+ lst.get(0).getMaSV());
+		model.addAttribute("lst", lst);
 		model.addAttribute("para", para);
 
-		return "khoa/baocao/bcbangdiemtongket";
+		return "khoa/baocao/bcdssv";
 	}
 }
