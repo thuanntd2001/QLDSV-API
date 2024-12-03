@@ -37,8 +37,7 @@
 						<br> <br>
 						<h3
 							style="margin: 20px; text-align: center; text-transform: uppercaguse">
-							<strong>  Bảng điểm tổng kết
-							</strong>
+							<strong> Bảng điểm tổng kết </strong>
 
 						</h3>
 
@@ -46,11 +45,7 @@
 							<b>Khoa : ${USERMODEL.khoa}</b>
 						</h5>
 						<br> <br>
-						<p style="margin: 20px; text-align: right">
-							
-
-
-						</p>
+						<p style="margin: 20px; text-align: right"></p>
 						<br>
 						<p style="margin: 20px; text-align: center">Mã Lớp:
 							${para.maLop}</p>
@@ -58,16 +53,27 @@
 						<table class="table table-bordered border-bottom-0 border-dark">
 							<thead>
 								<tr>
-									<c:forEach var="column" items="${dataList[0].keySet()}">
-										<th>${column}</th>
+									<th>Mã sinh viên - Họ tên</th>
+									<c:forEach var="monHoc" items="${uniqueTenMonHoc}">
+										<th>${monHoc}</th>
+										<!-- Tên môn h?c -->
 									</c:forEach>
 								</tr>
 							</thead>
 							<tbody class="reports body">
-								<c:forEach var="row" items="${dataList}">
+								<c:forEach var="entry" items="${entrySet}">
 									<tr>
-										<c:forEach var="column" items="${row.keySet()}">
-											<td>${row[column]}</td>
+										<td>${entry.key}</td>
+										<!-- Mã SV - H? tên -->
+										<c:forEach var="monHoc" items="${uniqueTenMonHoc}">
+											<td><c:choose>
+													<c:when test="${entry.value[monHoc] != null}">
+                                    ${entry.value[monHoc]} <!-- ?i?m môn h?c -->
+													</c:when>
+													<c:otherwise>
+                                    N/A <!-- N?u không có ?i?m -->
+													</c:otherwise>
+												</c:choose></td>
 										</c:forEach>
 									</tr>
 								</c:forEach>

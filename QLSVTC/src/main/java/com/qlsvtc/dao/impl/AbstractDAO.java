@@ -345,7 +345,7 @@ public class AbstractDAO<T>  {
 		return -2;
 	}
 
-	public List<Map<String, Object>> queryPMResultSet(HttpSession session, String sql, 
+	/*public List<Map<String, Object>> queryPMResultSet(HttpSession session, String sql, 
 			Object... parameters) {
 		Connection connection = null;
 		PreparedStatement statement = null;
@@ -389,7 +389,7 @@ public class AbstractDAO<T>  {
 				return null;
 			}
 		}
-	}
+	}*/
 	
 	
 

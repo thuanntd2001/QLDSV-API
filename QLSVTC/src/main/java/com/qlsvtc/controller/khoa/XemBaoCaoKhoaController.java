@@ -21,6 +21,7 @@ import com.qlsvtc.dao.impl.BCDsLTCDAO;
 import com.qlsvtc.dao.impl.BCDssvDkLTCDAO;
 import com.qlsvtc.dao.impl.BCPhieuDiemDAO;
 import com.qlsvtc.model.baocao.BCBangDiemMonHocLTC;
+import com.qlsvtc.model.baocao.BCBangDiemTongKet;
 import com.qlsvtc.model.baocao.BCDsLTC;
 import com.qlsvtc.model.baocao.BCDssvDkLTC;
 import com.qlsvtc.model.baocao.BCPhieuDiem;
@@ -30,6 +31,7 @@ import com.qlsvtc.model.para.ParaBCDsLTC;
 import com.qlsvtc.model.para.ParaBangDiemTongKet;
 import com.qlsvtc.model.para.ParaLop;
 import com.qlsvtc.model.para.ParaPhieuDiem;
+import com.qlsvtc.utils.BangDiemUtil;
 
 @Controller
 @RequestMapping(value = "xembaocao")
@@ -114,12 +116,15 @@ public class XemBaoCaoKhoaController {
 		model.addAttribute("para", para);
 		return "khoa/form/fbcbangdiemtongket";
 		}
-	
+
 	@PostMapping("/bcbangdiemtongket/khoa")
 	public String bcbangdiemtongket(HttpSession session,ParaBangDiemTongKet para,ModelMap model) throws SQLException {
-		List<Map<String, Object>> dataList= bcbangdiemtongket.findAll(session,para.getMaLop());
-		
-	    model.addAttribute("dataList", dataList);		
+		List<BCBangDiemTongKet> bangDiemList= bcbangdiemtongket.findAll(session,para.getMaLop());
+		List<String> uniqueTenMonHoc = BangDiemUtil.getUniqueTenMonHoc(bangDiemList);
+		Map<String, Map<String, Float>> entrySet = BangDiemUtil.convertToMap(bangDiemList);
+	    model.addAttribute("uniqueTenMonHoc", uniqueTenMonHoc);	
+	    model.addAttribute("entrySet", entrySet);		
+
 		model.addAttribute("para", para);
 
 		return "khoa/baocao/bcbangdiemtongket";
@@ -135,7 +140,6 @@ public class XemBaoCaoKhoaController {
 	@PostMapping("/bcdssv/khoa")
 	public String bcdssv(HttpSession session,ParaLop para,ModelMap model) throws SQLException {
 		List<BCSinhVien> lst= bcdssv.findAllKhoa(session,para.getMaLop());
-		System.out.println("masv: "+ lst.get(0).getMaSV());
 		model.addAttribute("lst", lst);
 		model.addAttribute("para", para);
 

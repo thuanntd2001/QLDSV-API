@@ -1,7 +1,7 @@
 USE [QLSVTC]
 GO
 
-/****** Object:  StoredProcedure [dbo].[SP_REPORT_DIEMTONGKET]    Script Date: 12/3/2024 5:20:31 PM ******/
+/****** Object:  StoredProcedure [dbo].[SP_REPORT_DIEMTONGKET]    Script Date: 12/3/2024 7:16:40 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -17,8 +17,8 @@ BEGIN
 		RAISERROR(N'Mã lớp không tồn tại!', 16, 1)
 	ELSE
 	BEGIN
-		SELECT sv.MASV + ' - ' +sv.HO + ' ' +sv.TEN, mh.TENMONHOC,
-        MAX(dk.DIEM_CC * 0.1 + dk.DIEM_GK * 0.3 + dk.DIEM_CK * 0.6) AS [Điểm Sinh Viên]
+		SELECT sv.MASV + ' - ' +sv.HO + ' ' +sv.TEN as MASV_HOTEN, mh.TENMONHOC,
+        MAX(dk.DIEM_CC * 0.1 + dk.DIEM_GK * 0.3 + dk.DIEM_CK * 0.6) AS DIEMSV
 
 		FROM (SELECT MASV, HO, TEN FROM dbo.SINHVIEN WHERE MALOP = @MALOP) AS sv
 		JOIN dbo.DANGKY dk ON sv.MASV = dk.MASV AND dk.HUYDANGKY = 0
