@@ -7,28 +7,42 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class DSTS {
-	@Value("${app.DBuserChu}")
-	private String appuserNameChu;
-	@Value("${app.DBpassChu}")
-	private String apppassWordChu;
-	@Value("${app.DBChuUrl}")
-	private String appurlChu;
+	
+
+	/*app.DBCHU_URL    = jdbc:sqlserver://DESKTOP-DH2SJV4\MSSQLSERVER0; Database=QLSVTC
+		app.DBCNTT_URL   = jdbc:sqlserver://DESKTOP-DH2SJV4\MSSQLSERVER1; Database=QLSVTC
+		app.DBVT_URL     = jdbc:sqlserver://DESKTOP-DH2SJV4\MSSQLSERVER2; Database=QLSVTC
+
+		app.DBUSER_CHU     = sa
+		app.DBPASS_CHU    = 1234
+		app.DBUSER_CNTT     = sa
+		app.DBPASS_CNTT    = 1234
+		app.DBUSER_VT     = sa
+		app.DBPASS_VT    = 1234*/
+    
+	//@Value("${app.DBUSER_CHU}")
+	private String appuserNameChu = System.getenv("DBUSER_CHU");
+	//@Value("${app.DBPASS_CHU}")
+    private String apppassWordChu = System.getenv("DBPASS_CHU");
+	//@Value("${app.DBCHU_URL}")
+    private String appurlChu = System.getenv("DBCHU_URL");
 
 
+	//@Value("${app.DBUSER_CNTT}")
+    private String appuserNameCNTT = System.getenv("DBUSER_CNTT");
+	//@Value("${app.DBPASS_CNTT}")
+    private String apppassWordCNTT = System.getenv("DBPASS_CNTT");
+	//@Value("${app.DBCNTT_URL}")
+    private String appurlCNTT = System.getenv("DBCNTT_URL");
 
-	@Value("${app.DBuserCNTT}")
-	private String appuserNameCNTT;
-	@Value("${app.DBpassCNTT}")
-	private String apppassWordCNTT;
-	@Value("${app.DBCNTTUrl}")
-	private String appurlCNTT;
-
-	@Value("${app.DBuserVT}")
-	private String appuserNameVT;
-	@Value("${app.DBpassVT}")
-	private String apppassWordVT;
-	@Value("${app.DBVTUrl}")
-	private String appurlVT;
+	//@Value("${app.DBUSER_VT}")
+    private String appuserNameVT = System.getenv("DBUSER_VT");
+	//@Value("${app.DBPASS_VT}")
+    private String apppassWordVT = System.getenv("DBPASS_VT");
+	//@Value("${app.DBVT_URL}")
+    private String appurlVT = System.getenv("DBVT_URL");
+	
+	
 
 	private static String userNameChu;
 
