@@ -26,12 +26,13 @@
 		<div class="container">
 			<div class="content">
 				<div class="header-content d-flex justify-content-center">
-					<h3>THÔNG TIN TÀI KHOẢN</h3></div>
+					<h3>THÔNG TIN TÀI KHOẢN</h3>
+				</div>
 				<section class="section profile">
 					<div class="row">
 						<div class="col-xl-4">
 
-						<%-- 	<div class="card">
+							<%-- 	<div class="card">
 								<form:form modelAttribute="user"
 									class="card-body profile-card pt-4 d-flex flex-column align-items-center">
 
@@ -90,7 +91,10 @@
 													<div class="col-lg-3 col-md-4 label">Tên Tài Khoản</div>
 													<div class="col-lg-9 col-md-8">${sessionScope.username }</div>
 												</div>
-
+												<div class="row">
+													<div class="col-lg-3 col-md-4 label">Khoa</div>
+													<div class="col-lg-9 col-md-8">${USERMODEL.khoa }</div>
+												</div>
 											</form:form>
 										</div>
 

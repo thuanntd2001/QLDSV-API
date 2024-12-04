@@ -79,16 +79,19 @@ public class LoginUIController {
 		if (model != null) {
 			// kt nv co tk trong sqlserver ko
 			boolean flag = false;
+			if (model.getKhoaURL().contains("Công nghệ")) {
+				session.setAttribute("url", dbCNurl);
+				strKhoa = "CNTT";
+			} else if (model.getKhoaURL().contains("Viễn thông")) {
+				session.setAttribute("url",dbVTurl );
+
+				strKhoa = "VT";
+			}
 			// set server ma nv chon de thu ket noi
-			session.setAttribute("url", "jdbc:sqlserver://" + model.getKhoaURL() + "; Database=QLSVTC");
 			session.setAttribute("password", model.getPasswd());
 			session.setAttribute("username", model.getUserName());
 
-			if (dbCNurl.contains((String) session.getAttribute("url"))) {
-				strKhoa = "CNTT";
-			} else if (dbVTurl.contains((String) session.getAttribute("url"))) {
-				strKhoa = "VT";
-			}
+			
 			flag = ck.ckUserPassword(session);
 			if (flag) {
 				login = nvdao.login(session);
@@ -106,16 +109,21 @@ public class LoginUIController {
 
 			}
 			else {
-				System.out.println("Ko phai khoa va PGV");
+				System.out.println(" Ko phai khoa va PGV");
 
 				SinhVien svEntity=null;
 				if (strKhoa.equals("CNTT")) {
+					System.out.println(" tim sv cn");
+
 					svEntity = svrepocn.findByMaSVAndPasswordAndDaNghiHoc(model.getUserName(), model.getPasswd(), false);
 				}
 				else if (strKhoa.equals("VT")) {
+					System.out.println(" tim sv vt");
+
 					svEntity = svrepovt.findByMaSVAndPasswordAndDaNghiHoc(model.getUserName(), model.getPasswd(), false);
 				}
 				if (svEntity!=null) {
+					System.out.println("la SV");
 					login = new NhanVienLoginModel();
 					login.setHoTen(svEntity.getHo() + " " + svEntity.getTen());
 					login.setTenNhom("SV");
@@ -131,7 +139,7 @@ public class LoginUIController {
 
 		}
 
-		System.out.println("ket noi that bai " + "user " + model.getUserName() + "pass " + model.getPasswd());
+		System.out.println("ket noi that bai " + "user " + model.getUserName() + " pass " + model.getPasswd());
 		return "redirect:dang-nhap?action=login&message=username_password_invalid&alert=danger";
 
 	}

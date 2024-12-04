@@ -38,6 +38,7 @@ public class VTConfig {
 	        DriverManagerDataSource dataSource = new DriverManagerDataSource();
 			dataSource.setDriverClassName(driver);
 			dataSource.setUrl(dburl);
+			System.out.println("url : "+ dburl);
 			dataSource.setUsername(dbuser);
 			dataSource.setPassword(dbpass);
 	        return dataSource;

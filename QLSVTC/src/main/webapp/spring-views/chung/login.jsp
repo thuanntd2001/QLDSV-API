@@ -59,7 +59,7 @@
 							class="selectpicker" name="khoaURL" id="khoaSelect"
 							onchange="updateKhoa()">
 							<c:forEach items="${DSPMs}" var="pm">
-								<option value="${pm.tenServer}" data-tenkhoa="${pm.tenKhoa}">${pm.tenKhoa}</option>
+								<option value="${pm.tenKhoa}">${pm.tenKhoa}</option>
 							</c:forEach>
 						</select>
 					</div>
