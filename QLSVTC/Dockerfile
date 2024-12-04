@@ -12,18 +12,18 @@ COPY target/$APP_NAME.jar $APP_HOME
 
 # Thêm các biến su dung ứng dụng
 
-ENV DBUSER_CHU     = sa
-ENV DBPASS_CHU     = 1234
+ENV DBUSER_CHU= sa
+ENV DBPASS_CHU=1234
 
-ENV DBUSER_CNTT     = sa
-ENV DBPASS_CNTT     = 1234
+ENV DBUSER_CNTT=sa
+ENV DBPASS_CNTT=1234
 
-ENV DBUSER_VT     = sa
-ENV DBPASS_VT     = 1234
+ENV DBUSER_VT=sa
+ENV DBPASS_VT=1234
 
-ENV DBCHU_URL     = jdbc:sqlserver://192.168.100.16\\MSSQLSERVER0; Database=QLSVTC
-ENV DBCNTT_URL     = jdbc:sqlserver://192.168.100.16\\MSSQLSERVER1; Database=QLSVTC
-ENV DBVT_URL     = jdbc:sqlserver://192.168.100.16\\MSSQLSERVER2; Database=QLSVTC
+ENV DBCHU_URL=jdbc:sqlserver://192.168.100.16\\MSSQLSERVER0; Database=QLSVTC
+ENV DBCNTT_URL=jdbc:sqlserver://192.168.100.16\\MSSQLSERVER1; Database=QLSVTC
+ENV DBVT_URL=jdbc:sqlserver://192.168.100.16\\MSSQLSERVER2; Database=QLSVTC
 
 # Thiết lập thư mục làm việc và cổng mặc định của ứng dụng
 WORKDIR $APP_HOME
