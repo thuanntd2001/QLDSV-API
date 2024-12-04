@@ -17,5 +17,5 @@ EXPOSE 9090
 EXPOSE 8080
 
 # Chạy ứng dụng khi container được khởi động
-CMD java -jar $APP_NAME.jar --spring.config.location=file:///D:/app.properties
+CMD java -jar $APP_NAME.jar
 
