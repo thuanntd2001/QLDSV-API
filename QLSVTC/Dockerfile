@@ -2,28 +2,23 @@
 FROM openjdk:11
 
 # Thêm các biến môi trường cho ứng dụng
-ENV APP_HOME=/app
-ENV APP_NAME=QLSVTC-0.0.1-SNAPSHOT
-
+ENV APP_HOME=/app \
+    APP_NAME=QLSVTC-0.0.1-SNAPSHOT \
+    DBUSER_CHU=sa \
+    DBPASS_CHU=1234 \
+    DBUSER_CNTT=sa \
+    DBPASS_CNTT=1234 \
+    DBUSER_VT=sa \
+    DBPASS_VT=1234 \
+    DBCHU_URL=jdbc:sqlserver://192.168.100.16\\MSSQLSERVER0;Database=QLSVTC \
+    DBCNTT_URL=jdbc:sqlserver://192.168.100.16\\MSSQLSERVER1;Database=QLSVTC \
+    DBVT_URL=jdbc:sqlserver://192.168.100.16\\MSSQLSERVER2;Database=QLSVTC
 
 # Tạo thư mục ứng dụng và sao chép các tệp vào đó
 RUN mkdir $APP_HOME
 COPY target/$APP_NAME.jar $APP_HOME
 
-# Thêm các biến su dung ứng dụng
 
-ENV DBUSER_CHU= sa
-ENV DBPASS_CHU=1234
-
-ENV DBUSER_CNTT=sa
-ENV DBPASS_CNTT=1234
-
-ENV DBUSER_VT=sa
-ENV DBPASS_VT=1234
-
-ENV DBCHU_URL=jdbc:sqlserver://192.168.100.16\\MSSQLSERVER0; Database=QLSVTC
-ENV DBCNTT_URL=jdbc:sqlserver://192.168.100.16\\MSSQLSERVER1; Database=QLSVTC
-ENV DBVT_URL=jdbc:sqlserver://192.168.100.16\\MSSQLSERVER2; Database=QLSVTC
 
 # Thiết lập thư mục làm việc và cổng mặc định của ứng dụng
 WORKDIR $APP_HOME
