@@ -15,7 +15,7 @@ COPY target/$APP_NAME.jar $APP_HOME
 WORKDIR $APP_HOME
 EXPOSE 9090
 EXPOSE 8080
-
+EXPOSE 1434
 # Chạy ứng dụng khi container được khởi động
 CMD java -jar $APP_NAME.jar
 
