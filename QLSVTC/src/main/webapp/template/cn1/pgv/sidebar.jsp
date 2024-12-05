@@ -30,7 +30,7 @@
 		</a></li>
 
 		<li class="nav-item"><a class="nav-link collapsed"
-			href="quanlykho/cn1/chinhanh.htm"> <i class="bi bi-house-fill"></i>
+			href="quanly/pgv/monhoc"> <i class="bi bi-house-fill"></i>
 				<span>Nhập môn học</span>
 		</a></li>
 
