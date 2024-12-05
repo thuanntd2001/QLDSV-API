@@ -7,42 +7,36 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class DSTS {
-	
 
-	/*app.DBCHU_URL    = jdbc:sqlserver://DESKTOP-DH2SJV4\MSSQLSERVER0; Database=QLSVTC
-		app.DBCNTT_URL   = jdbc:sqlserver://DESKTOP-DH2SJV4\MSSQLSERVER1; Database=QLSVTC
-		app.DBVT_URL     = jdbc:sqlserver://DESKTOP-DH2SJV4\MSSQLSERVER2; Database=QLSVTC
-
-		app.DBUSER_CHU     = sa
-		app.DBPASS_CHU    = 1234
-		app.DBUSER_CNTT     = sa
-		app.DBPASS_CNTT    = 1234
-		app.DBUSER_VT     = sa
-		app.DBPASS_VT    = 1234*/
-    
-	//@Value("${app.DBUSER_CHU}")
+	/*
+	 * DBCHU_URL = jdbc:sqlserver://DESKTOP-DH2SJV4\MSSQLSERVER0; Database=QLSVTC
+	 * DBCNTT_URL = jdbc:sqlserver://DESKTOP-DH2SJV4\MSSQLSERVER1; Database=QLSVTC
+	 * DBVT_URL = jdbc:sqlserver://DESKTOP-DH2SJV4\MSSQLSERVER2; Database=QLSVTC
+	 * 
+	 * DBUSER_CHU = sa DBPASS_CHU = 1234 DBUSER_CNTT = sa DBPASS_CNTT = 1234
+	 * DBUSER_VT = sa DBPASS_VT = 1234
+	 */
+	private String vdTLS = "; trustServerCertificate=true";
+	// @Value("${app.DBUSER_CHU}")
 	private String appuserNameChu = System.getenv("DBUSER_CHU");
-	//@Value("${app.DBPASS_CHU}")
-    private String apppassWordChu = System.getenv("DBPASS_CHU");
-	//@Value("${app.DBCHU_URL}")
-    private String appurlChu = System.getenv("DBCHU_URL");
+	// @Value("${app.DBPASS_CHU}")
+	private String apppassWordChu = System.getenv("DBPASS_CHU");
+	// @Value("${app.DBCHU_URL}")
+	private String appurlChu = System.getenv("DBCHU_URL") + vdTLS;
 
+	// @Value("${app.DBUSER_CNTT}")
+	private String appuserNameCNTT = System.getenv("DBUSER_CNTT");
+	// @Value("${app.DBPASS_CNTT}")
+	private String apppassWordCNTT = System.getenv("DBPASS_CNTT");
+	// @Value("${app.DBCNTT_URL}")
+	private String appurlCNTT = System.getenv("DBCNTT_URL")+ vdTLS;
 
-	//@Value("${app.DBUSER_CNTT}")
-    private String appuserNameCNTT = System.getenv("DBUSER_CNTT");
-	//@Value("${app.DBPASS_CNTT}")
-    private String apppassWordCNTT = System.getenv("DBPASS_CNTT");
-	//@Value("${app.DBCNTT_URL}")
-    private String appurlCNTT = System.getenv("DBCNTT_URL");
-
-	//@Value("${app.DBUSER_VT}")
-    private String appuserNameVT = System.getenv("DBUSER_VT");
-	//@Value("${app.DBPASS_VT}")
-    private String apppassWordVT = System.getenv("DBPASS_VT");
-	//@Value("${app.DBVT_URL}")
-    private String appurlVT = System.getenv("DBVT_URL");
-	
-	
+	// @Value("${app.DBUSER_VT}")
+	private String appuserNameVT = System.getenv("DBUSER_VT");
+	// @Value("${app.DBPASS_VT}")
+	private String apppassWordVT = System.getenv("DBPASS_VT");
+	// @Value("${app.DBVT_URL}")
+	private String appurlVT = System.getenv("DBVT_URL")+ vdTLS;
 
 	private static String userNameChu;
 
@@ -50,24 +44,22 @@ public class DSTS {
 
 	private static String urlChu;
 
-
-
 	private static String userNameCNTT;
 	private static String passWordCNTT;
 	private static String urlCNTT;
-	
-	
+
 	private static String userNameVT;
 	private static String passWordVT;
 	private static String urlVT;
-	
-	private static String driverChu ="com.microsoft.sqlserver.jdbc.SQLServerDriver";
 
-	private static String driverPM ="com.microsoft.sqlserver.jdbc.SQLServerDriver";
+	private static String driverChu = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
+
+	private static String driverPM = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
 
 	private static String tksv = "SV01";
 
 	private static String pwsv = "1234";
+
 	@PostConstruct
 	public void init() {
 		userNameChu = appuserNameChu;
@@ -131,7 +123,7 @@ public class DSTS {
 	public static void setDriverPM(String driverPM) {
 		DSTS.driverPM = driverPM;
 	}
-	
+
 	public static String getUserNameCNTT() {
 		return userNameCNTT;
 	}
@@ -187,6 +179,5 @@ public class DSTS {
 	public static void setPwsv(String pwsv) {
 		DSTS.pwsv = pwsv;
 	}
-
 
 }
