@@ -15,7 +15,7 @@ public class DSTS {
 	 * DBUSER_CHU = sa DBPASS_CHU = 1234 DBUSER_CNTT = sa DBPASS_CNTT = 1234
 	 * DBUSER_VT = sa DBPASS_VT = 1234
 	 */
-	private String vdTLS = ";trustServerCertificate=true,sslProtocol=TLSv1";
+	private String vdTLS = ";trustServerCertificate=true;sslProtocol=TLSv1";
 	// @Value("${app.DBUSER_CHU}")
 	private String appuserNameChu = System.getenv("DBUSER_CHU");
 	// @Value("${app.DBPASS_CHU}")
