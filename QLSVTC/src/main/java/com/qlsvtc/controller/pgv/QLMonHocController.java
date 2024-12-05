@@ -40,7 +40,7 @@ public class QLMonHocController {
 	}
 
 	@PostMapping("monhoc/add")
-	public String addVTCN1(ModelMap model, @ModelAttribute("item") MonHoc item, HttpServletRequest request) {
+	public String addVTCN1(ModelMap model, @ModelAttribute("item") MonHoc item) {
 
 		//System.out.print(vt.getMaVT());
 
@@ -51,19 +51,19 @@ public class QLMonHocController {
 				nvsave = repo.save(item);
 			} catch (Exception e) {
 				e.printStackTrace();
-				model.addAttribute("message", "thêm vật tư thất bại");
+				model.addAttribute("message", "thêm thất bại");
 				System.out.print("thêm vật tư thất bại");
 			}
 			if (nvsave != null) {
-				model.addAttribute("message", "thêm vật tư thành công");
+				model.addAttribute("message", "thêm thành công");
 				System.out.print("thêm vật tư thành công");
 			}
 		} else {
-			model.addAttribute("message", "thêm vật tư thất bại, mã vật tư đã tồn tại");
-			System.out.print("thêm vật tư thất bại");
+			model.addAttribute("message", "thêm thất bại, đã tồn tại");
+			System.out.print("thêm thất bại đã tồn tại");
 		}
 
-		return "quanly/pgv/monhoc/add";
+		return "redirect:quanly/pgv/monhoc/add";
 	}
 
 	@GetMapping(value = "monhoc/edit")
