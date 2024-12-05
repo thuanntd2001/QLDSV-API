@@ -13,6 +13,8 @@ ENV APP_HOME=/app \
     DBCHU_URL=jdbc:sqlserver://192.168.100.16\\MSSQLSERVER0;Database=QLSVTC \
     DBCNTT_URL=jdbc:sqlserver://192.168.100.16\\MSSQLSERVER1;Database=QLSVTC \
     DBVT_URL=jdbc:sqlserver://192.168.100.16\\MSSQLSERVER2;Database=QLSVTC
+# Set the JVM options to enable TLS 1.0
+ENV JAVA_OPTS="-Dhttps.protocols=TLSv1"
 
 # Tạo thư mục ứng dụng và sao chép các tệp vào đó
 RUN mkdir $APP_HOME
@@ -24,5 +26,5 @@ COPY target/$APP_NAME.jar $APP_HOME
 WORKDIR $APP_HOME
 EXPOSE 9090
 # Chạy ứng dụng khi container được khởi động
-CMD java -jar $APP_NAME.jar
+CMD ["sh", "-c", "java $JAVA_OPTS -jar $APP_NAME.jar"]
 
