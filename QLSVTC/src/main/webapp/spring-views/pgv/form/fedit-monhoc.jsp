@@ -35,12 +35,12 @@
 	<main id="main" class="main">
 
 	<div class="pagetitle">
-		<h1>Vật tư</h1>
+		<h1>Môn học</h1>
 		<nav>
 			<ol class="breadcrumb">
 				<li class="breadcrumb-item"><a
-					href="quanlyvattu/cn1/chinhanh.htm">Vật tư</a></li>
-				<li class="breadcrumb-item active">Sửa vật tư</li>
+					href="quanly/pgv/monhoc">Môn học</a></li>
+				<li class="breadcrumb-item active">Sửa môn học</li>
 			</ol>
 		</nav>
 	</div>
@@ -50,43 +50,34 @@
 
 				<div class="card">
 					<div class="card-body">
-						<h5 class="card-title">Thông tin vật tư</h5>
+						<h5 class="card-title">Thông tin</h5>
 						${message}
 						<!-- Multi Columns Form -->
-						<form:form action="quanlyvattu/cn1/chinhanh/edit.htm"
-							method="post" modelAttribute="vt" class="row g-3">
-							<%-- <div class="col-md-2">
-								<label for="inputState" class="form-label">Chi Nhánh</label>
-								<form:select path="chiNhanh">
-									 
-										 <form:options value="${chiNhanhHT}" label="${chiNhanhHT.chiNhanh} "></form:options> 
-										 <form:input path="chiNhanh" value="${chiNhanhHT}" label="${chiNhanhHT.chiNhanh} "  />
-								</form:select>
-							</div> --%>
+						<form:form action="quanly/pgv/monhoc/edit"
+							method="post" modelAttribute="item" class="row g-3">
+							
 							<div class="col-md-0">
 								
 								<form:input type="hidden" class="form-control" id="inputEmail5"
-									path="maVT" />
+									path="maMH" />
 							</div>
 
 							<div class="col-md-8">
-								<label for="inputEmail5" class="form-label">Tên VT</label>
+								<label for="inputEmail5" class="form-label">Tên Môn học</label>
 								<form:input type="text" class="form-control" id="inputEmail5"
-									path="tenVT" />
+									path="tenMH" />
 							</div>
 							<div class="col-md-4">
-								<label for="inputState" class="form-label">Đơn vị tính</label> <br>
-								<form:input path="donViTinh" />
+								<label for="inputState" class="form-label">Số tiết LT</label> <br>
+								<form:input path="sotietLT" />
+								<br>
+							</div>	
+							<div class="col-md-4">
+								<label for="inputState" class="form-label">Số tiết TH</label> <br>
+								<form:input path="sotietTH" />
 								<br>
 							</div>
 
-							<div class="col-md-6">
-								
-									<label for="inputCity" class="form-label">Số lượng tồn</label>
-									<form:input type="number" min="1" max="10000" class="form-control" id="inputCity"
-										path="soLuongTon" />
-								
-							</div>
 							<div class="col-md-12" >
 								<div class="text-center" style="margin-top:20px">
 									<button type="submit" class="btn btn-primary">Sửa</button>

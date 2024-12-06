@@ -32,6 +32,8 @@
 			<li class="nav-item"><a class="nav-link" href="dang-nhap?action=logout">Đăng xuất</a></li>
 		 
 		</ul>
+		<c:if test="${not empty message}">
+					<div class="alert alert-${alert}">${message}</div>
+				</c:if>
 	</div>
-	 ${message}   
 </nav>

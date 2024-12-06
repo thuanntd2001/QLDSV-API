@@ -47,7 +47,8 @@
 					<div class="card-body">
 						<h5 class="card-title">Thông tin Môn học</h5>
 
-						
+						${message}
+
 						<form:form action="quanly/pgv/monhoc/add"
 							method="post" modelAttribute="item" class="row g-3">
 

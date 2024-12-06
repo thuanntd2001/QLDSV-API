@@ -1,8 +1,10 @@
 package com.qlsvtc.controller.pgv;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,22 +14,34 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.qlsvtc.CNTT.repository.MonHocRepositoryCNTT;
+import com.qlsvtc.VT.repository.MonHocRepositoryVT;
 import com.qlsvtc.entity.MonHoc;
-
+import com.qlsvtc.model.NhanVienLoginModel;
 
 @Controller
 @RequestMapping(value = "quanly/pgv")
 public class QLMonHocController {
 	@Autowired
-	MonHocRepositoryCNTT repo;
+	MonHocRepositoryCNTT cnrepo;
+	@Autowired
+	MonHocRepositoryVT vtrepo;
 
-	
-	
+	NhanVienLoginModel login = null;
+
 	@GetMapping("monhoc")
-	public String getVTCN(ModelMap model) {
+	public <R extends JpaRepository<MonHoc, String>> String getVTCN(HttpSession session, ModelMap model) {
 		/*
 		 * Sort sort = new Sort(Sort.Direction.ASC, "maVT");;
-		 */ model.addAttribute("lst", repo.findAll());
+		 * 
+		 */
+		R repo;
+		login = (NhanVienLoginModel) session.getAttribute("USERMODEL");
+		if ("VT".equals(login.getKhoa())) {
+			repo = (R) vtrepo; // Cast to the generic type
+		} else {
+			repo = (R) cnrepo; // Cast to the generic type
+		}
+		model.addAttribute("lst", repo.findAll());
 		return "pgv/qlmonhoc";
 	}
 
@@ -40,11 +54,18 @@ public class QLMonHocController {
 	}
 
 	@PostMapping("monhoc/add")
-	public String addVTCN1(ModelMap model, @ModelAttribute("item") MonHoc item) {
+	public <R extends JpaRepository<MonHoc, String>> String addVTCN1(HttpSession session, ModelMap model,
+			@ModelAttribute("item") MonHoc item) {
+		R repo;
+		login = (NhanVienLoginModel) session.getAttribute("USERMODEL");
+		if ("VT".equals(login.getKhoa())) {
+			repo = (R) vtrepo; // Cast to the generic type
+		} else {
+			repo = (R) cnrepo; // Cast to the generic type
+		}
+		System.out.println(item.getMaMH());
 
-		//System.out.print(vt.getMaVT());
-
-		if (repo.findById(item.getMaMH()) == null) {
+		if (repo.findById(item.getMaMH()).isEmpty()) {
 			MonHoc nvsave = null;
 
 			try {
@@ -56,19 +77,26 @@ public class QLMonHocController {
 			}
 			if (nvsave != null) {
 				model.addAttribute("message", "thêm thành công");
-				System.out.print("thêm vật tư thành công");
+				System.out.print("thêm thành công");
 			}
 		} else {
 			model.addAttribute("message", "thêm thất bại, đã tồn tại");
 			System.out.print("thêm thất bại đã tồn tại");
 		}
 
-		return "redirect:quanly/pgv/monhoc/add";
+		return "redirect:/quanly/pgv/monhoc/add";
 	}
 
 	@GetMapping(value = "monhoc/edit")
-	public String editVTCN1(ModelMap model, HttpServletRequest request) {
-
+	public <R extends JpaRepository<MonHoc, String>> String editVTCN1(HttpSession session, ModelMap model,
+			HttpServletRequest request) {
+		R repo;
+		login = (NhanVienLoginModel) session.getAttribute("USERMODEL");
+		if ("VT".equals(login.getKhoa())) {
+			repo = (R) vtrepo; // Cast to the generic type
+		} else {
+			repo = (R) cnrepo; // Cast to the generic type
+		}
 		String id = request.getParameter("id");
 
 		MonHoc item = repo.findById(id).get();
@@ -79,18 +107,24 @@ public class QLMonHocController {
 
 		else {
 			System.out.print("không tồn tại item");
-			return "redirect:quanly/pgv/monhoc";
+			return "redirect:/quanly/pgv/monhoc";
 		}
 
-		return "chinhanh/form/fedit-monhoc";
+		return "pgv/form/fedit-monhoc";
 	}
 
 	@PostMapping("monhoc/edit")
-	public String editVTCN1(ModelMap model, @ModelAttribute("item") MonHoc item, HttpServletRequest request) {
-
+	public <R extends JpaRepository<MonHoc, String>> String editVTCN1(HttpSession session,ModelMap model, @ModelAttribute("item") MonHoc item, HttpServletRequest request) {
+		R repo;
+		login = (NhanVienLoginModel) session.getAttribute("USERMODEL");
+		if ("VT".equals(login.getKhoa())) {
+			repo = (R) vtrepo; // Cast to the generic type
+		} else {
+			repo = (R) cnrepo; // Cast to the generic type
+		}
 		MonHoc vtsave = repo.findById(item.getMaMH()).get();
 
-		//System.out.println(vtsave.getTenVT());
+		// System.out.println(vtsave.getTenVT());
 
 		try {
 			vtsave.setMaMH(item.getMaMH());
@@ -110,7 +144,7 @@ public class QLMonHocController {
 			System.out.print("Sửa thành công");
 		}
 
-		return "redirect:quanly/pgv/monhoc";
+		return "redirect:/quanly/pgv/monhoc";
 
 	}
 
@@ -119,52 +153,41 @@ public class QLMonHocController {
 
 		model.addAttribute("id", request.getParameter("id"));
 
-		return "pgv/form/fxoa-vattu";
+		return "pgv/form/fxoa-monhoc";
 
 	}
 
 	@RequestMapping(value = "monhoc/xoa", method = RequestMethod.POST)
-	public String xoaNVCN1P(ModelMap model, HttpServletRequest request) {
-
+	public <R extends JpaRepository<MonHoc, String>> String xoaNVCN1P(HttpSession session,ModelMap model, HttpServletRequest request) {
+		R repo;
+		login = (NhanVienLoginModel) session.getAttribute("USERMODEL");
+		if ("VT".equals(login.getKhoa())) {
+			repo = (R) vtrepo; // Cast to the generic type
+		} else {
+			repo = (R) cnrepo; // Cast to the generic type
+		}
 		String id = request.getParameter("id");
 		System.out.print(request.getParameter("xacNhan") + request.getParameter("id"));
 		try {
 			if (request.getParameter("xacNhan").equals("YES")) {
 //				VatTuEntity nvsave = vtrepo.findOne(id);
 				repo.deleteById(id);
-				
+
 				model.addAttribute("message", "xoá thành công");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			model.addAttribute("message", "xoá thất bại");
 		}
-		return "redirect:/quanlyvattu/cn1/chinhanh.htm";
+		return "redirect:/quanly/pgv/monhoc";
 
 	}
 
-	//===================================CONGTY==================================//
-	
-	
-		@RequestMapping(value = {"congty"}, method = RequestMethod.GET)
-		public String getVTCTY(ModelMap model) {
-			/*
-			 * Sort sort = new Sort(Sort.Direction.ASC, "maVT");;
-			 */ model.addAttribute("vts", repo.findAll());
-			return "congty/qlvattu";
-		}
+	// ===================================CONGTY==================================//
 
-		
-		//===================================USER==================================//
-		
-		
-		@RequestMapping(value = {"user"}, method = RequestMethod.GET)
-		public String getVTU(ModelMap model) {
-			/*
-			 * Sort sort = new Sort(Sort.Direction.ASC, "maVT");;
-			 */ model.addAttribute("vts", repo.findAll());
-			return "user/qlvattu";
-		}
+	
+	// ===================================USER==================================//
 
-		
+	
+
 }
