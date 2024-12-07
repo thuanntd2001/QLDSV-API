@@ -14,7 +14,7 @@
 		</a></li>
 
 		<li class="nav-item"><a class="nav-link collapsed"
-			href="quanlynhanvien/cn1/chinhanh.htm"> <i
+			href="quanly/pgv/lop"> <i
 				class="bi bi-person-fill"></i> <span>Nhập danh mục lớp</span>
 		</a></li>
 
