@@ -75,7 +75,7 @@ public class QLLopController {
 		LopDTO item = new LopDTO();
 		model.addAttribute("item", item);
 
-		return "pgv/form/fadd-lop";
+		return "pgv/form/lop/fadd-lop";
 	}
 
 	@PostMapping("lop/add")
@@ -144,7 +144,7 @@ public class QLLopController {
 			return "redirect:/quanly/pgv/lop";
 		}
 
-		return "pgv/form/fedit-lop";
+		return "pgv/form/lop/fedit-lop";
 	}
 
 	@PostMapping("lop/edit")
@@ -191,7 +191,7 @@ public class QLLopController {
 
 		model.addAttribute("id", request.getParameter("id"));
 
-		return "pgv/form/fxoa-lop";
+		return "pgv/form/lop/fxoa-lop";
 
 	}
 

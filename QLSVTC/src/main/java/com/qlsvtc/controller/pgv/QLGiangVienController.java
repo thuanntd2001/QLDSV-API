@@ -75,7 +75,7 @@ public class QLGiangVienController {
 		GiangVienDTO item = new GiangVienDTO();
 		model.addAttribute("item", item);
 
-		return "pgv/form/fadd-giangvien";
+		return "pgv/form/giangvien/fadd-giangvien";
 	}
 
 	@PostMapping("giangvien/add")
@@ -144,7 +144,7 @@ public class QLGiangVienController {
 			return "redirect:/quanly/pgv/giangvien";
 		}
 
-		return "pgv/form/fedit-giangvien";
+		return "pgv/form/giangvien/fedit-giangvien";
 	}
 
 	@PostMapping("giangvien/edit")
@@ -191,7 +191,7 @@ public class QLGiangVienController {
 
 		model.addAttribute("id", request.getParameter("id"));
 
-		return "pgv/form/fxoa-giangvien";
+		return "pgv/form/giangvien/fxoa-giangvien";
 
 	}
 

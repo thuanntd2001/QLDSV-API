@@ -8,11 +8,13 @@
 		<class>qlsvtc.entity.GiangVien</class>
 		<class>qlsvtc.entity.Khoa</class>
 		<class>qlsvtc.entity.Lop</class>
-		<class>qlsvtc.entity.LopTinChi</class>  
+		<class>qlsvtc.entity.LopTinChi</class>
 		<class>qlsvtc.entity.MonHoc</class>
 		<class>qlsvtc.entity.ChuyenNganh</class>
 		<class>qlsvtc.entity.SinhVien</class>
-	
+		<class>qlsvtc.entity.NKHK</class>
+
+
 
 	</persistence-unit>
 </persistence>
