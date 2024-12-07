@@ -29,11 +29,13 @@ public class QLMonHocController {
 	NhanVienLoginModel login = null;
 
 	@GetMapping("monhoc")
-	public <R extends JpaRepository<MonHoc, String>> String getVTCN(HttpSession session, ModelMap model) {
+	public <R extends JpaRepository<MonHoc, String>> String getVTCN(HttpServletRequest request,HttpSession session, ModelMap model) {
 		/*
 		 * Sort sort = new Sort(Sort.Direction.ASC, "maVT");;
 		 * 
 		 */
+		String message = request.getParameter("message");
+		model.addAttribute("message",message);
 		R repo;
 		login = (NhanVienLoginModel) session.getAttribute("USERMODEL");
 		if ("VT".equals(login.getKhoa())) {
@@ -41,21 +43,28 @@ public class QLMonHocController {
 		} else {
 			repo = (R) cnrepo; // Cast to the generic type
 		}
+		
+		
 		model.addAttribute("lst", repo.findAll());
 		return "pgv/qlmonhoc";
 	}
 
 	@GetMapping("monhoc/add")
-	public String addVTCN(ModelMap model) {
+	public String addVTCN(ModelMap model,HttpServletRequest request) {
+	
+		String message = request.getParameter("message");
+		model.addAttribute("message",message);
 		MonHoc item = new MonHoc();
 		model.addAttribute("item", item);
-
+		
+		
 		return "pgv/form/fadd-monhoc";
 	}
 
 	@PostMapping("monhoc/add")
 	public <R extends JpaRepository<MonHoc, String>> String addVTCN1(HttpSession session, ModelMap model,
 			@ModelAttribute("item") MonHoc item) {
+		String message="?message=";
 		R repo;
 		login = (NhanVienLoginModel) session.getAttribute("USERMODEL");
 		if ("VT".equals(login.getKhoa())) {
@@ -72,19 +81,22 @@ public class QLMonHocController {
 				nvsave = repo.save(item);
 			} catch (Exception e) {
 				e.printStackTrace();
+				message=message+"thêm thất bại";
 				model.addAttribute("message", "thêm thất bại");
 				System.out.print("thêm vật tư thất bại");
 			}
 			if (nvsave != null) {
+				message=message+"thêm thành công";
 				model.addAttribute("message", "thêm thành công");
 				System.out.print("thêm thành công");
 			}
 		} else {
+			message=message+"thêm thất bại, đã tồn tại";
 			model.addAttribute("message", "thêm thất bại, đã tồn tại");
 			System.out.print("thêm thất bại đã tồn tại");
 		}
 
-		return "redirect:/quanly/pgv/monhoc/add";
+		return "redirect:/quanly/pgv/monhoc/add"+message;
 	}
 
 	@GetMapping(value = "monhoc/edit")
@@ -115,6 +127,8 @@ public class QLMonHocController {
 
 	@PostMapping("monhoc/edit")
 	public <R extends JpaRepository<MonHoc, String>> String editVTCN1(HttpSession session,ModelMap model, @ModelAttribute("item") MonHoc item, HttpServletRequest request) {
+		String message="?message=";
+
 		R repo;
 		login = (NhanVienLoginModel) session.getAttribute("USERMODEL");
 		if ("VT".equals(login.getKhoa())) {
@@ -136,15 +150,18 @@ public class QLMonHocController {
 
 		} catch (Exception e) {
 			e.printStackTrace();
+			message+="Sửa thất bại";
+			return "redirect:/quanly/pgv/monhoc"+message;
+
 		}
 
 		if (vtsave != null) {
-
+			message+="Sửa  thành công";
 			model.addAttribute("message", "Sửa  thành công");
 			System.out.print("Sửa thành công");
 		}
 
-		return "redirect:/quanly/pgv/monhoc";
+		return "redirect:/quanly/pgv/monhoc"+message;
 
 	}
 
@@ -159,6 +176,8 @@ public class QLMonHocController {
 
 	@RequestMapping(value = "monhoc/xoa", method = RequestMethod.POST)
 	public <R extends JpaRepository<MonHoc, String>> String xoaNVCN1P(HttpSession session,ModelMap model, HttpServletRequest request) {
+		String message="?message=";
+
 		R repo;
 		login = (NhanVienLoginModel) session.getAttribute("USERMODEL");
 		if ("VT".equals(login.getKhoa())) {
@@ -172,14 +191,15 @@ public class QLMonHocController {
 			if (request.getParameter("xacNhan").equals("YES")) {
 //				VatTuEntity nvsave = vtrepo.findOne(id);
 				repo.deleteById(id);
-
+				message+="xoá thành công";
 				model.addAttribute("message", "xoá thành công");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			message+="xoá thất bại";
 			model.addAttribute("message", "xoá thất bại");
 		}
-		return "redirect:/quanly/pgv/monhoc";
+		return "redirect:/quanly/pgv/monhoc"+message;
 
 	}
 

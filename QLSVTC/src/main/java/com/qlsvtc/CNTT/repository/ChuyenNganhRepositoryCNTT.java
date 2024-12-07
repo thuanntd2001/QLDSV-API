@@ -11,7 +11,5 @@ import java.util.Map;
 public interface ChuyenNganhRepositoryCNTT extends JpaRepository<ChuyenNganh, Integer> {
 
 
-    public ChuyenNganh findBytenCN(String tenNganh);
-    @Query(value = "{call SP_FIND_LIST_NGANH()}", nativeQuery = true)
-    List<Map<String,Object>> findDanhSachNganh();
+
 }

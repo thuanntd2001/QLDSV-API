@@ -36,5 +36,5 @@
 					<div class="alert alert-${alert}">${message}</div>
 				</c:if>
 	</div>
-	 ${message}   
+
 </nav>

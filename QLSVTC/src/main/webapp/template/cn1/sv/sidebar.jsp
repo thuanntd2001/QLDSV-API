@@ -23,6 +23,5 @@
 		
 
 	</ul>
-	${message}
 </aside>
 <!-- End Sidebar-->

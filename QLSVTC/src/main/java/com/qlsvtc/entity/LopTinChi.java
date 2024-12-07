@@ -33,10 +33,10 @@ public class LopTinChi {
     private Khoa khoa;
 
     @Column(name = "SOSVTOITHIEU", nullable = false)
-    private Integer sosvtoithieu;
+    private Integer soSVToiThieu;
 
     @Column(name = "HUYLOP", nullable = false)
-    private Boolean huylop = false;
+    private Boolean huyLop = false;
 
     @Column(name = "MAMH", nullable = false)
     private String maMH;

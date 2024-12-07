@@ -25,7 +25,7 @@
 		</a></li>
 
 		<li class="nav-item"><a class="nav-link collapsed"
-			href="quanlykho/cn1/chinhanh.htm"> <i class="bi bi-house-fill"></i>
+			href="quanly/pgv/giangvien"> <i class="bi bi-house-fill"></i>
 				<span>Nhập giảng viên</span>
 		</a></li>
 
@@ -50,6 +50,5 @@
 
 
 	</ul>
-	${message}
 </aside>
 <!-- End Sidebar-->

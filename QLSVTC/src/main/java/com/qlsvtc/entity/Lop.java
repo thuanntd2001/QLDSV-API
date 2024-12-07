@@ -20,19 +20,19 @@ public class Lop {
     @Id
     @Nationalized
     @Column(name = "MALOP", nullable = false, length = 10)
-    private String malop;
+    private String maLop;
 
     @Nationalized
     @Column(name = "TENLOP", nullable = false, length = 50)
-    private String tenlop;
+    private String tenLop;
 
     @Nationalized
     @Column(name = "KHOAHOC", nullable = false, length = 9)
-    private int khoahoc;
+    private int khoaHoc;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "MAKHOA", nullable = false)
-    private Khoa makhoa;
+    private Khoa khoa;
 
 
 

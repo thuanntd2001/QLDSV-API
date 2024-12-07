@@ -28,12 +28,12 @@
 
 	<main id="main" class="main"> <!-- End Sidebar-->
 	<div class="pagetitle">
-		<h1>Môn học</h1>
+		<h1>Giảng viên</h1>
 		<nav>
 			<ol class="breadcrumb">
 				<li class="breadcrumb-item"><a
-					href="quanly/pgv/monhoc">Môn học</a></li>
-				<li class="breadcrumb-item active">Xóa Môn học</li>
+					href="quanly/pgv/giangvien">Giảng viên</a></li>
+				<li class="breadcrumb-item active">Xóa Giảng viên</li>
 			</ol>
 		</nav>
 	</div>
@@ -43,13 +43,13 @@
 
 				<div class="card">
 					<div class="card-body">
-						<h5 class="card-title">Xóa Môn học</h5>
+						<h5 class="card-title">Xóa Giảng viên</h5>
 						${message} 
 						
-						<form action="quanly/pgv/monhoc/xoa?id=${id }" method="post"
+						<form action="quanly/pgv/giangvien/xoa?id=${id }" method="post"
 							class="row g-3">
 							<div  class="col-md-12" style="align-items=center;">
-								<label for="inputEmail5" class="form-label">Bạn có đồng ý xoá Môn học ${id }</label>
+								<label for="inputEmail5" class="form-label">Bạn có đồng ý xoá Giảng viên ${id }</label>
 							</div>
 							
 							<div class="col-md-12">

@@ -6,8 +6,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.Nationalized;
-
 import lombok.Data;
 
 @Data
@@ -16,12 +14,12 @@ import lombok.Data;
 public class Khoa {
     @Id
     @Column(name = "MAKHOA", nullable = false, length = 10)
-    private String makhoa;
+    private String maKhoa;
 
-    @Nationalized
     @Column(name = "TENKHOA", nullable = false, length = 50)
-    private String tenkhoa;
+    private String tenKhoa;
 
-    
+    @Column(name = "MATRUONGKHOA", nullable = false, length = 50)
+    private String maTruongKhoa;
 
 }

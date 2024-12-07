@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
 import org.hibernate.annotations.Nationalized;
 
 import lombok.Data;
@@ -18,11 +19,13 @@ import lombok.Data;
 public class GiangVien {
     @Id
     @Column(name = "MAGV", nullable = false, length = 10)
-    private String magv;
+    private String maGV;
 
+    
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "MAKHOA", nullable = false)
-    private Khoa makhoa;
+    private Khoa khoa;
+
 
     @Nationalized
     @Column(name = "HO", nullable = false, length = 50)
@@ -34,15 +37,15 @@ public class GiangVien {
 
     @Nationalized
     @Column(name = "HOCVI", length = 20)
-    private String hocvi;
+    private String hocVi;
 
     @Nationalized
     @Column(name = "HOCHAM", length = 20)
-    private String hocham;
+    private String hocHam;
 
     @Nationalized
     @Column(name = "CHUYENMON", length = 50)
-    private String chuyenmon;
+    private String chuyenMon;
 
 
 
