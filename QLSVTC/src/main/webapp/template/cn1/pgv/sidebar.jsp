@@ -14,33 +14,31 @@
 		</a></li>
 
 		<li class="nav-item"><a class="nav-link collapsed"
-			href="quanly/pgv/lop"> <i
-				class="bi bi-person-fill"></i> <span>Nhập danh mục lớp</span>
+			href="quanly/pgv/lop"> <i class="bi bi-person-fill"></i> <span>Nhập
+					danh sách lớp - sinh viên</span>
 		</a></li>
 
 
-		<li class="nav-item"><a class="nav-link collapsed"
-			href="quanlykho/cn1/chinhanh.htm"> <i class="bi bi-house-fill"></i>
-				<span>Nhập danh sách sinh viên</span>
-		</a></li>
-
-		<li class="nav-item"><a class="nav-link collapsed"
-			href="quanly/pgv/giangvien"> <i class="bi bi-house-fill"></i>
-				<span>Nhập giảng viên</span>
-		</a></li>
-
-		<li class="nav-item"><a class="nav-link collapsed"
-			href="quanly/pgv/monhoc"> <i class="bi bi-house-fill"></i>
-				<span>Nhập môn học</span>
-		</a></li>
 
 		<li class="nav-item"><a class="nav-link collapsed"
 			href="quanlykho/cn1/chinhanh.htm"> <i class="bi bi-house-fill"></i>
-				<span> Mở lớp tín chỉ</span>
+				<span> Quản lý học kỳ - Mở lớp tín chỉ</span>
 		</a></li>
+
+
 		<li class="nav-item"><a class="nav-link collapsed"
-			href="xembaocao/pgv"> <i class="bi bi-house-fill"></i>
-				<span>Xem báo cáo</span>
+			href="quanly/pgv/giangvien"> <i class="bi bi-house-fill"></i> <span>Nhập
+					giảng viên</span>
+		</a></li>
+
+		<li class="nav-item"><a class="nav-link collapsed"
+			href="quanly/pgv/monhoc"> <i class="bi bi-house-fill"></i> <span>Nhập
+					môn học</span>
+		</a></li>
+
+		<li class="nav-item"><a class="nav-link collapsed"
+			href="xembaocao/pgv"> <i class="bi bi-house-fill"></i> <span>Xem
+					báo cáo</span>
 		</a></li>
 
 		<li class="nav-item"><a class="nav-link collapsed"
