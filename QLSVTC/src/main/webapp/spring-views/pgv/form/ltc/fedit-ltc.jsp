@@ -35,12 +35,12 @@
 	<main id="main" class="main">
 
 	<div class="pagetitle">
-		<h1>Niên khóa - Học kỳ</h1>
+		<h1>Giảng Viên</h1>
 		<nav>
 			<ol class="breadcrumb">
 				<li class="breadcrumb-item"><a
-					href="quanly/pgv/nkhk">Niên khóa - Học kỳ</a></li>
-				<li class="breadcrumb-item active">Sửa Niên khóa - Học kỳ</li>
+					href="quanly/pgv/giangvien">Giảng Viên</a></li>
+				<li class="breadcrumb-item active">Sửa Giảng Viên</li>
 			</ol>
 		</nav>
 	</div>
@@ -53,37 +53,49 @@
 						<h5 class="card-title">Thông tin</h5>
 						${message}
 						<!-- Multi Columns Form -->
-						<form:form action="quanly/pgv/nkhk/edit"
+						<form:form action="quanly/pgv/giangvien/edit"
 							method="post" modelAttribute="item" class="row g-3">
 							
 							<div class="col-md-0">
 								
 								<form:input type="hidden" class="form-control" id="inputEmail5"
-									path="manKHK" />
+									path="maGV" />
+							</div>
+							<div class="col-md-0">
+								
+								<form:input type="hidden" class="form-control" id="inputState" path="maKhoa" />
 							</div>
 
 							<div class="col-md-4">
-								<label for="inputEmail5" class="form-label">Năm học</label>
+								<label for="inputEmail5" class="form-label">Họ Giảng Viên</label>
 								<form:input type="text" class="form-control" id="inputEmail5"
-									path="namHoc" />
+									path="ho" />
 							</div>
-							<div class="col-md-4">
-								<label for="inputState" class="form-label">Học kỳ</label> <br>
-								<form:input path="hk" />
-								<br>
-							</div>	
-							<div class="col-md-4">
-								<label for="inputState" class="form-label">Ngày mở đăng ký</label> <br>
-								<form:input path="ngayMoDK" />
-								<br>
+							<div class="col-md-8">
+								<label for="inputPassword5" class="form-label">Tên Giảng Viên</label>
+								<form:input type="text" class="form-control" id="inputEmail5"
+									path="ten" />
 							</div>
-								<div class="col-md-4">
-								<label for="inputState" class="form-label">Ngày đóng đăng ký</label> <br>
-								<form:input path="ngayDongDK" />
-								<br>
-						
-						
 
+							<div class="col-md-4">
+								<label for="inputState" class="form-label">Học Hàm</label> 
+								<br>
+								<form:input type="text" class="form-control" id="inputState" path="hocHam" />
+								<br>
+							</div>
+							<div class="col-md-4">
+								<label for="inputState" class="form-label">Học vị</label> 
+								<br>
+								<form:input type="text" class="form-control" id="inputState" path="hocVi" />
+								<br>
+							</div>
+							<div class="col-md-4">
+								<label for="inputState" class="form-label">Chuyên môn</label> 
+								<br>
+								<form:input type="text" class="form-control" id="inputState" path="chuyenMon" />
+								<br>
+							</div>
+							
 							<div class="col-md-12" >
 								<div class="text-center" style="margin-top:20px">
 									<button type="submit" class="btn btn-primary">Sửa</button>

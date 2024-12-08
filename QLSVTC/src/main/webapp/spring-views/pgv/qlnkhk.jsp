@@ -45,25 +45,34 @@
 							<thead>
 								<tr>
 									<th scope="col">Mã Niên khóa - Học kỳ</th>
-									<th scope="col">Tên Niên khóa - Học kỳ</th>
-									<th scope="col">Số lượng Tiết LT</th>
-									<th scope="col">Số lượng Tiết TH</th>
+									<th scope="col">Năm học</th>
+									<th scope="col">Học kỳ</th>
+									<th scope="col">Ngày mở đăng ký</th>
+									<th scope="col">Ngày đóng đăng ký</th>
+									<th scope="col">Nhân viên tạo</th>
+
 									<th scope="col">Thao tác</th>
 								</tr>
 							</thead>
 							<tbody>
-								
+
 								<c:forEach items="${lst }" var="item">
 									<tr>
 
 										<th scope="row">${item.manKHK}</th>
-										<td>${item.tenMH}</td>
-										<td>${item.sotietLT}</td>
-										<td>${item.sotietTH}</td>
+										<td>${item.namHoc}</td>
+										<td>${item.hk}</td>
+										<td>${item.ngayMoDK}</td>
+										<td>${item.ngayDongDK}</td>
+										<td>${item.maNV}</td>
+
 
 										<td><a href="quanly/pgv/nkhk/edit?id=${item.manKHK}"
-											class="fa fa-pencil-square-o"></a> <a href="quanly/pgv/nkhk/xoa?id=${item.manKHK}"
-											class="fa fa-times-circle"></a></td>
+											class="fa fa-pencil-square-o"></a> <a
+											href="quanly/pgv/nkhk/xoa?id=${item.manKHK}"
+											class="fa fa-times-circle"></a> <a
+											href="quanly/pgv/ltc?idnkhk=${item.manKHK}"
+											class="fa fa-plus"></a></td>
 									</tr>
 								</c:forEach>
 							</tbody>

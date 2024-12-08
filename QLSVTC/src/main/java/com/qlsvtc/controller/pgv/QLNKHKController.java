@@ -35,7 +35,8 @@ public class QLNKHKController {
 	ModelMapper modelMapper = new ModelMapper();
 	@GetMapping("nkhk")
 	public  String getVTCN(HttpServletRequest request,HttpSession session, ModelMap model) {
-	
+		login = (NhanVienLoginModel) session.getAttribute("USERMODEL");
+
 		String message = request.getParameter("message");
 		model.addAttribute("message",message);
 		List<NKHK> lstEntity;
@@ -78,6 +79,7 @@ public class QLNKHKController {
 
 		if (repo.findById(item.getManKHK()).isEmpty()) {
 			NKHK nvsave = null;
+			item.setMaNV(login.getMaNV());
 
 			try {
 				nvsave = repo.save(item);
@@ -144,7 +146,7 @@ public class QLNKHKController {
 
 		try {
 			vtsave = modelMapper.map(item, NKHK.class);
-	
+			vtsave.setMaNV(login.getMaNV());
 
 			repo.save(vtsave);
 

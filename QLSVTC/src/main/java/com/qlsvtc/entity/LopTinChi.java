@@ -20,7 +20,7 @@ public class LopTinChi {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "MALTC", nullable = false)
-    private Integer id;
+    private Integer maLTC;
 
     @Column(name = "MANKHK", nullable = false)
     private String maNKHK;

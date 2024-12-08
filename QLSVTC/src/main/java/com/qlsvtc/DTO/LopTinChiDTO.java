@@ -7,7 +7,7 @@ import lombok.Data;
 
 public class LopTinChiDTO {
   
-    private Integer id;
+    private Integer maLTC;
 
    
     private String maNKHK;
