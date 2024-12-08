@@ -19,13 +19,15 @@ public class LopTinChiDTO {
     private String maKhoa;
 
   
-    private Integer sosvtoithieu;
+    private Integer soSVToiThieu;
 
    
-    private Boolean huylop = false;
+    private Boolean huyLop;
 
     
     private String maMH;
+    private String tenMH;
+
 
     
 

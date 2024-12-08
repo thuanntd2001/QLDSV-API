@@ -18,13 +18,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.modelmapper.ModelMapper;
 
 import com.qlsvtc.CNTT.repository.LopTinChiRepositoryCNTT;
+import com.qlsvtc.CNTT.repository.MonHocRepositoryCNTT;
 import com.qlsvtc.CNTT.repository.NKHKRepositoryCNTT;
 import com.qlsvtc.CNTT.repository.KhoaRepositoryCNTT;
 import com.qlsvtc.DTO.LopTinChiDTO;
 import com.qlsvtc.VT.repository.LopTinChiRepositoryVT;
+import com.qlsvtc.VT.repository.MonHocRepositoryVT;
 import com.qlsvtc.VT.repository.NKHKRepositoryVT;
 import com.qlsvtc.VT.repository.KhoaRepositoryVT;
 import com.qlsvtc.entity.LopTinChi;
+import com.qlsvtc.entity.MonHoc;
 import com.qlsvtc.entity.Khoa;
 import com.qlsvtc.model.NhanVienLoginModel;
 
@@ -35,6 +38,12 @@ public class QLLopTinChiController {
 	LopTinChiRepositoryCNTT cnrepo;
 	@Autowired
 	LopTinChiRepositoryVT vtrepo;
+	
+	@Autowired
+	MonHocRepositoryCNTT cnrepomonhoc;
+	@Autowired
+	MonHocRepositoryVT vtrepomonhoc;
+
 
 	@Autowired
 	KhoaRepositoryCNTT cnrepokhoa;
@@ -47,6 +56,7 @@ public class QLLopTinChiController {
 
 	NhanVienLoginModel login = null;
 	ModelMapper modelMapper = new ModelMapper();
+	int maNKHK;
 
 	@GetMapping("ltc")
 	public String getVTCN(HttpServletRequest request, HttpSession session, ModelMap model) {
@@ -54,19 +64,25 @@ public class QLLopTinChiController {
 		 * Sort sort = new Sort(Sort.Direction.ASC, "maVT");;
 		 * 
 		 */
-		int maNKHK = Integer.parseInt(request.getParameter("idnkhk"));
+		maNKHK = Integer.parseInt(request.getParameter("idnkhk"));
+		List<MonHoc> lstMH;
+		session.setAttribute("MANKHK", request.getParameter("idnkhk"));
 		String message = request.getParameter("message");
 		model.addAttribute("message", message);
 		List<LopTinChi> lstEntity;
 		login = (NhanVienLoginModel) session.getAttribute("USERMODEL");
 		if ("VT".equals(login.getKhoa())) {
-			lstEntity = vtrepo.findAllByMaNKHK(maNKHK); // Cast to the generic type
+			lstEntity = vtrepo.findAllByMaNKHKAndHuyLop(maNKHK,false); 
+			lstMH = vtrepomonhoc.findAll();
 		} else {
-			lstEntity = cnrepo.findAllByMaNKHK(maNKHK); // Cast to the generic type
+			lstEntity = cnrepo.findAllByMaNKHKAndHuyLop(maNKHK,false); 
+			lstMH = cnrepomonhoc.findAll();
+
 		}
 		List<LopTinChiDTO> lst = new ArrayList<LopTinChiDTO>();
 		for (LopTinChi item : lstEntity) {
 			LopTinChiDTO dto = modelMapper.map(item, LopTinChiDTO.class);
+			dto.setTenMH(dto.getMaMH()+" - "+timTenMonHocTheoMa(lstMH,dto.getMaMH()));
 			lst.add(dto);
 		}
 
@@ -76,11 +92,20 @@ public class QLLopTinChiController {
 
 	@GetMapping("ltc/add")
 	public String addVTCN(ModelMap model, HttpServletRequest request) {
+		List<MonHoc> lstMH;
+		if ("VT".equals(login.getKhoa())) {
+			lstMH = vtrepomonhoc.findAll();
+		} else {
+			lstMH = cnrepomonhoc.findAll();
 
+		}
+		model.addAttribute("lstMH", lstMH);
 		String message = request.getParameter("message");
 		model.addAttribute("message", message);
 		LopTinChiDTO item = new LopTinChiDTO();
 		model.addAttribute("item", item);
+
+
 
 		return "pgv/form/ltc/fadd-ltc";
 	}
@@ -91,6 +116,7 @@ public class QLLopTinChiController {
 		String message = "?message=";
 		R repo;
 		Khoa khoa;
+		int idnkhk = Integer.parseInt((String)session.getAttribute("MANKHK"));
 		login = (NhanVienLoginModel) session.getAttribute("USERMODEL");
 		if ("VT".equals(login.getKhoa())) {
 			repo = (R) vtrepo; // Cast to the generic type
@@ -101,10 +127,11 @@ public class QLLopTinChiController {
 		}
 		System.out.println(item.getMaLTC());
 
-		if (repo.findById(item.getMaLTC()).isEmpty()) {
+		if (item.getMaLTC()== null || repo.findById(item.getMaLTC()).isEmpty()) {
 			LopTinChi itemsave = modelMapper.map(item, LopTinChi.class);
 			itemsave.setKhoa(khoa);
-			
+			itemsave.setMaNKHK(idnkhk);
+			itemsave.setHuyLop(false);
 			LopTinChi nvsave = null;
 
 			try {
@@ -126,19 +153,27 @@ public class QLLopTinChiController {
 			System.out.print("thêm thất bại đã tồn tại");
 		}
 
-		return "redirect:/quanly/pgv/ltc/add" + message;
+		return "redirect:/quanly/pgv/ltc/add"+ message;
 	}
 
 	@GetMapping(value = "ltc/edit")
 	public String editVTCN1(HttpSession session, ModelMap model, HttpServletRequest request) {
+		List<MonHoc> lstMH;
+
+
 		LopTinChi itemEntity;
 		int id = Integer.parseInt(request.getParameter("id"));
 		login = (NhanVienLoginModel) session.getAttribute("USERMODEL");
 		if ("VT".equals(login.getKhoa())) {
 			itemEntity = vtrepo.findById(id).get(); // Cast to the generic type
+			lstMH = vtrepomonhoc.findAll();
+
 		} else {
 			itemEntity = cnrepo.findById(id).get(); // Cast to the generic type
+			lstMH = cnrepomonhoc.findAll();
+
 		}
+		model.addAttribute("lstMH", lstMH);
 
 		if (itemEntity != null) {
 			LopTinChiDTO item = modelMapper.map(itemEntity, LopTinChiDTO.class);
@@ -148,7 +183,7 @@ public class QLLopTinChiController {
 
 		else {
 			System.out.print("không tồn tại item");
-			return "redirect:/quanly/pgv/ltc";
+			return "redirect:/quanly/pgv/ltc"+"?idnkhk="+(String)session.getAttribute("MANKHK");
 		}
 
 		return "pgv/form/ltc/fedit-ltc";
@@ -173,6 +208,8 @@ public class QLLopTinChiController {
 		// System.out.println(vtsave.getTenVT());
 		LopTinChi itemsave = modelMapper.map(item, LopTinChi.class);
 		itemsave.setKhoa(khoa);
+		itemsave.setMaNKHK(Integer.parseInt((String)session.getAttribute("MANKHK")));
+		itemsave.setHuyLop(false);
 		System.out.println(khoa.getMaKhoa());
 		try {
 
@@ -181,7 +218,7 @@ public class QLLopTinChiController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			message += "Sửa thất bại có thể ban dang sua du lieu cua khoa khac";
-			return "redirect:/quanly/pgv/ltc" + message;
+			return "redirect:/quanly/pgv/ltc" + message+"&idnkhk="+(String)session.getAttribute("MANKHK");
 
 		}
 
@@ -189,7 +226,7 @@ public class QLLopTinChiController {
 		model.addAttribute("message", "Sửa  thành công");
 		System.out.print("Sửa thành công");
 
-		return "redirect:/quanly/pgv/ltc" + message;
+		return "redirect:/quanly/pgv/ltc" + message+"&idnkhk="+(String)session.getAttribute("MANKHK");
 
 	}
 
@@ -205,21 +242,28 @@ public class QLLopTinChiController {
 	@RequestMapping(value = "ltc/xoa", method = RequestMethod.POST)
 	public <R extends JpaRepository<LopTinChi, Integer>> String xoaNVCN1P(HttpSession session, ModelMap model,
 			HttpServletRequest request) {
+		int idnkhk = Integer.parseInt((String)session.getAttribute("MANKHK"));
 		String message = "?message=";
-
+		LopTinChi itemEntity;
 		R repo;
+		int id = Integer.parseInt(request.getParameter("id"));
+
 		login = (NhanVienLoginModel) session.getAttribute("USERMODEL");
 		if ("VT".equals(login.getKhoa())) {
 			repo = (R) vtrepo; // Cast to the generic type
+			itemEntity = repo.findById(id).get(); // Cast to the generic type
+
 		} else {
 			repo = (R) cnrepo; // Cast to the generic type
+			itemEntity = repo.findById(id).get(); // Cast to the generic type
+
 		}
-		int id = Integer.parseInt(request.getParameter("id"));
 		System.out.print(request.getParameter("xacNhan") + request.getParameter("id"));
 		try {
 			if (request.getParameter("xacNhan").equals("YES")) {
 //				VatTuEntity nvsave = vtrepo.findOne(id);
-				repo.deleteById(id);
+				itemEntity.setHuyLop(true);
+				repo.save(itemEntity);
 				message += "xoá thành công";
 				model.addAttribute("message", "xoá thành công");
 			}
@@ -228,12 +272,19 @@ public class QLLopTinChiController {
 			message += "xoá thất bại";
 			model.addAttribute("message", "xoá thất bại");
 		}
-		return "redirect:/quanly/pgv/ltc" + message;
+		return "redirect:/quanly/pgv/ltc" + message+"&idnkhk="+idnkhk;
 
 	}
 
 	// ===================================CONGTY==================================//
 
 	// ===================================USER==================================//
-
+	public String timTenMonHocTheoMa(List<MonHoc> danhSachMonHoc, String maMH) {
+        for (MonHoc monHoc : danhSachMonHoc) {
+            if (monHoc.getMaMH().equals(maMH)) {
+                return monHoc.getTenMH(); // Tr? v? ??i t??ng MonHoc tìm th?y
+            }
+        }
+        return null; // Tr? v? null n?u không tìm th?y
+    }
 }

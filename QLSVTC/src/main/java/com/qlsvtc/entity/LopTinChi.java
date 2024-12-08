@@ -23,7 +23,7 @@ public class LopTinChi {
     private Integer maLTC;
 
     @Column(name = "MANKHK", nullable = false)
-    private String maNKHK;
+    private Integer maNKHK;
 
     @Column(name = "NHOM", nullable = false)
     private Integer nhom;

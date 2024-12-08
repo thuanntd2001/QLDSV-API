@@ -35,12 +35,12 @@
 	<main id="main" class="main">
 
 	<div class="pagetitle">
-		<h1>Giảng Viên</h1>
+		<h1>Lớp Tín Chỉ</h1>
 		<nav>
 			<ol class="breadcrumb">
 				<li class="breadcrumb-item"><a
-					href="quanly/pgv/giangvien">Giảng Viên</a></li>
-				<li class="breadcrumb-item active">Sửa Giảng Viên</li>
+					href="quanly/pgv/ltc">Lớp Tín Chỉ</a></li>
+				<li class="breadcrumb-item active">Sửa Lớp Tín Chỉ</li>
 			</ol>
 		</nav>
 	</div>
@@ -53,48 +53,40 @@
 						<h5 class="card-title">Thông tin</h5>
 						${message}
 						<!-- Multi Columns Form -->
-						<form:form action="quanly/pgv/giangvien/edit"
+						<form:form action="quanly/pgv/ltc/edit"
 							method="post" modelAttribute="item" class="row g-3">
 							
 							<div class="col-md-0">
 								
 								<form:input type="hidden" class="form-control" id="inputEmail5"
-									path="maGV" />
+									path="maLTC" />
 							</div>
-							<div class="col-md-0">
-								
-								<form:input type="hidden" class="form-control" id="inputState" path="maKhoa" />
+							<div class="col-md-10">
+								<label for="inputEmail5" class="form-label">Môn học</label> <br>
+								<form:select class="selectpicker" path="maMH">
+									<c:forEach items="${lstMH}" var="item">
+										<option value="${item.maMH}">${item.maMH}-
+											${item.tenMH}</option>
+									</c:forEach>
+								</form:select>
+
 							</div>
 
-							<div class="col-md-4">
-								<label for="inputEmail5" class="form-label">Họ Giảng Viên</label>
-								<form:input type="text" class="form-control" id="inputEmail5"
-									path="ho" />
-							</div>
-							<div class="col-md-8">
-								<label for="inputPassword5" class="form-label">Tên Giảng Viên</label>
-								<form:input type="text" class="form-control" id="inputEmail5"
-									path="ten" />
-							</div>
 
 							<div class="col-md-4">
-								<label for="inputState" class="form-label">Học Hàm</label> 
-								<br>
-								<form:input type="text" class="form-control" id="inputState" path="hocHam" />
+								<label for="inputState" class="form-label">Số SV tối
+									thiểu</label> <br>
+								<form:input type="text" class="form-control" id="inputState"
+									path="soSVToiThieu" />
 								<br>
 							</div>
+							
 							<div class="col-md-4">
-								<label for="inputState" class="form-label">Học vị</label> 
-								<br>
-								<form:input type="text" class="form-control" id="inputState" path="hocVi" />
-								<br>
+								<label for="inputPassword5" class="form-label">Nhóm</label>
+								<form:input type="text" class="form-control" id="inputEmail5"
+									path="nhom" />
 							</div>
-							<div class="col-md-4">
-								<label for="inputState" class="form-label">Chuyên môn</label> 
-								<br>
-								<form:input type="text" class="form-control" id="inputState" path="chuyenMon" />
-								<br>
-							</div>
+
 							
 							<div class="col-md-12" >
 								<div class="text-center" style="margin-top:20px">
