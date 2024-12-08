@@ -56,7 +56,7 @@
 								<label for="inputEmail5" class="form-label">Mã Niên khóa
 									- Học kỳ</label>
 								<form:input type="text" class="form-control" id="inputEmail5"
-									path="manKHK" />
+									path="maNKHK" />
 							</div>
 
 

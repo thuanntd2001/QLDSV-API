@@ -59,7 +59,7 @@
 								<c:forEach items="${lst }" var="item">
 									<tr>
 
-										<th scope="row">${item.manKHK}</th>
+										<th scope="row">${item.maNKHK}</th>
 										<td>${item.namHoc}</td>
 										<td>${item.hk}</td>
 										<td>${item.ngayMoDK}</td>
@@ -67,11 +67,11 @@
 										<td>${item.maNV}</td>
 
 
-										<td><a href="quanly/pgv/nkhk/edit?id=${item.manKHK}"
+										<td><a href="quanly/pgv/nkhk/edit?id=${item.maNKHK}"
 											class="fa fa-pencil-square-o"></a> <a
-											href="quanly/pgv/nkhk/xoa?id=${item.manKHK}"
+											href="quanly/pgv/nkhk/xoa?id=${item.maNKHK}"
 											class="fa fa-times-circle"></a> <a
-											href="quanly/pgv/ltc?idnkhk=${item.manKHK}"
+											href="quanly/pgv/ltc?idnkhk=${item.maNKHK}"
 											class="fa fa-plus"></a></td>
 									</tr>
 								</c:forEach>

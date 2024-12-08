@@ -59,7 +59,7 @@
 							<div class="col-md-0">
 								
 								<form:input type="hidden" class="form-control" id="inputEmail5"
-									path="manKHK" />
+									path="maNKHK" />
 							</div>
 
 							<div class="col-md-4">

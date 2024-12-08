@@ -6,7 +6,7 @@ import com.qlsvtc.entity.NKHK;
 
 public interface NKHKRepositoryVT extends JpaRepository<NKHK, Integer> {
 
-	public NKHK findByManKHK(int maNKHK);
+	public NKHK findByMaNKHK(int maNKHK);
 
 
 }

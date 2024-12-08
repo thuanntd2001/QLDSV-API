@@ -75,9 +75,9 @@ public class QLNKHKController {
 		} else {
 			repo = (R) cnrepo; // Cast to the generic type
 		}
-		System.out.println(item.getManKHK());
+		System.out.println(item.getMaNKHK());
 
-		if (repo.findById(item.getManKHK()).isEmpty()) {
+		if (repo.findById(item.getMaNKHK()).isEmpty()) {
 			NKHK nvsave = null;
 			item.setMaNV(login.getMaNV());
 
@@ -140,7 +140,7 @@ public class QLNKHKController {
 		} else {
 			repo = (R) cnrepo; // Cast to the generic type
 		}
-		NKHK vtsave = repo.findById(item.getManKHK()).get();
+		NKHK vtsave = repo.findById(item.getMaNKHK()).get();
 
 		// System.out.println(vtsave.getTenVT());
 

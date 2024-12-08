@@ -16,7 +16,7 @@ public class NKHK {
 
     @Id
     @Column(name = "MANKHK") // Tên c?t trong b?ng
-    private int manKHK;
+    private int maNKHK;
 
     @Column(name = "MANV", nullable = false, length = 10) // Tên c?t và ?? dài
     private String maNV;

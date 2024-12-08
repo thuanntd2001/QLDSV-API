@@ -54,15 +54,15 @@ public class QLLopTinChiController {
 		 * Sort sort = new Sort(Sort.Direction.ASC, "maVT");;
 		 * 
 		 */
-		int id = Integer.parseInt(request.getParameter("idnkhk"));
+		int maNKHK = Integer.parseInt(request.getParameter("idnkhk"));
 		String message = request.getParameter("message");
 		model.addAttribute("message", message);
 		List<LopTinChi> lstEntity;
 		login = (NhanVienLoginModel) session.getAttribute("USERMODEL");
 		if ("VT".equals(login.getKhoa())) {
-			lstEntity = vtrepo.findAll(); // Cast to the generic type
+			lstEntity = vtrepo.findAllByMaNKHK(maNKHK); // Cast to the generic type
 		} else {
-			lstEntity = cnrepo.findAll(); // Cast to the generic type
+			lstEntity = cnrepo.findAllByMaNKHK(maNKHK); // Cast to the generic type
 		}
 		List<LopTinChiDTO> lst = new ArrayList<LopTinChiDTO>();
 		for (LopTinChi item : lstEntity) {
