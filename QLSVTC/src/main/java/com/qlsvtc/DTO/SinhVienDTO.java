@@ -22,11 +22,13 @@ public class SinhVienDTO {
     private String ngaySinh;
 
    
-    private String MaLop;
+    private String maLop;
 
 
    
-    private ChuyenNganhDTO CN;
+    private String maCN;
+    private String tenCN;
+
     
     private Boolean daNghiHoc ;
 
