@@ -110,7 +110,7 @@ public class QLSinhVienController {
 		return "pgv/form/sinhvien/fadd-sinhvien";
 	}
 
-	/*@PostMapping("sinhvien/add")
+	@PostMapping("sinhvien/add")
 	public <R extends JpaRepository<SinhVien, String>> String addVTCN1(HttpSession session, ModelMap model,
 			@ModelAttribute("item") SinhVienDTO item) {
 		String message = "?message=";
@@ -135,7 +135,6 @@ public class QLSinhVienController {
 			chuyenNganh = cnrepochuyennganh.findById(item.getMaCN()).get();
 
 		}
-		System.out.println(item.getMaSV());
 
 		if (item.getMaSV()== null || repo.findById(item.getMaSV()).isEmpty()) {
 			SinhVien itemsave = modelMapper.map(item, SinhVien.class);
@@ -145,6 +144,11 @@ public class QLSinhVienController {
 			SinhVien nvsave = null;
 
 			try {
+				if (itemsave.getMaSV() == null) {
+				itemsave.setMaSV(dao.taoSV(session,idlop,item.getMaCN()).get(0).getStr());		
+				}
+				System.out.println(itemsave.getMaSV());
+
 				nvsave = repo.save(itemsave);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -164,8 +168,8 @@ public class QLSinhVienController {
 		}
 
 		return "redirect:/quanly/pgv/sinhvien/add"+ message;
-	}*/
-	@PostMapping("sinhvien/add")
+	}
+	/*@PostMapping("sinhvien/add")
 	public <R extends JpaRepository<SinhVien, String>> String addVTCN1(HttpSession session, ModelMap model,
 			@ModelAttribute("item") SinhVienDTO item) {
 		String message = "?message=";
@@ -191,7 +195,7 @@ public class QLSinhVienController {
 			int nvsave ;
 
 			try {
-				dao.taoSinhVien(session,idlop,item.getMaCN(),item.getHo(),item.getTen(),item.getPhai(),item.getDiaChi(),item.getNgaySinh(),item.getDaNghiHoc(),item.getPassword());
+				dao.taoSV(session,idlop,item.getMaCN());
 			} catch (Exception e) {
 				e.printStackTrace();
 				message = message + "thêm thất bại";
@@ -205,7 +209,7 @@ public class QLSinhVienController {
 		}
 
 		return "redirect:/quanly/pgv/sinhvien/add"+ message;
-	}
+	}*/
 	@GetMapping(value = "sinhvien/edit")
 	public String editVTCN1(HttpSession session, ModelMap model, HttpServletRequest request) {
 		List<ChuyenNganh> lstCN;
@@ -332,9 +336,7 @@ public class QLSinhVienController {
 
 	}
 
-	// ===================================CONGTY==================================//
 
-	// ===================================USER==================================//
 	public String timTenChuyenNganhTheoMa(List<ChuyenNganh> danhSachChuyenNganh, String maMH) {
         for (ChuyenNganh monHoc : danhSachChuyenNganh) {
             if (monHoc.getMaCN().equals(maMH)) {
