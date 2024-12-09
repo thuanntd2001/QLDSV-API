@@ -30,7 +30,7 @@
 	<main id="main" class="main">
 
 	<div class="pagetitle">
-		<h1>Lớp</h1>
+		<h1>Sinh viên</h1>
 	</div>
 	<!-- End Page Title -->
 
@@ -44,11 +44,15 @@
 						<table class="table table-bordered">
 							<thead>
 								<tr>
-									<th scope="col">Mã Lớp</th>
-									<th scope="col">Tên Lớp</th>
+									<th scope="col">Mã Sinh viên</th>
+									<th scope="col">Họ</th>
 
-									<th scope="col">Khóa học</th>
-									<th scope="col">Khoa</th>
+									<th scope="col">Tên</th>
+									<th scope="col">Phái</th>
+									<th scope="col">Địa chỉ</th>
+									<th scope="col">Ngày sinh</th>
+									<th scope="col">Tên Chuyên ngành</th>
+									<th scope="col">Password</th>
 
 
 									<th scope="col">Thao tác</th>
@@ -56,27 +60,31 @@
 							</thead>
 							<tbody>
 
-								<c:forEach items="${lst }" var="item">
+								<c:forEach items="${lst}" var="item">
 									<tr>
 
-										<th scope="row">${item.maLop}</th>
-										<td>${item.tenLop}</td>
+										<th scope="row">${item.maSV}</th>
+										<td>${item.ho}</td>
 
-										<td>${item.khoaHoc}</td>
-										<td>${item.maKhoa}</td>
+										<td>${item.ten}</td>
+										<td><c:if test="${item.phai == true}"> Nam </c:if> <c:if
+												test="${item.phai == false}">Nữ </c:if></td>
+										<td>${item.diaChi}</td>
+										<td>${item.ngaySinh}</td>
+										<td>${item.tenCN}</td>
 
-										<td><a href="quanly/pgv/lop/edit?id=${item.maLop}"
+										<td>${item.password}</td>
+
+										<td><a href="quanly/pgv/sinhvien/edit?id=${item.maSV}"
 											class="fa fa-pencil-square-o"></a> <a
-											href="quanly/pgv/lop/xoa?id=${item.maLop}"
-											class="fa fa-times-circle"></a><a
-											href="quanly/pgv/sinhvien?idlop=${item.maLop}"
-											class="fa fa-plus"></a></td>
+											href="quanly/pgv/sinhvien/xoa?id=${item.maSV}"
+											class="fa fa-times-circle"></a></td>
 									</tr>
 								</c:forEach>
 							</tbody>
 						</table>
 						<!-- End Table with stripped rows -->
-						<a href="quanly/pgv/lop/add" class="fa fa-plus"></a>
+						<a href="quanly/pgv/sinhvien/add" class="fa fa-plus"></a>
 					</div>
 				</div>
 

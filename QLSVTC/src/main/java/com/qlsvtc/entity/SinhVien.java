@@ -1,6 +1,8 @@
 package com.qlsvtc.entity;
 
 
+import java.time.LocalDate;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -38,7 +40,7 @@ public class SinhVien {
     private String diaChi;
 
     @Column(name = "NGAYSINH")
-    private String ngaySinh;
+    private LocalDate ngaySinh;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "MALOP", nullable = false)

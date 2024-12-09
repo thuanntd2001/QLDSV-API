@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.qlsvtc.dao.impl.BCDsLTCDAO;
 import com.qlsvtc.dao.impl.TaoLoginDAO;
 import com.qlsvtc.model.para.TaoLoginModel;
 

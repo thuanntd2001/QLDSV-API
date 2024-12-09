@@ -1,6 +1,8 @@
 package com.qlsvtc.DTO;
 
 
+import java.time.LocalDate;
+
 import lombok.Data;
 
 @Data
@@ -19,7 +21,7 @@ public class SinhVienDTO {
 
     private String diaChi;
 
-    private String ngaySinh;
+    private LocalDate ngaySinh;
 
    
     private String maLop;

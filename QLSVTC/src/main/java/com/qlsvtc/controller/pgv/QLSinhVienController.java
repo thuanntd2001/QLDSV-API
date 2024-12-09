@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Controller;
@@ -15,20 +16,21 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.modelmapper.ModelMapper;
 
-import com.qlsvtc.CNTT.repository.SinhVienRepositoryCNTT;
 import com.qlsvtc.CNTT.repository.ChuyenNganhRepositoryCNTT;
-import com.qlsvtc.CNTT.repository.LopRepositoryCNTT;
 import com.qlsvtc.CNTT.repository.KhoaRepositoryCNTT;
+import com.qlsvtc.CNTT.repository.LopRepositoryCNTT;
+import com.qlsvtc.CNTT.repository.SinhVienRepositoryCNTT;
 import com.qlsvtc.DTO.SinhVienDTO;
-import com.qlsvtc.VT.repository.SinhVienRepositoryVT;
 import com.qlsvtc.VT.repository.ChuyenNganhRepositoryVT;
-import com.qlsvtc.VT.repository.LopRepositoryVT;
 import com.qlsvtc.VT.repository.KhoaRepositoryVT;
-import com.qlsvtc.entity.SinhVien;
+import com.qlsvtc.VT.repository.LopRepositoryVT;
+import com.qlsvtc.VT.repository.SinhVienRepositoryVT;
+import com.qlsvtc.dao.impl.SinhVienDAO;
 import com.qlsvtc.entity.ChuyenNganh;
 import com.qlsvtc.entity.Khoa;
+import com.qlsvtc.entity.Lop;
+import com.qlsvtc.entity.SinhVien;
 import com.qlsvtc.model.NhanVienLoginModel;
 
 @Controller
@@ -38,7 +40,8 @@ public class QLSinhVienController {
 	SinhVienRepositoryCNTT cnrepo;
 	@Autowired
 	SinhVienRepositoryVT vtrepo;
-	
+	SinhVienDAO dao = new SinhVienDAO();
+
 	@Autowired
 	ChuyenNganhRepositoryCNTT cnrepochuyennganh;
 	@Autowired
@@ -107,27 +110,37 @@ public class QLSinhVienController {
 		return "pgv/form/sinhvien/fadd-sinhvien";
 	}
 
-	@PostMapping("sinhvien/add")
+	/*@PostMapping("sinhvien/add")
 	public <R extends JpaRepository<SinhVien, String>> String addVTCN1(HttpSession session, ModelMap model,
 			@ModelAttribute("item") SinhVienDTO item) {
 		String message = "?message=";
 		R repo;
 		Khoa khoa;
+		Lop lop;
+		ChuyenNganh chuyenNganh;
+
 		String idlop =(String)session.getAttribute("MALOP");
 		login = (NhanVienLoginModel) session.getAttribute("USERMODEL");
 		if ("VT".equals(login.getKhoa())) {
 			repo = (R) vtrepo; // Cast to the generic type
 			khoa = vtrepokhoa.findAll().get(0);
+			lop = vtrepolop.findById(idlop).get();
+			chuyenNganh = vtrepochuyennganh.findById(item.getMaCN()).get();
+
+
 		} else {
 			repo = (R) cnrepo; // Cast to the generic type
 			khoa = cnrepokhoa.findAll().get(0);
+			lop = cnrepolop.findById((String)session.getAttribute("MALOP")).get();
+			chuyenNganh = cnrepochuyennganh.findById(item.getMaCN()).get();
+
 		}
 		System.out.println(item.getMaSV());
 
 		if (item.getMaSV()== null || repo.findById(item.getMaSV()).isEmpty()) {
 			SinhVien itemsave = modelMapper.map(item, SinhVien.class);
-			itemsave.setKhoa(khoa);
-			itemsave.setMaLop(idlop);
+			itemsave.setCN(chuyenNganh);
+			itemsave.setLop(lop);
 			itemsave.setDaNghiHoc(false);
 			SinhVien nvsave = null;
 
@@ -137,22 +150,62 @@ public class QLSinhVienController {
 				e.printStackTrace();
 				message = message + "thêm thất bại";
 				model.addAttribute("message", "thêm thất bại");
-				System.out.print("thêm thất bại");
+				System.out.println("thêm thất bại");
 			}
 			if (nvsave != null) {
 				message = message + "thêm thành công";
 				model.addAttribute("message", "thêm thành công");
-				System.out.print("thêm thành công");
+				System.out.println("thêm thành công");
 			}
 		} else {
 			message = message + "thêm thất bại, đã tồn tại";
 			model.addAttribute("message", "thêm thất bại, đã tồn tại");
-			System.out.print("thêm thất bại đã tồn tại");
+			System.out.println("thêm thất bại đã tồn tại");
+		}
+
+		return "redirect:/quanly/pgv/sinhvien/add"+ message;
+	}*/
+	@PostMapping("sinhvien/add")
+	public <R extends JpaRepository<SinhVien, String>> String addVTCN1(HttpSession session, ModelMap model,
+			@ModelAttribute("item") SinhVienDTO item) {
+		String message = "?message=";
+		R repo;
+
+		String idlop =(String)session.getAttribute("MALOP");
+		login = (NhanVienLoginModel) session.getAttribute("USERMODEL");
+		if ("VT".equals(login.getKhoa())) {
+			repo = (R) vtrepo; // Cast to the generic type
+			
+
+		} else {
+			repo = (R) cnrepo; // Cast to the generic type
+			
+
+		}
+		System.out.println(item.getMaSV());
+
+		if (item.getMaSV()== null || repo.findById(item.getMaSV()).isEmpty()) {
+			SinhVien itemsave = modelMapper.map(item, SinhVien.class);
+		
+			itemsave.setDaNghiHoc(false);
+			int nvsave ;
+
+			try {
+				dao.taoSinhVien(session,idlop,item.getMaCN(),item.getHo(),item.getTen(),item.getPhai(),item.getDiaChi(),item.getNgaySinh(),item.getDaNghiHoc(),item.getPassword());
+			} catch (Exception e) {
+				e.printStackTrace();
+				message = message + "thêm thất bại";
+				model.addAttribute("message", "thêm thất bại");
+				System.out.println("thêm thất bại");
+			}
+		} else {
+			message = message + "thêm thất bại, đã tồn tại";
+			model.addAttribute("message", "thêm thất bại, đã tồn tại");
+			System.out.println("thêm thất bại đã tồn tại");
 		}
 
 		return "redirect:/quanly/pgv/sinhvien/add"+ message;
 	}
-
 	@GetMapping(value = "sinhvien/edit")
 	public String editVTCN1(HttpSession session, ModelMap model, HttpServletRequest request) {
 		List<ChuyenNganh> lstCN;
@@ -175,11 +228,11 @@ public class QLSinhVienController {
 		if (itemEntity != null) {
 			SinhVienDTO item = modelMapper.map(itemEntity, SinhVienDTO.class);
 			model.addAttribute("item", item);
-			System.out.print("tồn tại item");
+			System.out.println("tồn tại item");
 		}
 
 		else {
-			System.out.print("không tồn tại item");
+			System.out.println("không tồn tại item");
 			return "redirect:/quanly/pgv/sinhvien"+"?idlop="+(String)session.getAttribute("MALOP");
 		}
 
@@ -193,21 +246,27 @@ public class QLSinhVienController {
 
 		R repo;
 		Khoa khoa;
+		Lop lop;
+		ChuyenNganh chuyenNganh;
+		String idlop =(String)session.getAttribute("MALOP");
 		login = (NhanVienLoginModel) session.getAttribute("USERMODEL");
 		if ("VT".equals(login.getKhoa())) {
 			repo = (R) vtrepo; // Cast to the generic type
-			khoa = vtrepokhoa.findAll().get(0);
+ 			lop = vtrepolop.findById(idlop).get();
+			chuyenNganh = vtrepochuyennganh.findById(item.getMaCN()).get();
+
+
 		} else {
 			repo = (R) cnrepo; // Cast to the generic type
-			khoa = cnrepokhoa.findAll().get(0);
-		}
+			lop = cnrepolop.findById((String)session.getAttribute("MALOP")).get();
+			chuyenNganh = cnrepochuyennganh.findById(item.getMaCN()).get();
 
+		}
 		// System.out.println(vtsave.getTenVT());
 		SinhVien itemsave = modelMapper.map(item, SinhVien.class);
-		itemsave.setKhoa(khoa);
-		itemsave.setMaLop((String)session.getAttribute("MALOP"));
+		itemsave.setCN(chuyenNganh);
+		itemsave.setLop(lop);
 		itemsave.setDaNghiHoc(false);
-		System.out.println(khoa.getMaKhoa());
 		try {
 
 			repo.save(itemsave);
@@ -221,7 +280,7 @@ public class QLSinhVienController {
 
 		message += "Sửa  thành công";
 		model.addAttribute("message", "Sửa  thành công");
-		System.out.print("Sửa thành công");
+		System.out.println("Sửa thành công");
 
 		return "redirect:/quanly/pgv/sinhvien" + message+"&idlop="+(String)session.getAttribute("MALOP");
 
@@ -255,7 +314,7 @@ public class QLSinhVienController {
 			itemEntity = repo.findById(id).get(); // Cast to the generic type
 
 		}
-		System.out.print(request.getParameter("xacNhan") + request.getParameter("id"));
+		System.out.println(request.getParameter("xacNhan") + request.getParameter("id"));
 		try {
 			if (request.getParameter("xacNhan").equals("YES")) {
 //				VatTuEntity nvsave = vtrepo.findOne(id);
