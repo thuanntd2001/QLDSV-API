@@ -19,5 +19,7 @@ public class NhapDiemModel {
 	
 	private float diemCK;
 	
+	private float diemTK;
+	
 	
 }

@@ -17,6 +17,8 @@ public class NhapDiemMapper implements RowMapper<NhapDiemModel> {
             dsdkModel.setDiemCC(resultSet.getFloat("DIEM_CC")); // Assuming the column name in the ResultSet is "DIEM_CC"
             dsdkModel.setDiemGK(resultSet.getFloat("DIEM_GK")); // Assuming the column name in the ResultSet is "DIEM_GK"
             dsdkModel.setDiemCK(resultSet.getFloat("DIEM_CK")); // Assuming the column name in the ResultSet is "DIEM_CK"
+            dsdkModel.setDiemTK(resultSet.getFloat("DIEM_TK")); // Assuming the column name in the ResultSet is "DIEM_CK"
+
             
             return dsdkModel;
         } catch (SQLException e) {

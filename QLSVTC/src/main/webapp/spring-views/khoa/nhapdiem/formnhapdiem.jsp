@@ -48,14 +48,14 @@
 								id="maLTC_${status.index}" path="lst[${status.index}].maLTC"
 								disabled="true" />
 						</div>
-						<div class="col-md-3">
+						<div class="col-md-2">
 							<div class="form-group">
 								<label for="maSV_${status.index}">MASV</label>
 								<form:input type="text" class="form-control"
 									id="maSV_${status.index}" path="lst[${status.index}].maSV" disabled="true"/>
 							</div>
 						</div>
-						<div class="col-md-3">
+						<div class="col-md-2">
 							<div class="form-group">
 								<label for="hoTen_${status.index}">HOTEN</label>
 								<form:input type="text" class="form-control"
@@ -64,23 +64,30 @@
 						</div>
 						<div class="col-md-2">
 							<div class="form-group">
-								<label for="diemCC_${status.index}">DIEM CC</label>
-								<form:input type="text" class="form-control"
+								<label for="diemCC_${status.index}">CC</label>
+								<form:input type="number" class="form-control"
 									id="diemCC_${status.index}" path="lst[${status.index}].diemCC" />
 							</div>
 						</div>
 						<div class="col-md-2">
 							<div class="form-group">
-								<label for="diemGK_${status.index}">DIEM GK</label>
-								<form:input type="text" class="form-control"
+								<label for="diemGK_${status.index}">GK</label>
+								<form:input type="number" class="form-control"
 									id="diemGK_${status.index}" path="lst[${status.index}].diemGK" />
 							</div>
 						</div>
 						<div class="col-md-2">
 							<div class="form-group">
-								<label for="diemCK_${status.index}">DIEM CK</label>
-								<form:input type="text" class="form-control"
+								<label for="diemCK_${status.index}">CK</label>
+								<form:input type="number" class="form-control"
 									id="diemCK_${status.index}" path="lst[${status.index}].diemCK" />
+							</div>
+						</div>
+						<div class="col-md-1">
+							<div class="form-group">
+								<label for="diemCK_${status.index}">TK</label>
+								<form:input type="text" class="form-control"
+									id="diemCK_${status.index}" path="lst[${status.index}].diemTK" disabled="true"/>
 							</div>
 						</div>
 					</div>
