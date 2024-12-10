@@ -13,7 +13,7 @@
 				class="bi bi-person-fill"></i> <span>Thông tin</span>
 		</a></li>
 		<li class="nav-item"><a class="nav-link collapsed"
-			href=""> <i class="bi bi-house-fill"></i> <span>Nhập điểm</span>
+			href="nhapdiem/formnhapdiem/khoa"> <i class="bi bi-house-fill"></i> <span>Nhập điểm</span>
 		</a></li>
 		
 				<li class="nav-item"><a class="nav-link collapsed"

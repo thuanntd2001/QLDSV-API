@@ -22,24 +22,21 @@
 
 
 
-	<div class="container-fluid main">
-		<div class="container">
-			<div class="content">
+		<main id="main" class="main">
 				<div class="header-content d-flex justify-content-center">
-					<h3>THÔNG TIN TÀI KHOẢN</h3>
-				</div>
+					<h3>THÔNG TIN TÀI KHOẢN</h3></div>
 				<section class="section profile">
 					<div class="row">
 						<div class="col-xl-4">
 
-							<%-- 	<div class="card">
+						 	<div class="card">
 								<form:form modelAttribute="user"
 									class="card-body profile-card pt-4 d-flex flex-column align-items-center">
 
 									<h2>${sessionScope.USERMODEL.hoTen }</h2>
 									<h3>${sessionScope.USERMODEL.maNV }</h3>
 								</form:form>
-							</div> --%>
+							</div> 
 
 						</div>
 						<div class="col-xl-8">
@@ -127,10 +124,6 @@
 					</div>
 				</section>
 
-			</div>
-
-		</div>
-	</div>
 
 
 	<jsp:include page="/template/cn1/pgv/footer.jsp" />
