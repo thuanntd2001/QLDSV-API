@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta path="viewport" content="width=device-width, initial-scale=1.0">
 <title>UIS</title>
 
 <jsp:include page="/template/cn1/khoa/head.jsp" />
@@ -24,60 +24,75 @@
 
 
 
-
-	<main id="main" class="main">
-	<div class="header-content d-flex justify-content-center">
-		<h3>Nhập điểm SV</h3>
-	</div>
-	<section class="section">
-		<div class="row">
-			<div class="col-lg-12">
-				<div class="card">
-					<div class="card-body">
-
-						<!-- Bordered Table -->
-						<form action="submitScores.jsp" method="post">
-							<table>
-								<tr>
-									<th>Tên Sinh Viên</th>
-									<th>?i?m Môn 1</th>
-									<th>?i?m Môn 2</th>
-									<th>?i?m Môn 3</th>
-								</tr>
-								<tr>
-									<td><input type="text" name="studentName1" required></td>
-									<td><input type="number" name="score1_1" min="0" max="10"
-										step="0.1" required></td>
-									<td><input type="number" name="score1_2" min="0" max="10"
-										step="0.1" required></td>
-									<td><input type="number" name="score1_3" min="0" max="10"
-										step="0.1" required></td>
-								</tr>
-								<tr>
-									<td><input type="text" name="studentName2" required></td>
-									<td><input type="number" name="score2_1" min="0" max="10"
-										step="0.1" required></td>
-									<td><input type="number" name="score2_2" min="0" max="10"
-										step="0.1" required></td>
-									<td><input type="number" name="score2_3" min="0" max="10"
-										step="0.1" required></td>
-								</tr>
-								<!-- Thêm nhi?u hàng cho sinh viên khác n?u c?n -->
-							</table>
-							<br> <input type="submit" value="G?i">
-						</form>
-						<!-- End Table with stripped rows -->
-						<a href="quanly/pgv/giangvien/add" class="fa fa-plus"></a>
-					</div>
-				</div>
-
+	<main id="main" class="main"> <!-- ======= Content ======= -->
+	<div class="container-fluid main">
+		<div class="main-content">
+			<div class="header-row">
+				<h4>Nhập điểm</h4>
 			</div>
+
+
+			<div class="header-column">
+				<h5>Danh sách sinh viên</h5>
+			</div>
+
+
+
+			<form:form action="/submit" method="POST"
+				modelAttribute="itemListWrapper">
+				<c:forEach var="item" items="${itemListWrapper.lst}"
+					varStatus="status">
+					<div class="row">
+						<div class="col-md-0">
+							<form:input type="hidden" class="form-control"
+								id="maLTC_${status.index}" path="lst[${status.index}].maLTC"
+								disabled="true" />
+						</div>
+						<div class="col-md-3">
+							<div class="form-group">
+								<label for="maSV_${status.index}">MASV</label>
+								<form:input type="text" class="form-control"
+									id="maSV_${status.index}" path="lst[${status.index}].maSV" disabled="true"/>
+							</div>
+						</div>
+						<div class="col-md-3">
+							<div class="form-group">
+								<label for="hoTen_${status.index}">HOTEN</label>
+								<form:input type="text" class="form-control"
+									id="hoTen_${status.index}" path="lst[${status.index}].hoTen" disabled="true"/>
+							</div>
+						</div>
+						<div class="col-md-2">
+							<div class="form-group">
+								<label for="diemCC_${status.index}">DIEM CC</label>
+								<form:input type="text" class="form-control"
+									id="diemCC_${status.index}" path="lst[${status.index}].diemCC" />
+							</div>
+						</div>
+						<div class="col-md-2">
+							<div class="form-group">
+								<label for="diemGK_${status.index}">DIEM GK</label>
+								<form:input type="text" class="form-control"
+									id="diemGK_${status.index}" path="lst[${status.index}].diemGK" />
+							</div>
+						</div>
+						<div class="col-md-2">
+							<div class="form-group">
+								<label for="diemCK_${status.index}">DIEM CK</label>
+								<form:input type="text" class="form-control"
+									id="diemCK_${status.index}" path="lst[${status.index}].diemCK" />
+							</div>
+						</div>
+					</div>
+				</c:forEach>
+
+				<div class="form-group text-center">
+					<button type="submit" class="btn btn-primary btn-block">LƯU</button>
+				</div>
+			</form:form>
 		</div>
-	</section>
+	</div>
 	</main>
-
-
-
 	<jsp:include page="/template/cn1/khoa/footer.jsp" />
 
 	<script

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.qlsvtc.CNTT.repository.MonHocRepositoryCNTT;
 import com.qlsvtc.dao.impl.NhapDiemDAO;
+import com.qlsvtc.model.NhapDiemFormModel;
 import com.qlsvtc.model.NhapDiemModel;
 
 import com.qlsvtc.model.para.ParaNhapDiem;
@@ -41,7 +42,9 @@ public class NhapDiemController {
 	@PostMapping("/formnhapdiem/khoa")
 	public String nhapdiem(HttpSession session,ParaNhapDiem para,ModelMap model) {
 		List<NhapDiemModel> lst= nhapdiem.findAll(session, para.getNk(),para.getHk(),para.getMaMH(),para.getNhom());
-		model.addAttribute("lst", lst);
+		NhapDiemFormModel nhapDiemForm = new NhapDiemFormModel();
+		nhapDiemForm.setLst(lst);
+		model.addAttribute("itemListWrapper", nhapDiemForm);
 		model.addAttribute("para", para);
 		return "khoa/nhapdiem/formnhapdiem";
 	}

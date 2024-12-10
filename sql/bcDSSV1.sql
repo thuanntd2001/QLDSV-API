@@ -1,0 +1,23 @@
+USE [QLSVTC]
+GO
+
+/****** Object:  StoredProcedure [dbo].[SP_REPORT_IN_DSSV_1]    Script Date: 12/10/2024 2:33:45 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+CREATE PROCEDURE [dbo].[SP_REPORT_IN_DSSV_1]
+	@MALOP NVARCHAR(10)
+AS
+BEGIN
+	
+		SELECT * FROM dbo.SINHVIEN sv WHERE sv.MALOP = @MALOP
+	
+	
+END
+
+GO
+

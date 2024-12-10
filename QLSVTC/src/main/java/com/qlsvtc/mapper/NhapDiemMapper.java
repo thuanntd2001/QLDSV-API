@@ -11,7 +11,7 @@ public class NhapDiemMapper implements RowMapper<NhapDiemModel> {
         try {
             NhapDiemModel dsdkModel = new NhapDiemModel();
             
-            dsdkModel.setMaLTC(resultSet.getInt("MALTC")); // Assuming the column name in the ResultSet is "MALTC"
+            dsdkModel.setMaLTC(resultSet.getInt("LOPTC")); // Assuming the column name in the ResultSet is "MALTC"
             dsdkModel.setMaSV(resultSet.getString("MASV"));   // Assuming the column name in the ResultSet is "MASV"
             dsdkModel.setHoTen(resultSet.getString("HOTEN")); // Assuming the column name in the ResultSet is "HO_TEN"
             dsdkModel.setDiemCC(resultSet.getFloat("DIEM_CC")); // Assuming the column name in the ResultSet is "DIEM_CC"
