@@ -38,7 +38,7 @@
 
 
 
-			<form:form action="/submit" method="POST"
+			<form:form action="nhapdiem/nhapdiem/khoa" method="POST"
 				modelAttribute="itemListWrapper">
 				<c:forEach var="item" items="${itemListWrapper.lst}"
 					varStatus="status">
@@ -46,20 +46,20 @@
 						<div class="col-md-0">
 							<form:input type="hidden" class="form-control"
 								id="maLTC_${status.index}" path="lst[${status.index}].maLTC"
-								disabled="true" />
+								  readonly="true"/>
 						</div>
 						<div class="col-md-2">
 							<div class="form-group">
 								<label for="maSV_${status.index}">MASV</label>
 								<form:input type="text" class="form-control"
-									id="maSV_${status.index}" path="lst[${status.index}].maSV" disabled="true"/>
+									id="maSV_${status.index}" path="lst[${status.index}].maSV" readonly="true"/>
 							</div>
 						</div>
 						<div class="col-md-2">
 							<div class="form-group">
 								<label for="hoTen_${status.index}">HOTEN</label>
 								<form:input type="text" class="form-control"
-									id="hoTen_${status.index}" path="lst[${status.index}].hoTen" disabled="true"/>
+									id="hoTen_${status.index}" path="lst[${status.index}].hoTen" readonly="true"/>
 							</div>
 						</div>
 						<div class="col-md-2">
@@ -87,7 +87,7 @@
 							<div class="form-group">
 								<label for="diemCK_${status.index}">TK</label>
 								<form:input type="text" class="form-control"
-									id="diemCK_${status.index}" path="lst[${status.index}].diemTK" disabled="true"/>
+									id="diemCK_${status.index}" path="lst[${status.index}].diemTK" readonly="true"/>
 							</div>
 						</div>
 					</div>

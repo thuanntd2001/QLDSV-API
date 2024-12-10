@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -40,12 +41,20 @@ public class NhapDiemController {
 	}
 	
 	@PostMapping("/formnhapdiem/khoa")
-	public String nhapdiem(HttpSession session,ParaNhapDiem para,ModelMap model) {
+	public String get2nhapdiem(HttpSession session,ParaNhapDiem para,ModelMap model) {
 		List<NhapDiemModel> lst= nhapdiem.findAll(session, para.getNk(),para.getHk(),para.getMaMH(),para.getNhom());
 		NhapDiemFormModel nhapDiemForm = new NhapDiemFormModel();
 		nhapDiemForm.setLst(lst);
 		model.addAttribute("itemListWrapper", nhapDiemForm);
 		model.addAttribute("para", para);
+		return "khoa/nhapdiem/formnhapdiem";
+	}
+	
+	@PostMapping("/nhapdiem/khoa")
+	public String postnhapdiem(HttpSession session,@ModelAttribute("itemListWrapper") NhapDiemFormModel itemListWrapper,ModelMap model) {
+		System.out.println(itemListWrapper.getLst().get(0).getHoTen());
+		System.out.println(itemListWrapper.getLst().get(0).getDiemCC());
+
 		return "khoa/nhapdiem/formnhapdiem";
 	}
 	
