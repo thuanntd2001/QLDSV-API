@@ -4,25 +4,20 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
 import com.qlsvtc.config.DSTS;
 import com.qlsvtc.mapper.RowMapper;
 
-public class AbstractDAO<T>  {
-	
-	
-	
-	//InfoConnection infoConnection = new InfoConnection();
+public class AbstractDAO<T> {
+
+	// InfoConnection infoConnection = new InfoConnection();
 
 	// PARA
 
@@ -50,7 +45,6 @@ public class AbstractDAO<T>  {
 
 //Connection PHANMANH
 
-
 	public Connection getConnectionPM(String url, String rUser, String rPassword) {
 		try {
 			Class.forName(DSTS.getDriverPM());
@@ -74,9 +68,9 @@ public class AbstractDAO<T>  {
 	public Connection getConnectionPM(HttpSession session) {
 		try {
 			Class.forName(DSTS.getDriverPM());
-			String url = (String)session.getAttribute("url");
-			String user = (String)session.getAttribute("username");
-			String password = (String)session.getAttribute("password");
+			String url = (String) session.getAttribute("url");
+			String user = (String) session.getAttribute("username");
+			String password = (String) session.getAttribute("password");
 			try {
 				return DriverManager.getConnection(url, user, password);
 			} catch (SQLException e) {
@@ -92,8 +86,7 @@ public class AbstractDAO<T>  {
 		}
 	}
 
-	
-	//Connection CHU
+	// Connection CHU
 
 	public Connection getConnectionChu() {
 		try {
@@ -115,7 +108,7 @@ public class AbstractDAO<T>  {
 			return null;
 		}
 	}
-	
+
 	// XTXS chu
 
 	public void updateChu(String sql, Object... parameters) {
@@ -150,7 +143,6 @@ public class AbstractDAO<T>  {
 		}
 	}
 
-	
 	public Long insertChu(String sql, Object... parameters) {
 		Connection connection = null;
 		PreparedStatement statement = null;
@@ -194,7 +186,6 @@ public class AbstractDAO<T>  {
 		return null;
 	}
 
-
 	public <T> List<T> queryChu(String sql, RowMapper<T> rowMapper, Object... parameters) {
 		List<T> results = new ArrayList<>();
 		Connection connection = null;
@@ -229,21 +220,20 @@ public class AbstractDAO<T>  {
 			}
 		}
 	}
-	
-	
+
 	// XTXS Phan manh
 
-	public <T> List<T> queryPM(String url ,String username, String password, String sql, RowMapper<T> rowMapper,
+	public <T> List<T> queryPM(String url, String username, String password, String sql, RowMapper<T> rowMapper,
 			Object... parameters) {
 		List<T> results = new ArrayList<>();
 		Connection connection = null;
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;
 		try {
-			connection = getConnectionPM(url ,username, password);
+			connection = getConnectionPM(url, username, password);
 			statement = connection.prepareStatement(sql);
 			setParameter(statement, parameters);
-			//System.out.print(statement.toString();
+			// System.out.print(statement.toString();
 			resultSet = statement.executeQuery();
 			while (resultSet.next()) {
 				results.add(rowMapper.mapRow(resultSet));
@@ -270,19 +260,17 @@ public class AbstractDAO<T>  {
 		}
 	}
 
-	
-	
-	public <T> List<T> queryPM(HttpSession session, String sql, RowMapper<T> rowMapper,
-			Object... parameters) {
+	public <T> List<T> queryPM(HttpSession session, String sql, RowMapper<T> rowMapper, Object... parameters) {
 		List<T> results = new ArrayList<>();
 		Connection connection = null;
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;
 		try {
-			connection = getConnectionPM((String)session.getAttribute("url"),(String)session.getAttribute("username"),(String)session.getAttribute("password"));
+			connection = getConnectionPM((String) session.getAttribute("url"),
+					(String) session.getAttribute("username"), (String) session.getAttribute("password"));
 			statement = connection.prepareStatement(sql);
 			setParameter(statement, parameters);
-			//System.out.print(statement.toString();
+			// System.out.print(statement.toString();
 			resultSet = statement.executeQuery();
 			while (resultSet.next()) {
 				results.add(rowMapper.mapRow(resultSet));
@@ -308,17 +296,18 @@ public class AbstractDAO<T>  {
 			}
 		}
 	}
-	
-	public int spPM(HttpSession session,String sql, Object... parameters) {
+
+	public int spPM(HttpSession session, String sql, Object... parameters) {
 		Connection connection = null;
 		PreparedStatement statement = null;
 		try {
-			connection = getConnectionPM((String)session.getAttribute("url"),(String)session.getAttribute("username"),(String)session.getAttribute("password"));
+			connection = getConnectionPM((String) session.getAttribute("url"),
+					(String) session.getAttribute("username"), (String) session.getAttribute("password"));
 			connection.setAutoCommit(false);
 			statement = connection.prepareStatement(sql);
 			setParameter(statement, parameters);
-			int kq=statement.executeUpdate();
-			
+			int kq = statement.executeUpdate();
+
 			connection.commit();
 			return kq;
 		} catch (SQLException e) {
@@ -337,60 +326,12 @@ public class AbstractDAO<T>  {
 				if (statement != null) {
 					statement.close();
 				}
-				
+
 			} catch (SQLException e2) {
 				e2.printStackTrace();
 			}
 		}
 		return -2;
 	}
-
-	/*public List<Map<String, Object>> queryPMResultSet(HttpSession session, String sql, 
-			Object... parameters) {
-		Connection connection = null;
-		PreparedStatement statement = null;
-		ResultSet resultSet = null;
-        List<Map<String, Object>> dataList = new ArrayList<>();
-		try {
-			connection = getConnectionPM((String)session.getAttribute("url"),(String)session.getAttribute("username"),(String)session.getAttribute("password"));
-			statement = connection.prepareStatement(sql);
-			setParameter(statement, parameters);
-			//System.out.print(statement.toString();
-			resultSet = statement.executeQuery();
-			ResultSetMetaData metaData = resultSet.getMetaData();
-            int columnCount = metaData.getColumnCount();
-
-            while (resultSet.next()) {
-                Map<String, Object> row = new HashMap<>();
-                for (int i = 1; i <= columnCount; i++) {
-                    String columnName = metaData.getColumnName(i);
-                    Object value = resultSet.getObject(i);
-                    row.put(columnName, value);
-                }
-                dataList.add(row);
-            }
-			return dataList;
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return null;
-		} finally {
-			try {
-				if (connection != null) {
-					connection.close();
-				}
-				if (statement != null) {
-					statement.close();
-				}
-				if (resultSet != null) {
-					resultSet.close();
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-				return null;
-			}
-		}
-	}*/
-	
-	
 
 }
