@@ -17,16 +17,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.modelmapper.ModelMapper;
 
-import com.qlsvtc.CNTT.repository.LopTinChiRepositoryCNTT;
+import com.qlsvtc.CNTT.repository.LTCRepositoryCNTT;
 import com.qlsvtc.CNTT.repository.MonHocRepositoryCNTT;
 import com.qlsvtc.CNTT.repository.NKHKRepositoryCNTT;
 import com.qlsvtc.CNTT.repository.KhoaRepositoryCNTT;
-import com.qlsvtc.DTO.LopTinChiDTO;
-import com.qlsvtc.VT.repository.LopTinChiRepositoryVT;
+import com.qlsvtc.DTO.LTCDTO;
+import com.qlsvtc.VT.repository.LTCRepositoryVT;
 import com.qlsvtc.VT.repository.MonHocRepositoryVT;
 import com.qlsvtc.VT.repository.NKHKRepositoryVT;
 import com.qlsvtc.VT.repository.KhoaRepositoryVT;
-import com.qlsvtc.entity.LopTinChi;
+import com.qlsvtc.entity.LTC;
 import com.qlsvtc.entity.MonHoc;
 import com.qlsvtc.entity.Khoa;
 import com.qlsvtc.model.NhanVienLoginModel;
@@ -35,9 +35,9 @@ import com.qlsvtc.model.NhanVienLoginModel;
 @RequestMapping(value = "quanly/pgv")
 public class QLLopTinChiController {
 	@Autowired
-	LopTinChiRepositoryCNTT cnrepo;
+	LTCRepositoryCNTT cnrepo;
 	@Autowired
-	LopTinChiRepositoryVT vtrepo;
+	LTCRepositoryVT vtrepo;
 	
 	@Autowired
 	MonHocRepositoryCNTT cnrepomonhoc;
@@ -69,7 +69,7 @@ public class QLLopTinChiController {
 		session.setAttribute("MANKHK", request.getParameter("idnkhk"));
 		String message = request.getParameter("message");
 		model.addAttribute("message", message);
-		List<LopTinChi> lstEntity;
+		List<LTC> lstEntity;
 		login = (NhanVienLoginModel) session.getAttribute("USERMODEL");
 		if ("VT".equals(login.getKhoa())) {
 			lstEntity = vtrepo.findAllByMaNKHKAndHuyLop(maNKHK,false); 
@@ -79,9 +79,9 @@ public class QLLopTinChiController {
 			lstMH = cnrepomonhoc.findAll();
 
 		}
-		List<LopTinChiDTO> lst = new ArrayList<LopTinChiDTO>();
-		for (LopTinChi item : lstEntity) {
-			LopTinChiDTO dto = modelMapper.map(item, LopTinChiDTO.class);
+		List<LTCDTO> lst = new ArrayList<LTCDTO>();
+		for (LTC item : lstEntity) {
+			LTCDTO dto = modelMapper.map(item, LTCDTO.class);
 			dto.setTenMH(dto.getMaMH()+" - "+timTenMonHocTheoMa(lstMH,dto.getMaMH()));
 			lst.add(dto);
 		}
@@ -102,7 +102,7 @@ public class QLLopTinChiController {
 		model.addAttribute("lstMH", lstMH);
 		String message = request.getParameter("message");
 		model.addAttribute("message", message);
-		LopTinChiDTO item = new LopTinChiDTO();
+		LTCDTO item = new LTCDTO();
 		model.addAttribute("item", item);
 
 
@@ -111,8 +111,8 @@ public class QLLopTinChiController {
 	}
 
 	@PostMapping("ltc/add")
-	public <R extends JpaRepository<LopTinChi, Integer>> String addVTCN1(HttpSession session, ModelMap model,
-			@ModelAttribute("item") LopTinChiDTO item) {
+	public <R extends JpaRepository<LTC, Integer>> String addVTCN1(HttpSession session, ModelMap model,
+			@ModelAttribute("item") LTCDTO item) {
 		String message = "?message=";
 		R repo;
 		Khoa khoa;
@@ -128,11 +128,11 @@ public class QLLopTinChiController {
 		System.out.println(item.getMaLTC());
 
 		if (item.getMaLTC()== null || repo.findById(item.getMaLTC()).isEmpty()) {
-			LopTinChi itemsave = modelMapper.map(item, LopTinChi.class);
+			LTC itemsave = modelMapper.map(item, LTC.class);
 			itemsave.setKhoa(khoa);
 			itemsave.setMaNKHK(idnkhk);
 			itemsave.setHuyLop(false);
-			LopTinChi nvsave = null;
+			LTC nvsave = null;
 
 			try {
 				nvsave = repo.save(itemsave);
@@ -161,7 +161,7 @@ public class QLLopTinChiController {
 		List<MonHoc> lstMH;
 
 
-		LopTinChi itemEntity;
+		LTC itemEntity;
 		int id = Integer.parseInt(request.getParameter("id"));
 		login = (NhanVienLoginModel) session.getAttribute("USERMODEL");
 		if ("VT".equals(login.getKhoa())) {
@@ -176,7 +176,7 @@ public class QLLopTinChiController {
 		model.addAttribute("lstMH", lstMH);
 
 		if (itemEntity != null) {
-			LopTinChiDTO item = modelMapper.map(itemEntity, LopTinChiDTO.class);
+			LTCDTO item = modelMapper.map(itemEntity, LTCDTO.class);
 			model.addAttribute("item", item);
 			System.out.print("tồn tại item");
 		}
@@ -190,8 +190,8 @@ public class QLLopTinChiController {
 	}
 
 	@PostMapping("ltc/edit")
-	public <R extends JpaRepository<LopTinChi, Integer>> String editVTCN1(HttpSession session, ModelMap model,
-			@ModelAttribute("item") LopTinChiDTO item, HttpServletRequest request) {
+	public <R extends JpaRepository<LTC, Integer>> String editVTCN1(HttpSession session, ModelMap model,
+			@ModelAttribute("item") LTCDTO item, HttpServletRequest request) {
 		String message = "?message=";
 
 		R repo;
@@ -206,7 +206,7 @@ public class QLLopTinChiController {
 		}
 
 		// System.out.println(vtsave.getTenVT());
-		LopTinChi itemsave = modelMapper.map(item, LopTinChi.class);
+		LTC itemsave = modelMapper.map(item, LTC.class);
 		itemsave.setKhoa(khoa);
 		itemsave.setMaNKHK(Integer.parseInt((String)session.getAttribute("MANKHK")));
 		itemsave.setHuyLop(false);
@@ -240,11 +240,11 @@ public class QLLopTinChiController {
 	}
 
 	@RequestMapping(value = "ltc/xoa", method = RequestMethod.POST)
-	public <R extends JpaRepository<LopTinChi, Integer>> String xoaNVCN1P(HttpSession session, ModelMap model,
+	public <R extends JpaRepository<LTC, Integer>> String xoaNVCN1P(HttpSession session, ModelMap model,
 			HttpServletRequest request) {
 		int idnkhk = Integer.parseInt((String)session.getAttribute("MANKHK"));
 		String message = "?message=";
-		LopTinChi itemEntity;
+		LTC itemEntity;
 		R repo;
 		int id = Integer.parseInt(request.getParameter("id"));
 

@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 
-public class LopTinChiDTO {
+public class LTCDTO {
   
     private Integer maLTC;
 

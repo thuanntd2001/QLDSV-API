@@ -133,6 +133,8 @@ public class LoginUIController {
 					session.setAttribute("password", DSTS.getPwsv());
 					session.setAttribute("username", DSTS.getTksv());
 					session.setAttribute("USERMODEL", login);
+					session.setAttribute("MASV", model.getUserName());
+
 					return "redirect:sv";
 				}
 			}

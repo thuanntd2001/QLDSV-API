@@ -35,7 +35,7 @@ public class DangKy {
 
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "MALTC", nullable = false)
-	private LopTinChi maLTC;
+	private LTC maLTC;
 	
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "MASV", nullable = false)

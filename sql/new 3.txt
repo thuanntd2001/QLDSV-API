@@ -1,0 +1,39 @@
+
+--DANH SÁCH LỚP TÍN CHỈ ĐƯỢC MỞ ĐĂNG KÝ
+-- Chỉ Hiển thị ds LTC trong thời gian ĐK
+-- Ngoài thời gian đăng ký trả --> RAISERROR
+
+trong sp:
+
+ALTER PROCEDURE SP_DS_LOPTINCHI_MODK
+AS BEGIN
+SELECT @mankhk=MANKHK FROM NKHK WHERE NGAYMODK <= @ngayht AND @ngayht < NGAYDONGDK;
+	IF @mankhk IS NULL
+	BEGIN
+		RAISERROR(N'Ngoài thời gian đăng ký!', 16, 1)
+		RETURN
+	END
+	ELSE
+		Trả về thông tin các LTC được mở
+		
+////*****************/////
+-- DANH SÁCH LỚP TÍN CHI SINH VIÊN ĐĂNG KÝ
+
+-- Chỉ Hiển thị ds LTC trong thời gian ĐK
+-- Ngoài thời gian đăng ký trả --> RAISERROR
+
+trong sp:
+
+ALTER PROCEDURE SP_DS_LOPTINCHI_SVDK
+	@MASV NCHAR(10)
+AS BEGIN
+
+SELECT @mankhk=MANKHK FROM NKHK WHERE NGAYMODK <= @ngayht AND @ngayht < NGAYDONGDK;
+	IF @mankhk IS NULL
+	BEGIN
+		RAISERROR(N'Ngoài thời gian đăng ký!', 16, 1)
+		RETURN
+	END
+	ELSE
+		Trả về thông tin các LTC sinh viên đã đăng ký
+

@@ -16,7 +16,7 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "LOPTINCHI")
-public class LopTinChi {
+public class LTC {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "MALTC", nullable = false)

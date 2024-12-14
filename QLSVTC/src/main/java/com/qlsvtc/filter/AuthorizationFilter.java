@@ -56,7 +56,7 @@ public class AuthorizationFilter implements Filter {
 
 			}
 
-			else if (url.indexOf("/chinhanh") != -1) {
+			else if (url.indexOf("/khoa") != -1) {
 
 				switch (model.getTenNhom()) {
 				case "PGV":

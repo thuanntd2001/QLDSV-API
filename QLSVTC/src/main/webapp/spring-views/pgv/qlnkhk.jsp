@@ -71,7 +71,7 @@
 											class="fa fa-pencil-square-o"></a> <a
 											href="quanly/pgv/nkhk/xoa?id=${item.maNKHK}"
 											class="fa fa-times-circle"></a> <a
-											href="quanly/pgv/ltc?idnkhk=${item.maNKHK}"
+											href="quanly/pgv/ltc?idnkhk=${item.maNKHK}&nk=${item.namHoc}&hk=${item.hk}"
 											class="fa fa-plus"></a></td>
 									</tr>
 								</c:forEach>

@@ -69,7 +69,9 @@
 										<td><a href="quanly/pgv/ltc/edit?id=${item.maLTC}"
 											class="fa fa-pencil-square-o"></a> <a
 											href="quanly/pgv/ltc/xoa?id=${item.maLTC}"
-											class="fa fa-times-circle"></a></td>
+											class="fa fa-times-circle"></a><a
+											href="quanly/pgv/dangkysv?idltc=${item.maLTC}&idmh=${item.maMH}&nhom=${item.nhom}"
+											class="fa fa-plus"></a></td>
 									</tr>
 								</c:forEach>
 							</tbody>
