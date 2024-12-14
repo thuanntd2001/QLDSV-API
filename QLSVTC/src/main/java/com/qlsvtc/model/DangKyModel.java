@@ -21,5 +21,6 @@ public class DangKyModel {
 	
 	private String TKB;
 	
-	
+	private boolean huy;
+
 }

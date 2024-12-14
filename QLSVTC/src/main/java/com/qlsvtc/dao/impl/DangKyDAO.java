@@ -29,6 +29,21 @@ public class DangKyDAO extends AbstractDAO<DangKyModel> {
 		return bc;
 	}
 
-
+	public void DangKy(HttpSession session, String maSV, int maLTC){
+		String sql = "EXEC SP_SV_DANGKY ?, ?";
+		List<DangKyModel> bc =queryPM(session,sql,new DaDangKyMapper(),maSV,maLTC);
+		
+	}
+	public void HuyDangKy(HttpSession session, String maSV, int maLTC){
+		String sql = "UPDATE DANGKY set HUYDANGKY=1 where MASV= ? and  maLTC= ?";
+		List<DangKyModel> bc =queryPM(session,sql,new DaDangKyMapper(),maSV,maLTC);
+		
+	}
+	public int DangKyLai(HttpSession session, String maSV, int maLTC){
+		String sql = "UPDATE DANGKY set HUYDANGKY=0 where MASV= ? and  maLTC= ?";
+		int bc =spPM(session,sql,new DaDangKyMapper(),maSV,maLTC);
+		return bc;
+		
+	}
 
 }
