@@ -17,7 +17,7 @@ public class DaDangKyMapper implements RowMapper<DangKyModel> {
             dangKyModel.setNhom(resultSet.getInt("NHOM"));
            // dangKyModel.setGV(resultSet.getString("GV"));
             //dangKyModel.setSoSVDK(resultSet.getInt("sosvdk"));
-            dangKyModel.setTKB(resultSet.getString("TKB"));
+            dangKyModel.setTKB(resultSet.getString("THOIKHOABIEU"));
             
             return dangKyModel;
         } catch (SQLException e) {
