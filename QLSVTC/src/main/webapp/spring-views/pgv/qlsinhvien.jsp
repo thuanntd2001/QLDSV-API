@@ -56,6 +56,8 @@
 
 
 									<th scope="col">Thao tác</th>
+									<th scope="col">Chuyển Lớp</th>
+									
 								</tr>
 							</thead>
 							<tbody>
@@ -79,6 +81,9 @@
 											class="fa fa-pencil-square-o"></a> <a
 											href="quanly/pgv/sinhvien/xoa?id=${item.maSV}"
 											class="fa fa-times-circle"></a></td>
+											
+										<td><a href="quanly/pgv/chuyenlop?id=${item.maSV}"
+											> Chuyển lớp</a> </td>
 									</tr>
 								</c:forEach>
 							</tbody>
