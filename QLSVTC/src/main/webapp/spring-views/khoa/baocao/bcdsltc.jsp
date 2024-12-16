@@ -43,7 +43,7 @@
 						</h3>
 
 						<h5 style="margin: 20px; text-align: center">
-							<b>Khoa : ${USERMODEL.khoa}</b>
+							<b>Khoa : ${TENKHOA}</b>
 						</h5>
 						<br> <br>
 						<p style="margin: 20px; text-align: right">

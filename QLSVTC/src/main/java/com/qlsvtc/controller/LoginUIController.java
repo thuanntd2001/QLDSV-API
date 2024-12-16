@@ -76,16 +76,21 @@ public class LoginUIController {
 	private String doPost(UserModel model, HttpSession session) {
 		NhanVienLoginModel login = null;
 		String strKhoa = "";
+		String strTenKhoa = "";
+
 		if (model != null) {
 			// kt nv co tk trong sqlserver ko
 			boolean flag = false;
 			if (model.getKhoaURL().contains("Công nghệ")) {
 				session.setAttribute("url", dbCNurl);
 				strKhoa = "CNTT";
+				strTenKhoa = "Công Nghệ Thông Tin";
 			} else if (model.getKhoaURL().contains("Viễn thông")) {
 				session.setAttribute("url",dbVTurl );
 
 				strKhoa = "VT";
+				strTenKhoa = "Viễn Thông";
+
 			}
 			// set server ma nv chon de thu ket noi
 			session.setAttribute("password", model.getPasswd());
@@ -102,6 +107,8 @@ public class LoginUIController {
 				}
 
 				session.setAttribute("USERMODEL", login);
+				session.setAttribute("TENKHOA", strTenKhoa);
+
 				if (login.getTenNhom().equals("KHOA"))
 					return "redirect:khoa";
 				if (login.getTenNhom().equals("PGV"))
@@ -129,7 +136,8 @@ public class LoginUIController {
 					login.setTenNhom("SV");
 					login.setMaNV(model.getUserName());
 					login.setKhoa(strKhoa);
-					
+					session.setAttribute("TENKHOA", strTenKhoa);
+
 					session.setAttribute("password", DSTS.getPwsv());
 					session.setAttribute("username", DSTS.getTksv());
 					session.setAttribute("USERMODEL", login);

@@ -43,7 +43,7 @@
 						</h3>
 
 						<h5 style="margin: 20px; text-align: center">
-							<b>Khoa : ${USERMODEL.khoa}</b>
+							<b>Khoa : ${TENKHOA}</b>
 						</h5>
 						<br> <br>
 						<p style="margin: 20px; text-align: right">
@@ -64,10 +64,10 @@
 								</tr>
 							</thead>
 							<tbody class="reports body">
-								<c:forEach items="${lst }" var="item">
+								<c:forEach items="${lst }" var="item" varStatus="status">
 									<tr>
 
-										<th scope="row">${item.stt}</th>
+										<th scope="row">${status.index + 1}</th>
 										<td>${item.tenMonHoc}</td>
 										<td>${item.diemHetMon}</td>
 		
