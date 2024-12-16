@@ -297,7 +297,7 @@ public class AbstractDAO<T> {
 		}
 	}
 
-	public int spPM(HttpSession session, String sql, Object... parameters) {
+	public int spPM(HttpSession session, String sql, Object... parameters) throws SQLException {
 		Connection connection = null;
 		PreparedStatement statement = null;
 		try {
@@ -316,6 +316,8 @@ public class AbstractDAO<T> {
 					connection.rollback();
 				} catch (SQLException e1) {
 					e1.printStackTrace();
+					throw(e1);
+
 				}
 			}
 		} finally {

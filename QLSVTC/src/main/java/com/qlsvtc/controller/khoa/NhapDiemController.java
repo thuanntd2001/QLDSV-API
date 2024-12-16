@@ -91,6 +91,17 @@ public class NhapDiemController {
 					}
 				}
 			}
+			float diemcc;
+			float diemgk;
+			float diemck;
+
+			for (NhapDiemModel item:dataList) {
+				diemcc=item.getDiemCC();
+				diemgk=item.getDiemGK();
+				diemck=item.getDiemCK();
+				item.setDiemTK((float) (diemcc*0.1+diemgk*0.3+diemck*0.6));
+			}
+
 			return "khoa/nhapdiem/formnhapdiem";
 
 		}

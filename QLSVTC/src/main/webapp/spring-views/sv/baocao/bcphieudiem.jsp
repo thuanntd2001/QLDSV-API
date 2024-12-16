@@ -61,10 +61,10 @@
 								</tr>
 							</thead>
 							<tbody class="reports body">
-								<c:forEach items="${lst }" var="item">
+								<c:forEach items="${lst }" var="item" varStatus="status">
 									<tr>
 
-										<th scope="row">${item.stt}</th>
+										<th scope="row">${status.index + 1}</th>
 										<td>${item.tenMonHoc}</td>
 										<td>${item.diemHetMon}</td>
 		

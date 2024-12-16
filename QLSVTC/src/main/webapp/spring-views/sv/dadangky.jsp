@@ -46,10 +46,11 @@
 								<tr>
 									<th scope="col">Mã Môn học</th>
 									<th scope="col">Tên Môn học</th>
-									<th scope="col">Số SV đăng ký</th>
 									<th scope="col">Nhóm</th>
+
+									<!-- <th scope="col">Số SV đăng ký</th>
 									<th scope="col">Giảng viên</th>
-									<th scope="col">TKB</th>
+									<th scope="col">TKB</th> -->
 								</tr>
 							</thead>
 							<tbody>
@@ -59,23 +60,26 @@
 
 										<th scope="row">${item.maMH}</th>
 										<td>${item.tenMH}</td>
-										<td>${item.soSVDK}</td>
 										<td>${item.nhom}</td>
+
+										<%-- <td>${item.soSVDK}</td>
 										<td>${item.GV}</td>
-										<td>${item.TKB}</td>
+										<td>${item.TKB}</td> --%>
 
 										<td><form:form action="dadangky/sv" method="post"
 												modelAttribute="para" class="row g-3">
-												<form:input type="hidden" path="maLTC" value="${item.maLTC}" />												
+												<form:input type="hidden" path="maLTC" value="${item.maLTC}" />
 												<form:input type="hidden" path="maMH" value="${item.maMH}" />
 												<form:input type="hidden" path="tenMH" value="${item.tenMH}" />
-												<form:input type="hidden" path="soSVDK" value="${item.soSVDK}" />
+												<form:input type="hidden" path="soSVDK"
+													value="${item.soSVDK}" />
 												<form:input type="hidden" path="nhom" value="${item.nhom}" />
 												<form:input type="hidden" path="GV" value="${item.GV}" />
 												<form:input type="hidden" path="huy" value="true" />
-												<form:input type="hidden" path="TKB" value="${item.TKB}" /><pre>  </pre>
-												<button type="submit" class="btn btn-secondary">Hủy Đăng
-													Ký</button>
+												<form:input type="hidden" path="TKB" value="${item.TKB}" />
+												<pre>  </pre>
+												<button type="submit" class="btn btn-secondary">Hủy
+													Đăng Ký</button>
 											</form:form></td>
 									</tr>
 								</c:forEach>

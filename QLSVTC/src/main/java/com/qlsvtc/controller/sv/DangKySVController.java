@@ -1,5 +1,6 @@
 package com.qlsvtc.controller.sv;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -41,7 +42,12 @@ public class DangKySVController {
 		System.out.println("Mã MH: " + dangKyModel.getMaMH());
 		System.out.println("Tên MH: " + dangKyModel.getTenMH());
 		System.out.println("Nhóm: " + dangKyModel.getNhom());
-		dangky.DangKy(session, (String) session.getAttribute("MASV"), dangKyModel.getMaLTC());
+		try {
+			dangky.DangKy(session, (String) session.getAttribute("MASV"), dangKyModel.getMaLTC());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			message=" error:" + e.getMessage();
+		}
 		model.addAttribute("para", new DangKyModel());
 		model.addAttribute("message", message);
 		model.addAttribute("lst", lst);
@@ -70,7 +76,13 @@ public class DangKySVController {
 		System.out.println("Mã MH: " + dangKyModel.getMaMH());
 		System.out.println("Tên MH: " + dangKyModel.getTenMH());
 		System.out.println("Nhóm: " + dangKyModel.getNhom());
-		dangky.HuyDangKy(session, (String) session.getAttribute("MASV"), dangKyModel.getMaLTC());
+		try {
+			dangky.HuyDangKy(session, (String) session.getAttribute("MASV"), dangKyModel.getMaLTC());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			message=" error:" + e.getMessage();
+
+		}
 		model.addAttribute("para", new DangKyModel());
 		model.addAttribute("message", message);
 		model.addAttribute("lst", lst);

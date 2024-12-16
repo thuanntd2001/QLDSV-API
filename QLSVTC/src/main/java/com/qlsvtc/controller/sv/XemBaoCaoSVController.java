@@ -31,6 +31,6 @@ public class XemBaoCaoSVController {
 		List<BCPhieuDiem> lst= bcphieudiem.findAll(session,para.getMaSV());
 		model.addAttribute("lst", lst);
 		model.addAttribute("para", para);
-		return "khoa/baocao/bcphieudiem";
+		return "sv/baocao/bcphieudiem";
 	}
 }

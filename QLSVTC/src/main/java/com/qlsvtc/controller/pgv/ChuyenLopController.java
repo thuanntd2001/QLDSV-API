@@ -1,5 +1,6 @@
 package com.qlsvtc.controller.pgv;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -105,7 +106,13 @@ public class ChuyenLopController {
 		
 		login = (NhanVienLoginModel) session.getAttribute("USERMODEL");
 		
-		cldao.ChuyenLop(session, item.getMaSV(), item.getMaLop(), item.getMaCN());
+		try {
+			cldao.ChuyenLop(session, item.getMaSV(), item.getMaLop(), item.getMaCN());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			message+=" error:" + e.getMessage();
+
+		}
 		
 		return "redirect:/quanly/pgv/sinhvien"+message+"&idlop="+(String)session.getAttribute("MALOP");
 	}

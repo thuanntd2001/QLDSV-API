@@ -30,7 +30,7 @@
 	<main id="main" class="main">
 
 	<div class="pagetitle">
-		<h1>Lớp tín chỉ</h1>
+		<h1>Giảng dạy LTC</h1>
 	</div>
 	<!-- End Page Title -->
 
@@ -44,40 +44,39 @@
 						<table class="table table-bordered">
 							<thead>
 								<tr>
-									<th scope="col">Mã Lớp tín chỉ</th>
-									<th scope="col">Môn Học</th>
+									<th scope="col">Mã Giảng dạy LTC</th>
+									<th scope="col">Giảng viên</th>
 
-									<th scope="col">Nhóm</th>
-									<th scope="col">Số SV tối thiểu</th>
+									<th scope="col">Mã TB</th>
+								
 
 
 									<th scope="col">Thao tác</th>
+									
 								</tr>
 							</thead>
 							<tbody>
 
-								<c:forEach items="${lst }" var="item">
+								<c:forEach items="${lst}" var="item">
 									<tr>
 
-										<th scope="row">${item.maLTC}</th>
-										<td>${item.tenMH}</td>
+										<th scope="row">${item.maGD}</th>
+										<td>${item.maGV}</td>
 
-										<td>${item.nhom}</td>
-										<td>${item.soSVToiThieu}</td>
+										<td>${item.maTB}</td>
+										
 
-
-										<td><a href="quanly/pgv/ltc/edit?id=${item.maLTC}"
-											class="fa fa-pencil-square-o"></a> <a
-											href="quanly/pgv/ltc/xoa?id=${item.maLTC}"
-											class="fa fa-times-circle"></a><a
-											href="quanly/pgv/giangday?idltc=${item.maLTC}&idmh=${item.maMH}&nhom=${item.nhom}"
-											class="fa fa-plus"></a></td>
+										<td> <a
+											href="quanly/pgv/giangday/xoa?id=${item.maGD}"
+											class="fa fa-times-circle"></a></td>
+											
+									
 									</tr>
 								</c:forEach>
 							</tbody>
 						</table>
 						<!-- End Table with stripped rows -->
-						<a href="quanly/pgv/ltc/add" class="fa fa-plus"></a>
+						<a href="quanly/pgv/giangday/add" class="fa fa-plus"></a>
 					</div>
 				</div>
 

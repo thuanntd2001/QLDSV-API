@@ -10,9 +10,11 @@ public class BCPhieuDiemMapper implements RowMapper<BCPhieuDiem> {
     public BCPhieuDiem mapRow(ResultSet resultSet) {
         try {
             BCPhieuDiem phieuDiem = new BCPhieuDiem();
-            phieuDiem.setStt(resultSet.getInt("STT"));
+            //phieuDiem.setStt(resultSet.getInt("STT"));
             phieuDiem.setTenMonHoc(resultSet.getString("TENMONHOC"));
-            phieuDiem.setDiemHetMon(resultSet.getFloat("DIEM_HET_MON"));
+            phieuDiem.setMaMH(resultSet.getString("MAMH"));
+
+            phieuDiem.setDiemHetMon(resultSet.getFloat("DIEM"));
             
             return phieuDiem;
         } catch (SQLException e) {

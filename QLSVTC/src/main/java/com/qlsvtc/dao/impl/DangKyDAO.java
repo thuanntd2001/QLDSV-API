@@ -1,5 +1,6 @@
 package com.qlsvtc.dao.impl;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -29,19 +30,19 @@ public class DangKyDAO extends AbstractDAO<DangKyModel> {
 		return bc;
 	}
 
-	public int DangKy(HttpSession session, String maSV, int maLTC){
+	public int DangKy(HttpSession session, String maSV, int maLTC) throws SQLException{
 		String sql = "EXEC SP_SV_DANGKY ?, ?";
 		int bc =spPM(session,sql,maSV,maLTC);
 		return bc;
 		
 	}
-	public int HuyDangKy(HttpSession session, String maSV, int maLTC){
+	public int HuyDangKy(HttpSession session, String maSV, int maLTC) throws SQLException{
 		String sql = "UPDATE DANGKY set HUYDANGKY=1 where MASV= ? and  maLTC= ?";
 		int bc =spPM(session,sql,maSV,maLTC);
 		return bc;
 		
 	}
-	public int DangKyLai(HttpSession session, String maSV, int maLTC){
+	public int DangKyLai(HttpSession session, String maSV, int maLTC) throws SQLException{
 		String sql = "UPDATE DANGKY set HUYDANGKY=0 where MASV= ? and  maLTC= ?";
 		int bc =spPM(session,sql,maSV,maLTC);
 		return bc;
