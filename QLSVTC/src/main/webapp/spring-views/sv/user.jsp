@@ -125,7 +125,7 @@
 					</div>
 				</section>
 
-	
+	</main>
 
 
 	<jsp:include page="/template/cn1/sv/footer.jsp" />

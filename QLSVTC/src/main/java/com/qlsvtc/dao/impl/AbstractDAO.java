@@ -75,7 +75,7 @@ public class AbstractDAO<T> {
 				return DriverManager.getConnection(url, user, password);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				//e.printStackTrace();
 				System.out.print("ket noi that bai side PM");
 				return null;
 			}

@@ -8,6 +8,7 @@ import java.util.List;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
 import com.qlsvtc.model.WekaModel;
+import com.qlsvtc.model.baocao.BCPhieuDiem;
 
 import weka.classifiers.trees.J48;
 import weka.core.DenseInstance;
@@ -16,7 +17,7 @@ import weka.core.Instances;
 import weka.core.converters.ConverterUtils.DataSource;
 
 public class WekaJ48Example {
-	public static String J48(List<WekaModel> testDataList) {
+	public static List<WekaModel> J48(List<WekaModel> testDataList) {
 		try {
 			DataSource trainSource = new DataSource("D:/data.csv");
 			Instances trainData = trainSource.getDataSet();
@@ -83,12 +84,13 @@ public class WekaJ48Example {
 				double label = tree.classifyInstance(testData.instance(i));
 				System.out.println(
 						"Instance " + i + ": predicted class = " + testData.classAttribute().value((int) label));
+				testDataList.get(i).setChuyenNganh(testData.classAttribute().value((int) label));
 			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return null;
+		return testDataList;
 	}
 
 	public static List<WekaModel> readMH() {
@@ -101,6 +103,8 @@ public class WekaJ48Example {
 			while ((nextLine = reader.readNext()) != null) {
 				WekaModel item = new WekaModel();
 				item.setMaMH(nextLine[0]);
+				item.setTenMH(nextLine[1]);
+
 				item.setSoTC(Integer.parseInt(nextLine[2]));
 				item.setTyLeTH(nextLine[3]);
 				item.setKyThuat(nextLine[4]);
@@ -122,4 +126,28 @@ public class WekaJ48Example {
 		}
 		return items;
 	}
+	
+	private static int timChiSo(List<WekaModel> danhSach, String maMH) {
+        for (int i = 0; i < danhSach.size(); i++) {
+            if (danhSach.get(i).getMaMH().equals(maMH)) {
+                return i; // Tr? v? ch? s? n?u tìm th?y
+            }
+        }
+        return -1; // Tr? v? -1 n?u không tìm th?y
+    }
+	
+	public static List<WekaModel> capNhatWekaLst(List<WekaModel> danhSach, List<BCPhieuDiem> lstPD) {
+		String maMH;
+        for (int i = 0; i < lstPD.size(); i++) {
+        	maMH=lstPD.get(i).getMaMH();
+        	int j=timChiSo(danhSach,maMH);
+            if (j!=-1) {
+            	danhSach.get(j).setDiemCC(lstPD.get(i).getDiemCC2());
+            	danhSach.get(j).setDiemTK(lstPD.get(i).getDiemTK2());
+    			System.out.println("capnhat: "+danhSach.get(j));
+
+            }
+        }
+        return danhSach; // Tr? v? -1 n?u không tìm th?y
+    }
 }

@@ -12,6 +12,7 @@ public class WekaModel {
 	private int soTC;
 	private String tyLeTH;
 	private String maMH;
+	private String tenMH;
 
 	private String kyThuat;
 

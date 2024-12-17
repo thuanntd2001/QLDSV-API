@@ -47,12 +47,13 @@
 									<th scope="col">Mã Giảng dạy LTC</th>
 									<th scope="col">Giảng viên</th>
 
-									<th scope="col">Mã TB</th>
-								
+									<th scope="col">Thứ</th>
+									<th scope="col">Buổi</th>
+
 
 
 									<th scope="col">Thao tác</th>
-									
+
 								</tr>
 							</thead>
 							<tbody>
@@ -63,14 +64,14 @@
 										<th scope="row">${item.maGD}</th>
 										<td>${item.maGV}</td>
 
-										<td>${item.maTB}</td>
-										
+										<td>${item.thu}</td>
+										<td>${item.buoi}</td>
 
-										<td> <a
-											href="quanly/pgv/giangday/xoa?id=${item.maGD}"
+
+										<td><a href="quanly/pgv/giangday/xoa?id=${item.maGD}"
 											class="fa fa-times-circle"></a></td>
-											
-									
+
+
 									</tr>
 								</c:forEach>
 							</tbody>

@@ -22,110 +22,82 @@
 
 
 
-		<main id="main" class="main">
-				<div class="header-content d-flex justify-content-center">
-					<h3>THÔNG TIN TÀI KHOẢN</h3></div>
-				<section class="section profile">
-					<div class="row">
-						<div class="col-xl-4">
+	<main id="main" class="main">
 
-						 	<div class="card">
-								<form:form modelAttribute="user"
-									class="card-body profile-card pt-4 d-flex flex-column align-items-center">
+	<div class="pagetitle">
+		<h1>Gợi ý chuyên ngành</h1>
+	</div>
+	<!-- End Page Title -->
 
-									<h2>${sessionScope.USERMODEL.hoTen }</h2>
-									<h3>${sessionScope.USERMODEL.maNV }</h3>
-								</form:form>
-							</div> 
+	<section class="section">
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="card">
+					<div class="card-body">
+					<br>
+					<br>
+						<h4>Tổng CNPM: ${sumCNPM}, Tổng HTTT: ${sumHTTT} </h4>
+						<br>
+						<h3>Chuyên ngành gợi ý: ${nganh}</h3>
+						<!-- Bordered Table -->
+						<table class="table table-bordered">
+							<thead>
+								<tr>
+									<th scope="col">Mã Môn học</th>
+									<th scope="col">Tên Môn học</th>
+									<th scope="col">Số tín chỉ</th>
+									<th scope="col">Tỷ Lệ Thực hành</th>
 
-						</div>
-						<div class="col-xl-8">
-							<div class="card">
-								<div class="card-body pt-3">
-									<!-- Bordered Tabs -->
-									<ul class="nav nav-tabs nav-tabs-bordered">
+									<th scope="col">Kỹ thuật</th>
+									<th scope="col">Phân tích</th>
+									<th scope="col">Thiết kế</th>
+									<th scope="col">Kỹ năng nhóm</th>
 
-										<li class="nav-item">
-											<button class="nav-link active" data-bs-toggle="tab"
-												data-bs-target="#profile-overview">Thông Tin</button>
-										</li>
-
-
-
-										<li class="nav-item">
-											<button class="nav-link" data-bs-toggle="tab"
-												data-bs-target="#profile-change-password">Đổi Mật
-												Khẩu</button>
-										</li>
-
-										<li class="nav-item">
-											<button class="nav-link" data-bs-toggle="tab"
-												data-bs-target="#avata-edit">Đổi ảnh đại diện</button>
-										</li>
-									</ul>
-									<div class="tab-content pt-2">
-										<div class="tab-pane fade show active profile-overview"
-											id="profile-overview">
-											<form:form modelAttribute="nv,user" method="post">
-												<h5 class="card-title">Thông Tin Cá Nhân</h5>
-												<div class="row">
-													<div class="col-lg-3 col-md-4 label ">Mã Sinh Viên</div>
-													<div class="col-lg-9 col-md-8">${sessionScope.USERMODEL.maNV}
-													</div>
-												</div>
-
-												<div class="row">
-													<div class="col-lg-3 col-md-4 label">Họ Tên</div>
-													<div class="col-lg-9 col-md-8">${sessionScope.USERMODEL.hoTen }</div>
-												</div>
-
-												<div class="row">
-													<div class="col-lg-3 col-md-4 label">Vai trò</div>
-													<div class="col-lg-9 col-md-8">${sessionScope.USERMODEL.tenNhom }</div>
-												</div>
-
-												<div class="row">
-													<div class="col-lg-3 col-md-4 label">Tên Tài Khoản</div>
-													<div class="col-lg-9 col-md-8">${sessionScope.username }</div>
-												</div>
-												<div class="row">
-													<div class="col-lg-3 col-md-4 label">Khoa</div>
-													<div class="col-lg-9 col-md-8">${USERMODEL.khoa }</div>
-												</div>
-
-											</form:form>
-										</div>
+									<th scope="col">Điểm Chuyên cần</th>
+									<th scope="col">Điểm Tổng kết</th>
+									<th scope="col">Chuyên ngành gợi ý tương ứng</th>
 
 
-										<div class="tab-pane fade pt-3" id="profile-change-password">
-											<!-- Change Password Form -->
+									<!-- <th scope="col">Số SV đăng ký</th>
+									<th scope="col">Giảng viên</th>
+									<th scope="col">TKB</th> -->
+								</tr>
+							</thead>
+							<tbody>
 
-											<!-- End Change Password Form -->
+								<c:forEach items="${lst }" var="item">
+									<tr>
+
+										<td>${item.maMH}</td>
+										<td>${item.tenMH}</td>
+										<td>${item.soTC}</td>
+										<td>${item.tyLeTH}</td>
+										<td>${item.kyThuat}</td>
+										<td>${item.phanTich}</td>
+										<td>${item.thietKe}</td>
+										<td>${item.kyNangNhom}</td>
+										<td>${item.diemCC}</td>
+										<td>${item.diemTK}</td>
+										<th scope="row">${item.chuyenNganh}</th>
+
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table>
 
 
-										</div>
-										<!-- ICON Tabs -->
-										<div class="tab-pane fade pt-3" id="avata-edit">
-											<label> ${message1} </label>
-											<form action="user-avt.htm" method="post"
-												enctype="multipart/form-data" class="row mb-3">
-												<label for="profileImage"
-													class="col-md-4 col-lg-3 col-form-label">Ảnh Đại
-													Diện</label>
-
-											</form>
-										</div>
-									</div>
 
 
-								</div>
-							</div>
-
-						</div>
 					</div>
-				</section>
+				</div>
 
-	
+			</div>
+		</div>
+	</section>
+
+	</main>
+	<!-- End #main -->
+
 
 
 	<jsp:include page="/template/cn1/sv/footer.jsp" />

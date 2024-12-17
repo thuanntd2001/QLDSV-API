@@ -13,6 +13,7 @@ public class BCPhieuDiemMapper implements RowMapper<BCPhieuDiem> {
             //phieuDiem.setStt(resultSet.getInt("STT"));
             phieuDiem.setTenMonHoc(resultSet.getString("TENMONHOC"));
             phieuDiem.setMaMH(resultSet.getString("MAMH"));
+            phieuDiem.setDiemCC(resultSet.getFloat("DIEM_CC"));
 
             phieuDiem.setDiemHetMon(resultSet.getFloat("DIEM"));
             

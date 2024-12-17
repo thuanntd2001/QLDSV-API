@@ -17,19 +17,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.qlsvtc.CNTT.repository.GiangDayRepositoryCNTT;
 import com.qlsvtc.CNTT.repository.GiangVienRepositoryCNTT;
 import com.qlsvtc.CNTT.repository.KhoaRepositoryCNTT;
-import com.qlsvtc.CNTT.repository.LopRepositoryCNTT;
-import com.qlsvtc.CNTT.repository.GiangDayRepositoryCNTT;
 import com.qlsvtc.DTO.GiangDayDTO;
+import com.qlsvtc.VT.repository.GiangDayRepositoryVT;
 import com.qlsvtc.VT.repository.GiangVienRepositoryVT;
 import com.qlsvtc.VT.repository.KhoaRepositoryVT;
-import com.qlsvtc.VT.repository.LopRepositoryVT;
-import com.qlsvtc.VT.repository.GiangDayRepositoryVT;
-import com.qlsvtc.entity.GiangVien;
-import com.qlsvtc.entity.Khoa;
-import com.qlsvtc.entity.Lop;
 import com.qlsvtc.entity.GiangDay;
+import com.qlsvtc.entity.GiangVien;
 import com.qlsvtc.model.NhanVienLoginModel;
 
 @Controller
@@ -45,15 +41,10 @@ public class QLGiangDayController {
 	@Autowired
 	GiangVienRepositoryVT vtrepogiangvien;
 
-
 	@Autowired
 	KhoaRepositoryCNTT cnrepokhoa;
 	@Autowired
 	KhoaRepositoryVT vtrepokhoa;
-	@Autowired
-	LopRepositoryCNTT cnrepolop;
-	@Autowired
-	LopRepositoryVT vtrepolop;
 
 	NhanVienLoginModel login = null;
 	ModelMapper modelMapper = new ModelMapper();
@@ -61,7 +52,7 @@ public class QLGiangDayController {
 
 	@GetMapping("giangday")
 	public String getVTCN(HttpServletRequest request, HttpSession session, ModelMap model) {
-	
+
 		idLTC = Integer.parseInt(request.getParameter("idltc"));
 		List<GiangVien> lstGV;
 		session.setAttribute("MALTC", request.getParameter("idltc"));
@@ -70,17 +61,29 @@ public class QLGiangDayController {
 		List<GiangDay> lstEntity;
 		login = (NhanVienLoginModel) session.getAttribute("USERMODEL");
 		if ("VT".equals(login.getKhoa())) {
-			lstEntity = vtrepo.findAllByMaLTC(idLTC); 
+			lstEntity = vtrepo.findAllByMaLTC(idLTC);
 			lstGV = vtrepogiangvien.findAll();
+
 		} else {
-			lstEntity = cnrepo.findAllByMaLTC(idLTC); 
+			lstEntity = cnrepo.findAllByMaLTC(idLTC);
 			lstGV = cnrepogiangvien.findAll();
 
 		}
 		List<GiangDayDTO> lst = new ArrayList<GiangDayDTO>();
+		int thu, buoi;
 		for (GiangDay item : lstEntity) {
 			GiangDayDTO dto = modelMapper.map(item, GiangDayDTO.class);
-			dto.setTenGV(dto.getMaGV()+" - "+timTenGiangVienTheoMa(lstGV,dto.getMaGV()));
+			dto.setTenGV(dto.getMaGV() + " - " + timTenGiangVienTheoMa(lstGV, dto.getMaGV()));
+			thu = 2 + item.getMaTB() / 3;
+			buoi = item.getMaTB() % 3;
+			if (item.getMaTB() % 3 == 0) {
+				thu -= 1;
+				buoi = 3;
+			}
+
+			dto.setThu(thu);
+			dto.setBuoi(buoi);
+
 			lst.add(dto);
 		}
 
@@ -103,8 +106,6 @@ public class QLGiangDayController {
 		GiangDayDTO item = new GiangDayDTO();
 		model.addAttribute("item", item);
 
-
-
 		return "pgv/form/giangday/fadd-giangday";
 	}
 
@@ -113,62 +114,41 @@ public class QLGiangDayController {
 			@ModelAttribute("item") GiangDayDTO item) {
 		String message = "?message=";
 		R repo;
-		Khoa khoa;
-		Lop lop;
-		GiangVien chuyenNganh;
 
-		String idltc =(String)session.getAttribute("MALTC");
+		int idltc = Integer.parseInt((String) session.getAttribute("MALTC"));
 		login = (NhanVienLoginModel) session.getAttribute("USERMODEL");
 		if ("VT".equals(login.getKhoa())) {
 			repo = (R) vtrepo; // Cast to the generic type
-			khoa = vtrepokhoa.findAll().get(0);
-			lop = vtrepolop.findById(idltc).get();
-			chuyenNganh = vtrepogiangvien.findById(item.getMaGV()).get();
-
 
 		} else {
 			repo = (R) cnrepo; // Cast to the generic type
-			khoa = cnrepokhoa.findAll().get(0);
-			lop = cnrepolop.findById((String)session.getAttribute("MALTC")).get();
-			chuyenNganh = cnrepogiangvien.findById(item.getMaGV()).get();
 
 		}
 
-		if (item.getMaGD()== 0 || repo.findById(item.getMaGD()).isEmpty()) {
-			GiangDay itemsave = modelMapper.map(item, GiangDay.class);
-		//	itemsave.setCN(chuyenNganh);
-		//	itemsave.setLop(lop);
-		//	itemsave.setDaNghiHoc(false);
-			GiangDay nvsave = null;
+		GiangDay itemsave = modelMapper.map(item, GiangDay.class);
+		int maTB= (item.getThu() - 2) *3 +item.getBuoi();
+		itemsave.setMaLTC(idltc);
+		itemsave.setMaTB(maTB);
+		GiangDay nvsave = null;
 
-			try {
-				if (itemsave.getMaGD() == 0) {
-				//itemsave.setMaSV(dao.taoSV(session,idltc,item.getMaGV()).get(0).getStr());		
-				}
-				System.out.println(itemsave.getMaGD());
-
-				nvsave = repo.save(itemsave);
-			} catch (Exception e) {
-				e.printStackTrace();
-				message = message + "thêm thất bại";
-				model.addAttribute("message", "thêm thất bại");
-				System.out.println("thêm thất bại");
-			}
-			if (nvsave != null) {
-				message = message + "thêm thành công";
-				model.addAttribute("message", "thêm thành công");
-				System.out.println("thêm thành công");
-			}
-		} else {
-			message = message + "thêm thất bại, đã tồn tại";
-			model.addAttribute("message", "thêm thất bại, đã tồn tại");
-			System.out.println("thêm thất bại đã tồn tại");
+		try {
+			
+			nvsave = repo.save(itemsave);
+		} catch (Exception e) {
+			e.printStackTrace();
+			message = message + "thêm thất bại";
+			model.addAttribute("message", "thêm thất bại");
+			System.out.println("thêm thất bại");
+		}
+		if (nvsave != null) {
+			message = message + "thêm thành công";
+			model.addAttribute("message", "thêm thành công");
+			System.out.println("thêm thành công");
 		}
 
-		return "redirect:/quanly/pgv/giangday/add"+ message;
+		return "redirect:/quanly/pgv/giangday/add" + message;
 	}
-	
-	
+
 	@GetMapping(value = "giangday/xoa")
 	public String xoaNVCN1(ModelMap model, HttpServletRequest request) {
 
@@ -181,28 +161,24 @@ public class QLGiangDayController {
 	@RequestMapping(value = "giangday/xoa", method = RequestMethod.POST)
 	public <R extends JpaRepository<GiangDay, Integer>> String xoaNVCN1P(HttpSession session, ModelMap model,
 			HttpServletRequest request) {
-		String idltc =(String)session.getAttribute("MALTC");
+		String idltc = (String) session.getAttribute("MALTC");
 		String message = "?message=";
-		GiangDay itemEntity;
 		R repo;
 		Integer id = Integer.parseInt(request.getParameter("id"));
 
 		login = (NhanVienLoginModel) session.getAttribute("USERMODEL");
 		if ("VT".equals(login.getKhoa())) {
 			repo = (R) vtrepo; // Cast to the generic type
-			itemEntity = repo.findById(id).get(); // Cast to the generic type
 
 		} else {
 			repo = (R) cnrepo; // Cast to the generic type
-			itemEntity = repo.findById(id).get(); // Cast to the generic type
 
 		}
 		System.out.println(request.getParameter("xacNhan") + request.getParameter("id"));
 		try {
 			if (request.getParameter("xacNhan").equals("YES")) {
-//				VatTuEntity nvsave = vtrepo.findOne(id);
-			//	itemEntity.setDaNghiHoc(true);
-				repo.save(itemEntity);
+
+				repo.deleteById(id);
 				message += "xoá thành công";
 				model.addAttribute("message", "xoá thành công");
 			}
@@ -211,17 +187,16 @@ public class QLGiangDayController {
 			message += "xoá thất bại";
 			model.addAttribute("message", "xoá thất bại");
 		}
-		return "redirect:/quanly/pgv/giangday" + message+"&idltc="+idltc;
+		return "redirect:/quanly/pgv/giangday" + message + "&idltc=" + idltc;
 
 	}
 
-
 	public String timTenGiangVienTheoMa(List<GiangVien> danhSachGiangVien, String maGV) {
-        for (GiangVien gv : danhSachGiangVien) {
-            if (gv.getMaGV().equals(maGV)) {
-                return gv.getTen(); // Tr? v? ??i t??ng GiangVien tìm th?y
-            }
-        }
-        return null; // Tr? v? null n?u không tìm th?y
-    }
+		for (GiangVien gv : danhSachGiangVien) {
+			if (gv.getMaGV().equals(maGV)) {
+				return gv.getTen(); // Tr? v? ??i t??ng GiangVien tìm th?y
+			}
+		}
+		return null; // Tr? v? null n?u không tìm th?y
+	}
 }

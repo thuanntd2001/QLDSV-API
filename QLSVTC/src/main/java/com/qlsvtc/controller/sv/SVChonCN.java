@@ -17,20 +17,34 @@ import com.qlsvtc.utils.WekaJ48Example;
 public class SVChonCN {
 	BCPhieuDiemDAO bcphieudiem = new BCPhieuDiemDAO();
 
-	@GetMapping("/choncn")
-	public String home(HttpSession session,Model model) {
+	@GetMapping("/svchoncn")
+	public String home(HttpSession session, Model model) {
 		// List<WekaModel> testDataList = new ArrayList<>();
 
 		/*
 		 * testDataList.add( new WekaModel(3, "thap", "A", "D", "D","B", "cao", "cao",
 		 * ""));
 		 */
-		List<BCPhieuDiem> lst= bcphieudiem.findAll(session,(String)session.getAttribute("MASV"));
+		List<BCPhieuDiem> lstPD = bcphieudiem.findAll(session, (String) session.getAttribute("MASV"));
 		List<WekaModel> testDataList = WekaJ48Example.readMH();
+		List<WekaModel> lst = WekaJ48Example.capNhatWekaLst(testDataList, lstPD);
+		WekaJ48Example.J48(lst);
+		int sumCNPM = 0;
+		int sumHTTT = 0;
+		String nganh = null;
+		for (WekaModel item : lst) {
+			if(item.getChuyenNganh().equals("HTTT")) sumHTTT+=1;
+			else sumCNPM+=1;
+		}
+		if (sumCNPM>sumHTTT) nganh="CÔNG NGHỆ PHẦN MỀM";
+		if (sumCNPM<sumHTTT) nganh="HỆ THỐNG THÔNG TIN";
+		if (sumCNPM==sumHTTT) nganh="CÔNG NGHỆ PHẦN MỀM, HỆ THỐNG THÔNG TIN";
 
-		WekaJ48Example.J48(testDataList);
-		model.addAttribute("newsStream", null);
-		System.out.println("hello sv");
+		model.addAttribute("sumCNPM", sumCNPM);
+		model.addAttribute("sumHTTT", sumHTTT);
+		model.addAttribute("nganh", nganh);
+
+		model.addAttribute("lst", lst);
 		return "sv/gycn";
 	}
 

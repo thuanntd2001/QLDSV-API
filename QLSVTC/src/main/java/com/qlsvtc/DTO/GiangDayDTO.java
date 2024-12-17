@@ -11,6 +11,8 @@ public class GiangDayDTO {
 	
 	private String maGV;
 	private String TenGV;
+	private int thu;
+	private int buoi ;
 
 	
 	private Integer maTB;
