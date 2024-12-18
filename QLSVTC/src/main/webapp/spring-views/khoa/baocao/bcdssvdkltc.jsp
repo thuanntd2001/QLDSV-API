@@ -48,7 +48,7 @@
 						<p style="margin: 20px; text-align: right"></p>
 						<br>
 						<p style="margin: 20px; text-align: center">
-							Niên khóa: ${para.nk} , Học kỳ: ${para.hk} <br> Mã MH:
+							Niên khóa: ${para.nk} - ${para.nk+1} , Học kỳ: ${para.hk} <br> Mã MH:
 							${para.maMH} , Nhóm: ${para.nhom}
 						</p>
 						<table class="table table-bordered border-bottom-0 border-dark">
@@ -82,9 +82,10 @@
 						<br> <br>
 						<p
 							style="margin: 20px; text-align: center; text-transform: uppercaguse">
-							<b> Người lập báo cáo</b>
+							<b> Người lập báo cáo</b> <br> <br> <br> <br>
+							<br> <br> <b>${USERMODEL.hoTen}</b>
 						</p>
-						<br> <br> <br> <br>
+						<br> <br> 
 
 					</div>
 				</div>

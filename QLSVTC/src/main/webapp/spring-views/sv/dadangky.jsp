@@ -85,8 +85,7 @@
 								</c:forEach>
 							</tbody>
 						</table>
-						<!-- End Table with stripped rows -->
-						<a href="quanly/pgv/monhoc/add" class="fa fa-plus"></a>
+						
 					</div>
 				</div>
 

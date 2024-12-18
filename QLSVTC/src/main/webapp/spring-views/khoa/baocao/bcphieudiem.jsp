@@ -37,8 +37,7 @@
 						<br> <br>
 						<h3
 							style="margin: 20px; text-align: center; text-transform: uppercaguse">
-							<strong>  Phiếu điểm
-							</strong>
+							<strong> Phiếu điểm </strong>
 
 						</h3>
 
@@ -46,13 +45,10 @@
 							<b>Khoa : ${TENKHOA}</b>
 						</h5>
 						<br> <br>
-						<p style="margin: 20px; text-align: right">
-							
-
-						</p>
+						<p style="margin: 20px; text-align: right"></p>
 						<br>
 						<p style="margin: 20px; text-align: center">Mã Sinh Viên:
-							${para.maSV} </p>
+							${para.maSV}</p>
 
 						<table class="table table-bordered border-bottom-0 border-dark">
 							<thead class="reports head">
@@ -60,7 +56,7 @@
 									<th scope="col">STT</th>
 									<th scope="col">Tên Môn Học</th>
 									<th scope="col">Điểm Hết Môn</th>
-							
+
 								</tr>
 							</thead>
 							<tbody class="reports body">
@@ -70,8 +66,8 @@
 										<th scope="row">${status.index + 1}</th>
 										<td>${item.tenMonHoc}</td>
 										<td>${item.diemHetMon}</td>
-		
-					
+
+
 									</tr>
 								</c:forEach>
 
@@ -80,7 +76,9 @@
 						<br> <br>
 						<p
 							style="margin: 20px; text-align: center; text-transform: uppercaguse">
-							<b> Người lập báo cáo</b>
+							<b> Người lập báo cáo</b> <br> <br> <br> <br>
+							<br> <br> <b>${USERMODEL.hoTen}</b>
+
 						</p>
 						<br> <br> <br> <br>
 

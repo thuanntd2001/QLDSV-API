@@ -81,7 +81,8 @@
 						<br> <br>
 						<p
 							style="margin: 20px; text-align: center; text-transform: uppercaguse">
-							<b> Người lập báo cáo</b>
+							<b> Người lập báo cáo</b> <br> <br> <br> <br>
+							<br> <br> <b>${USERMODEL.hoTen}</b>
 						</p>
 						<br> <br> <br> <br>
 
