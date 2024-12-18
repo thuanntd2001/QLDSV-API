@@ -65,12 +65,12 @@ public class QLLopTinChiController {
 		 * 
 		 */
 		if (request.getParameter("idnkhk")==null) 
+			if (session.getAttribute("MANKHK")!=null) 
 			{maNKHK=Integer.parseInt((String) session.getAttribute("MANKHK"));
 			System.out.println((String) session.getAttribute("MANKHK"));
 			}
-		else 
-			maNKHK = Integer.parseInt(request.getParameter("idnkhk"));
-		if (maNKHK==0) return "redirect:dang-nhap?action=login";
+			else return "redirect:dang-nhap?action=login";
+		else maNKHK = Integer.parseInt(request.getParameter("idnkhk"));
 
 		List<MonHoc> lstMH;
 		session.setAttribute("MANKHK", maNKHK);
