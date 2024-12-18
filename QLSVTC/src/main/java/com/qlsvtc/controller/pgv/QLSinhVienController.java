@@ -65,8 +65,10 @@ public class QLSinhVienController {
 	public String getVTCN(HttpServletRequest request, HttpSession session, ModelMap model) {
 	
 		idLop = request.getParameter("idlop");
+		if (idLop==null) idLop=(String)session.getAttribute("MALOP");
+		if (idLop==null) return "redirect:dang-nhap?action=login";
 		List<ChuyenNganh> lstCN;
-		session.setAttribute("MALOP", request.getParameter("idlop"));
+		session.setAttribute("MALOP", idLop);
 		String message = request.getParameter("message");
 		model.addAttribute("message", message);
 		List<SinhVien> lstEntity;

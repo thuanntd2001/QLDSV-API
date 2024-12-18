@@ -17,9 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.qlsvtc.CNTT.repository.NKHKRepositoryCNTT;
-import com.qlsvtc.DTO.LopDTO;
 import com.qlsvtc.VT.repository.NKHKRepositoryVT;
-import com.qlsvtc.entity.Lop;
 import com.qlsvtc.entity.NKHK;
 import com.qlsvtc.model.NhanVienLoginModel;
 

@@ -44,7 +44,7 @@ public class AbstractDAO<T> {
 	}
 
 //Connection PHANMANH
-
+	//dung de truy van
 	public Connection getConnectionPM(String url, String rUser, String rPassword) {
 		try {
 			Class.forName(DSTS.getDriverPM());
@@ -65,6 +65,7 @@ public class AbstractDAO<T> {
 		}
 	}
 
+	//dung de check login trc khi dang nhap
 	public Connection getConnectionPM(HttpSession session) {
 		try {
 			Class.forName(DSTS.getDriverPM());
@@ -331,6 +332,8 @@ public class AbstractDAO<T> {
 
 			} catch (SQLException e2) {
 				e2.printStackTrace();
+				throw(e2);
+
 			}
 		}
 		return -2;

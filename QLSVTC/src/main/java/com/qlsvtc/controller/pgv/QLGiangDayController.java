@@ -53,9 +53,17 @@ public class QLGiangDayController {
 	@GetMapping("giangday")
 	public String getVTCN(HttpServletRequest request, HttpSession session, ModelMap model) {
 
-		idLTC = Integer.parseInt(request.getParameter("idltc"));
+		if (request.getParameter("idltc")==null) {
+			idLTC=Integer.parseInt((String) session.getAttribute("MALTC"));
+			System.out.println((String) session.getAttribute("MALTC"));
+	
+		}
+		else 
+			idLTC = Integer.parseInt(request.getParameter("idltc"));
+
+		if (idLTC==0) return "redirect:dang-nhap?action=login";
 		List<GiangVien> lstGV;
-		session.setAttribute("MALTC", request.getParameter("idltc"));
+		session.setAttribute("MALTC", idLTC);
 		String message = request.getParameter("message");
 		model.addAttribute("message", message);
 		List<GiangDay> lstEntity;

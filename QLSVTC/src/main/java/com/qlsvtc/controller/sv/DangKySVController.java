@@ -44,8 +44,11 @@ public class DangKySVController {
 		System.out.println("Nhóm: " + dangKyModel.getNhom());
 		try {
 			dangky.DangKy(session, (String) session.getAttribute("MASV"), dangKyModel.getMaLTC());
+			//System.out.println("ko loi: " + dangKyModel.getNhom());
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
+			e.printStackTrace();
 			message=" error:" + e.getMessage();
 		}
 		model.addAttribute("para", new DangKyModel());

@@ -64,9 +64,16 @@ public class QLLopTinChiController {
 		 * Sort sort = new Sort(Sort.Direction.ASC, "maVT");;
 		 * 
 		 */
-		maNKHK = Integer.parseInt(request.getParameter("idnkhk"));
+		if (request.getParameter("idnkhk")==null) 
+			{maNKHK=Integer.parseInt((String) session.getAttribute("MANKHK"));
+			System.out.println((String) session.getAttribute("MANKHK"));
+			}
+		else 
+			maNKHK = Integer.parseInt(request.getParameter("idnkhk"));
+		if (maNKHK==0) return "redirect:dang-nhap?action=login";
+
 		List<MonHoc> lstMH;
-		session.setAttribute("MANKHK", request.getParameter("idnkhk"));
+		session.setAttribute("MANKHK", maNKHK);
 		String message = request.getParameter("message");
 		model.addAttribute("message", message);
 		List<LTC> lstEntity;
