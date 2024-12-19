@@ -30,7 +30,7 @@
 	<main id="main" class="main">
 
 	<div class="pagetitle">
-		<h1>Lớp tín chỉ</h1>
+		<h1>Lớp tín chỉ - NKHK: ${MANKHK}</h1>
 	</div>
 	<!-- End Page Title -->
 

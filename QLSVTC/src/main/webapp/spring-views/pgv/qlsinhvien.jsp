@@ -30,7 +30,7 @@
 	<main id="main" class="main">
 
 	<div class="pagetitle">
-		<h1>Sinh viên</h1>
+		<h1>Sinh viên - Lớp ${MALOP}</h1>
 	</div>
 	<!-- End Page Title -->
 

@@ -30,7 +30,8 @@
 	<main id="main" class="main">
 
 	<div class="pagetitle">
-		<h1>Giảng dạy LTC</h1>
+		<h1>NKHK: ${MANKHK}</h1>
+		<h1>Giảng dạy - LTC: ${MALTC}</h1>
 	</div>
 	<!-- End Page Title -->
 
