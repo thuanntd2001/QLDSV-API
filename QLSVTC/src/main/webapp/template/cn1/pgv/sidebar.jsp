@@ -36,10 +36,10 @@
 					môn học</span>
 		</a></li>
 
-		<li class="nav-item"><a class="nav-link collapsed"
+		<!-- <li class="nav-item"><a class="nav-link collapsed"
 			href="xembaocao/pgv"> <i class="bi bi-house-fill"></i> <span>Xem
 					báo cáo</span>
-		</a></li>
+		</a></li> -->
 
 		<li class="nav-item"><a class="nav-link collapsed"
 			href="quanly/pgv/nhanvien"> <i class="bi bi-house-fill"></i>

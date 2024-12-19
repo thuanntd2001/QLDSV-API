@@ -47,7 +47,13 @@
 							<div class="col-md-6">
 								<div class="col-md-8">
 									<label for="inputCity" class="form-label">Mã giảng viên</label>
-									<form:input type="text" path="maNV" />
+
+									<form:select class="selectpicker" path="quyen">
+										<c:forEach items="${lstGV}" var="item">
+											<option value="${item.maGV}">${item.maGV} -
+												${item.ho} - ${item.ten}</option>
+										</c:forEach>
+									</form:select>
 								</div>
 							</div>
 
@@ -77,7 +83,11 @@
 							<br>
 
 							<h6>${message1}</h6>
-							<br><br><br><br><br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
 							<div class="text-center">
 								<button type="submit" class="btn btn-primary">Accept</button>
 								<button type="reset" class="btn btn-secondary">Reset</button>

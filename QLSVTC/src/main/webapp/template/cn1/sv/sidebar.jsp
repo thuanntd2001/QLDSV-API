@@ -24,10 +24,10 @@
 			href="xembaocao/sv"> <i class="bi bi-house-fill"></i> <span>Xem
 					báo cáo</span>
 		</a></li>
-	<li class="nav-item"><a class="nav-link collapsed"
+<!-- 	<li class="nav-item"><a class="nav-link collapsed"
 			href="svchoncn"> <i class="bi bi-house-fill"></i> <span>Gợi ý chuyên ngành</span>
 		</a></li>
-
+ -->
 	</ul>
 </aside>
 <!-- End Sidebar-->

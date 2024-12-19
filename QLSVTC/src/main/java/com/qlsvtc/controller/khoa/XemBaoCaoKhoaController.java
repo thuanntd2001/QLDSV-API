@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,12 +15,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.qlsvtc.CNTT.repository.MonHocRepositoryCNTT;
+import com.qlsvtc.VT.repository.MonHocRepositoryVT;
 import com.qlsvtc.dao.impl.BCBangDiemMonHocLTCDAO;
 import com.qlsvtc.dao.impl.BCBangDiemTongKetDAO;
 import com.qlsvtc.dao.impl.BCDSSVDAO;
 import com.qlsvtc.dao.impl.BCDsLTCDAO;
 import com.qlsvtc.dao.impl.BCDssvDkLTCDAO;
 import com.qlsvtc.dao.impl.BCPhieuDiemDAO;
+import com.qlsvtc.entity.MonHoc;
+import com.qlsvtc.model.NhanVienLoginModel;
 import com.qlsvtc.model.baocao.BCBangDiemMonHocLTC;
 import com.qlsvtc.model.baocao.BCBangDiemTongKet;
 import com.qlsvtc.model.baocao.BCDsLTC;
@@ -38,7 +42,9 @@ import com.qlsvtc.utils.BangDiemUtil;
 public class XemBaoCaoKhoaController {
 	
 	@Autowired
-	MonHocRepositoryCNTT repocn;
+	MonHocRepositoryCNTT cnrepo;
+	@Autowired
+	MonHocRepositoryVT vtrepo;
 
 	BCBangDiemMonHocLTCDAO bcbangdiemmonhocltc = new BCBangDiemMonHocLTCDAO();
 	BCDsLTCDAO bcdsltc = new BCDsLTCDAO();
@@ -46,18 +52,32 @@ public class XemBaoCaoKhoaController {
 	BCPhieuDiemDAO bcphieudiem = new BCPhieuDiemDAO();
 	BCBangDiemTongKetDAO bcbangdiemtongket = new BCBangDiemTongKetDAO();
 	BCDSSVDAO bcdssv = new BCDSSVDAO();
-	
+	NhanVienLoginModel login = null;
+
 	@GetMapping("/bcbangdiemmonhocltc/khoa")
-	public String getbcbangdiemmonhocltc(ModelMap model) {
+	public <R extends JpaRepository<MonHoc, String>> String getbcbangdiemmonhocltc(ModelMap model,HttpSession session) {
+		R repo;
+		login = (NhanVienLoginModel) session.getAttribute("USERMODEL");
+		if ("VT".equals(login.getKhoa())) {
+			repo = (R) vtrepo; // Cast to the generic type
+		} else {
+			repo = (R) cnrepo; // Cast to the generic type
+		}
+		
 		ParaBCBangDiemMonHocLTC para = new ParaBCBangDiemMonHocLTC();
 		model.addAttribute("para", para);
-		model.addAttribute("lstMH", repocn.findAll());
+		model.addAttribute("lstMH", repo.findAll());
 		return "khoa/form/fbcbangdiemmonhocltc";
 	}
 	
 	@PostMapping("/bcbangdiemmonhocltc/khoa")
 	public String bcbangdiemmonhocltc(HttpSession session,ParaBCBangDiemMonHocLTC para,ModelMap model) {
+		MonHoc mh=cnrepo.findById(para.getMaMH()).get();
+		model.addAttribute("mh",mh.getTenMH());
+
+		
 		List<BCBangDiemMonHocLTC> lst= bcbangdiemmonhocltc.findAll(session, para.getNk(),para.getHk(),para.getMaMH(),para.getNhom());
+		
 		model.addAttribute("lst", lst);
 		model.addAttribute("para", para);
 		return "khoa/baocao/bcbangdiemmonhocltc";
@@ -79,15 +99,26 @@ public class XemBaoCaoKhoaController {
 	}
 	
 	@GetMapping("/bcdssvdkltc/khoa")
-	public String getbcdssvdkltc(ModelMap model) {
+	public <R extends JpaRepository<MonHoc, String>> String getbcdssvdkltc(ModelMap model,HttpSession session) {
+		R repo;
+		login = (NhanVienLoginModel) session.getAttribute("USERMODEL");
+		if ("VT".equals(login.getKhoa())) {
+			repo = (R) vtrepo; // Cast to the generic type
+		} else {
+			repo = (R) cnrepo; // Cast to the generic type
+		}
 		ParaBCBangDiemMonHocLTC para = new ParaBCBangDiemMonHocLTC();
 		model.addAttribute("para", para);
-		model.addAttribute("lstMH", repocn.findAll());
+		model.addAttribute("lstMH", repo.findAll());
 
 		return "khoa/form/fbcdssvdkltc";
 	}
 	@PostMapping("/bcdssvdkltc/khoa")
 	public String bcdssvdkltc(HttpSession session,ParaBCBangDiemMonHocLTC para,ModelMap model) {
+		MonHoc mh=cnrepo.findById(para.getMaMH()).get();
+		model.addAttribute("mh",mh.getTenMH());
+		
+		
 		List<BCDssvDkLTC> lst=  bcdssvdkltc.findAll(session,para.getNk(),para.getHk(),para.getMaMH(),para.getNhom());
 		model.addAttribute("lst", lst);
 		model.addAttribute("para", para);
