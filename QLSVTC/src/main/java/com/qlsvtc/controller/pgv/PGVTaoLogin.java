@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.qlsvtc.CNTT.repository.GiangVienRepositoryCNTT;
-import com.qlsvtc.VT.repository.GiangVienRepositoryVT;
+import com.qlsvtc.CNTT.repository.NhanVienRepositoryCNTT;
+import com.qlsvtc.VT.repository.NhanVienRepositoryVT;
 import com.qlsvtc.dao.impl.TaoLoginDAO;
-import com.qlsvtc.entity.GiangVien;
+import com.qlsvtc.entity.NhanVien;
 import com.qlsvtc.model.NhanVienLoginModel;
 import com.qlsvtc.model.para.TaoLoginModel;
 
@@ -22,21 +22,21 @@ import com.qlsvtc.model.para.TaoLoginModel;
 public class PGVTaoLogin {
 	TaoLoginDAO dao = new TaoLoginDAO();
 	@Autowired
-	GiangVienRepositoryCNTT cnrepo;
+	NhanVienRepositoryCNTT cnrepo;
 	@Autowired
-	GiangVienRepositoryVT vtrepo;
+	NhanVienRepositoryVT vtrepo;
 	NhanVienLoginModel login = null;
 
 	@GetMapping("taologin/pgv")
 	public String gettaologin(Model model, HttpSession session) {
-		List<GiangVien> lstGV;
+		List<NhanVien> lstNV;
 		login = (NhanVienLoginModel) session.getAttribute("USERMODEL");
 		if ("VT".equals(login.getKhoa())) {
-			lstGV = vtrepo.findAll(); // Cast to the generic type
+			lstNV = vtrepo.findAll(); // Cast to the generic type
 		} else {
-			lstGV = cnrepo.findAll(); // Cast to the generic type
+			lstNV = cnrepo.findAll(); // Cast to the generic type
 		}
-		model.addAttribute("lstGV", lstGV);
+		model.addAttribute("lstNV", lstNV);
 		model.addAttribute("newLogin", new TaoLoginModel());
 		return "pgv/taologin";
 	}

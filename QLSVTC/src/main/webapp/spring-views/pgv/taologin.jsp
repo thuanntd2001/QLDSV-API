@@ -39,19 +39,19 @@
 
 				<div class="card">
 					<div class="card-body">
-						<h5 class="card-title">Tạo tài khoản giảng viên</h5>
+						<h5 class="card-title">Tạo tài khoản nhân viên</h5>
 
 						<!-- Multi Columns Form -->
-						<form:form action="taologin/khoa" method="post"
+						<form:form action="taologin/pgv" method="post"
 							modelAttribute="newLogin" class="row g-3">
 							<div class="col-md-6">
 								<div class="col-md-8">
-									<label for="inputCity" class="form-label">Mã giảng viên</label>
+									<label for="inputCity" class="form-label">Mã nhân viên</label>
 
 									<form:select class="selectpicker" path="quyen">
-										<c:forEach items="${lstGV}" var="item">
-											<option value="${item.maGV}">${item.maGV} -
-												${item.ho} - ${item.ten}</option>
+										<c:forEach items="${lstNV}" var="item">
+											<option value="${item.maNV}">${item.maNV} -
+												${item.tenNV}</option>
 										</c:forEach>
 									</form:select>
 								</div>
@@ -61,7 +61,7 @@
 								<div class="col-md-8">
 									<label for="inputCity" class="form-label">Quyền</label>
 									<form:select path="quyen">
-										<form:option value="KHOA"></form:option>
+										<form:option value="PGV"></form:option>
 									</form:select>
 								</div>
 							</div>

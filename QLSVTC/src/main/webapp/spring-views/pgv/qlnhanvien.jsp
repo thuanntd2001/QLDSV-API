@@ -68,6 +68,7 @@
 						</table>
 						<!-- End Table with stripped rows -->
 						<a href="quanly/pgv/nhanvien/add" class="fa fa-plus"></a>
+						<a href="taologin/pgv">Tạo login cho Nhân viên</a>
 					</div>
 				</div>
 
