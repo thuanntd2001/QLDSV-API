@@ -146,7 +146,7 @@ public class QLSinhVienController {
 			SinhVien nvsave = null;
 
 			try {
-				if (itemsave.getMaSV() == null) {
+				if (itemsave.getMaSV() == null || itemsave.getMaSV().equals("")) {
 				itemsave.setMaSV(dao.taoSV(session,idlop,item.getMaCN()).get(0).getStr());		
 				}
 				System.out.println(itemsave.getMaSV());
