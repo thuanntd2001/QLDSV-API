@@ -40,7 +40,7 @@ import com.qlsvtc.utils.BangDiemUtil;
 @Controller
 @RequestMapping(value = "xembaocao")
 public class XemBaoCaoKhoaController {
-	
+
 	@Autowired
 	MonHocRepositoryCNTT cnrepo;
 	@Autowired
@@ -55,122 +55,136 @@ public class XemBaoCaoKhoaController {
 	NhanVienLoginModel login = null;
 
 	@GetMapping("/bcbangdiemmonhocltc/khoa")
-	public <R extends JpaRepository<MonHoc, String>> String getbcbangdiemmonhocltc(ModelMap model,HttpSession session) {
-		R repo;
+	public String getbcbangdiemmonhocltc(ModelMap model, HttpSession session) {
+
 		login = (NhanVienLoginModel) session.getAttribute("USERMODEL");
+		List<MonHoc> lstMH;
 		if ("VT".equals(login.getKhoa())) {
-			repo = (R) vtrepo; // Cast to the generic type
+			lstMH = vtrepo.findAll(); // Cast to the generic type
 		} else {
-			repo = (R) cnrepo; // Cast to the generic type
+			lstMH = cnrepo.findAll(); // Cast to the generic type
 		}
-		
+
 		ParaBCBangDiemMonHocLTC para = new ParaBCBangDiemMonHocLTC();
 		model.addAttribute("para", para);
-		model.addAttribute("lstMH", repo.findAll());
+		model.addAttribute("lstMH", lstMH);
 		return "khoa/form/fbcbangdiemmonhocltc";
 	}
-	
-	@PostMapping("/bcbangdiemmonhocltc/khoa")
-	public String bcbangdiemmonhocltc(HttpSession session,ParaBCBangDiemMonHocLTC para,ModelMap model) {
-		MonHoc mh=cnrepo.findById(para.getMaMH()).get();
-		model.addAttribute("mh",mh.getTenMH());
 
-		
-		List<BCBangDiemMonHocLTC> lst= bcbangdiemmonhocltc.findAll(session, para.getNk(),para.getHk(),para.getMaMH(),para.getNhom());
-		
+	@PostMapping("/bcbangdiemmonhocltc/khoa")
+	public String bcbangdiemmonhocltc(HttpSession session, ParaBCBangDiemMonHocLTC para, ModelMap model) {
+
+		MonHoc mh = null;
+		if ("VT".equals(login.getKhoa())) {
+			mh = vtrepo.findById(para.getMaMH()).get();// Cast to the generic type
+		} else {
+			mh = cnrepo.findById(para.getMaMH()).get(); // Cast to the generic type
+		}
+		model.addAttribute("mh", mh.getTenMH());
+
+		List<BCBangDiemMonHocLTC> lst = bcbangdiemmonhocltc.findAll(session, para.getNk(), para.getHk(), para.getMaMH(),
+				para.getNhom());
+
 		model.addAttribute("lst", lst);
 		model.addAttribute("para", para);
 		return "khoa/baocao/bcbangdiemmonhocltc";
 	}
-	
+
 	@GetMapping("/bcdsltc/khoa")
 	public String getbcdsltc(ModelMap model) {
 		ParaBCDsLTC para = new ParaBCDsLTC();
 		model.addAttribute("para", para);
 		return "khoa/form/fbcdsltc";
 	}
-	
+
 	@PostMapping("/bcdsltc/khoa")
-	public String bcdsltc(HttpSession session,ParaBCDsLTC para,ModelMap model) {
-		List<BCDsLTC> lst= bcdsltc.findAll(session, para.getNk(),para.getHk());		
+	public String bcdsltc(HttpSession session, ParaBCDsLTC para, ModelMap model) {
+		List<BCDsLTC> lst = bcdsltc.findAll(session, para.getNk(), para.getHk());
 		model.addAttribute("lst", lst);
 		model.addAttribute("para", para);
 		return "khoa/baocao/bcdsltc";
 	}
-	
+
 	@GetMapping("/bcdssvdkltc/khoa")
-	public <R extends JpaRepository<MonHoc, String>> String getbcdssvdkltc(ModelMap model,HttpSession session) {
-		R repo;
+	public String getbcdssvdkltc(ModelMap model, HttpSession session) {
+
 		login = (NhanVienLoginModel) session.getAttribute("USERMODEL");
+		List<MonHoc> lstMH;
 		if ("VT".equals(login.getKhoa())) {
-			repo = (R) vtrepo; // Cast to the generic type
+			lstMH = vtrepo.findAll(); // Cast to the generic type
 		} else {
-			repo = (R) cnrepo; // Cast to the generic type
+			lstMH = cnrepo.findAll(); // Cast to the generic type
 		}
 		ParaBCBangDiemMonHocLTC para = new ParaBCBangDiemMonHocLTC();
 		model.addAttribute("para", para);
-		model.addAttribute("lstMH", repo.findAll());
+		model.addAttribute("lstMH", lstMH);
 
 		return "khoa/form/fbcdssvdkltc";
 	}
+
 	@PostMapping("/bcdssvdkltc/khoa")
-	public String bcdssvdkltc(HttpSession session,ParaBCBangDiemMonHocLTC para,ModelMap model) {
-		MonHoc mh=cnrepo.findById(para.getMaMH()).get();
-		model.addAttribute("mh",mh.getTenMH());
-		
-		
-		List<BCDssvDkLTC> lst=  bcdssvdkltc.findAll(session,para.getNk(),para.getHk(),para.getMaMH(),para.getNhom());
+	public String bcdssvdkltc(HttpSession session, ParaBCBangDiemMonHocLTC para, ModelMap model) {
+		MonHoc mh = null;
+		if ("VT".equals(login.getKhoa())) {
+			mh = vtrepo.findById(para.getMaMH()).get();// Cast to the generic type
+		} else {
+			mh = cnrepo.findById(para.getMaMH()).get(); // Cast to the generic type
+		}
+		model.addAttribute("mh", mh.getTenMH());
+
+		List<BCDssvDkLTC> lst = bcdssvdkltc.findAll(session, para.getNk(), para.getHk(), para.getMaMH(),
+				para.getNhom());
 		model.addAttribute("lst", lst);
 		model.addAttribute("para", para);
 
 		return "khoa/baocao/bcdssvdkltc";
 	}
-	
+
 	@GetMapping("/bcphieudiem/khoa")
 	public String getbcphieudiem(ModelMap model) {
 		ParaPhieuDiem para = new ParaPhieuDiem();
 		model.addAttribute("para", para);
 		return "khoa/form/fbcphieudiem";
-		}
-	
+	}
+
 	@PostMapping("/bcphieudiem/khoa")
-	public String bcphieudiem(HttpSession session,ParaPhieuDiem para,ModelMap model) {
-		List<BCPhieuDiem> lst= bcphieudiem.findAll(session,para.getMaSV());
+	public String bcphieudiem(HttpSession session, ParaPhieuDiem para, ModelMap model) {
+		List<BCPhieuDiem> lst = bcphieudiem.findAll(session, para.getMaSV());
 		model.addAttribute("lst", lst);
 		model.addAttribute("para", para);
 		return "khoa/baocao/bcphieudiem";
 	}
-	
+
 	@GetMapping("/bcbangdiemtongket/khoa")
 	public String getbcbangdiemtongket(ModelMap model) {
 		ParaBangDiemTongKet para = new ParaBangDiemTongKet();
 		model.addAttribute("para", para);
 		return "khoa/form/fbcbangdiemtongket";
-		}
+	}
 
 	@PostMapping("/bcbangdiemtongket/khoa")
-	public String bcbangdiemtongket(HttpSession session,ParaBangDiemTongKet para,ModelMap model) throws SQLException {
-		List<BCBangDiemTongKet> bangDiemList= bcbangdiemtongket.findAll(session,para.getMaLop());
+	public String bcbangdiemtongket(HttpSession session, ParaBangDiemTongKet para, ModelMap model) throws SQLException {
+		List<BCBangDiemTongKet> bangDiemList = bcbangdiemtongket.findAll(session, para.getMaLop());
 		List<String> uniqueTenMonHoc = BangDiemUtil.getUniqueTenMonHoc(bangDiemList);
 		Map<String, Map<String, Float>> entrySet = BangDiemUtil.convertToMap(bangDiemList);
-	    model.addAttribute("uniqueTenMonHoc", uniqueTenMonHoc);	
-	    model.addAttribute("entrySet", entrySet);		
+		model.addAttribute("uniqueTenMonHoc", uniqueTenMonHoc);
+		model.addAttribute("entrySet", entrySet);
 
 		model.addAttribute("para", para);
 
 		return "khoa/baocao/bcbangdiemtongket";
 	}
-	
+
 	@GetMapping("/bcdssv/khoa")
 	public String bcdssv(ModelMap model) {
 		ParaLop para = new ParaLop();
 		model.addAttribute("para", para);
 		return "khoa/form/fbcdssv";
-		}
-	
+	}
+
 	@PostMapping("/bcdssv/khoa")
-	public String bcdssv(HttpSession session,ParaLop para,ModelMap model) throws SQLException {
-		List<BCSinhVien> lst= bcdssv.findAllKhoa(session,para.getMaLop());
+	public String bcdssv(HttpSession session, ParaLop para, ModelMap model) throws SQLException {
+		List<BCSinhVien> lst = bcdssv.findAllKhoa(session, para.getMaLop());
 		model.addAttribute("lst", lst);
 		model.addAttribute("para", para);
 
