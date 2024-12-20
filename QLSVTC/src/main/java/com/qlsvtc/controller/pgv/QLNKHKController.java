@@ -93,9 +93,9 @@ public class QLNKHKController {
 				System.out.print("insert success");
 			}
 		} else {
-			message=message+"insert failure, đã tồn tại";
-			model.addAttribute("message", "insert failure, đã tồn tại");
-			System.out.print("insert failure đã tồn tại");
+			message=message+"insert failure, existed";
+			model.addAttribute("message", "insert failure, existed");
+			System.out.print("insert failure existed");
 		}
 
 		return "redirect:/quanly/pgv/nkhk/add"+message;

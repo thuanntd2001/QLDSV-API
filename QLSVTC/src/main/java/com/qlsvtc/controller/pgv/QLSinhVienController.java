@@ -164,9 +164,9 @@ public class QLSinhVienController {
 				System.out.println("insert success");
 			}
 		} else {
-			message = message + "insert failure, đã tồn tại";
-			model.addAttribute("message", "insert failure, đã tồn tại");
-			System.out.println("insert failure đã tồn tại");
+			message = message + "insert failure, existed";
+			model.addAttribute("message", "insert failure, existed");
+			System.out.println("insert failure existed");
 		}
 
 		return "redirect:/quanly/pgv/sinhvien/add"+ message;
@@ -205,9 +205,9 @@ public class QLSinhVienController {
 				System.out.println("insert failure");
 			}
 		} else {
-			message = message + "insert failure, đã tồn tại";
-			model.addAttribute("message", "insert failure, đã tồn tại");
-			System.out.println("insert failure đã tồn tại");
+			message = message + "insert failure, existed";
+			model.addAttribute("message", "insert failure, existed");
+			System.out.println("insert failure existed");
 		}
 
 		return "redirect:/quanly/pgv/sinhvien/add"+ message;
