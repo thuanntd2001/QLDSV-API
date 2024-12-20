@@ -148,12 +148,12 @@ public class QLGiangDayController {
 			e.printStackTrace();
 			message = message + "error: failure";
 			model.addAttribute("message", message);
-			System.out.println("thêm thất bại");
+			System.out.println("insert failure");
 		}
 		if (nvsave != null) {
 			message = message + "Susscess";
 			model.addAttribute("message", message);
-			System.out.println("thêm thành công");
+			System.out.println("insert success");
 		}
 
 		return "redirect:/quanly/pgv/giangday/add" + message;
@@ -190,12 +190,12 @@ public class QLGiangDayController {
 
 				repo.deleteById(id);
 				message += "Success";
-				model.addAttribute("message", "xoá thành công");
+				model.addAttribute("message", "delete success");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			message += "error: failure";
-			model.addAttribute("message", "xoá thất bại");
+			model.addAttribute("message", "delete failure");
 		}
 		return "redirect:/quanly/pgv/giangday" + message;
 

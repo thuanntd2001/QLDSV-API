@@ -50,14 +50,14 @@ public class KhoaTaoLogin {
 		System.out.println(lg.getQuyen());
 		try {
 			int kq=dao.taologin(session, lg.getLgName(), lg.getPass(), lg.getMaNV(), "KHOA");
-			System.out.println("thành công");
+			System.out.println("success");
 		
-			model.addAttribute("message", "thêm login thành  công");
+			model.addAttribute("message", "thêm login success");
 		
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			model.addAttribute("message", "thêm login thất bại,bạn hãy kiểm tra lại nhân viên đã có account chưa ?");
+			model.addAttribute("message", "thêm login failure,bạn hãy kiểm tra lại nhân viên đã có account chưa ?");
 		}
 
 		return "khoa/taologin";

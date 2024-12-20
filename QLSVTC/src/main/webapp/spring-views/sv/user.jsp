@@ -36,7 +36,7 @@
 
 						<h2>${sessionScope.USERMODEL.hoTen }</h2>
 						<h3>${sessionScope.USERMODEL.maNV }</h3>
-						<h4>Nhóm: ${sessionScope.USERMODEL.tenNhom }</h4>
+						<h3>Nhóm: ${sessionScope.USERMODEL.tenNhom }</h3>
 
 					</form:form>
 				</div>

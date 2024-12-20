@@ -114,7 +114,7 @@ public class ChuyenLopController {
 			message+=" Success";
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			message+=" error:" + e.getMessage();
+			message+=" error";
 
 		}
 		

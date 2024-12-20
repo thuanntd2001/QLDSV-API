@@ -81,19 +81,19 @@ public class QLNhanVienController {
 				nvsave = repo.save(item);
 			} catch (Exception e) {
 				e.printStackTrace();
-				message=message+"thêm thất bại";
-				model.addAttribute("message", "thêm thất bại");
-				System.out.print("thêm vật tư thất bại");
+				message=message+"insert failure";
+				model.addAttribute("message", "insert failure");
+				System.out.print("insert vật tư failure");
 			}
 			if (nvsave != null) {
-				message=message+"thêm thành công";
-				model.addAttribute("message", "thêm thành công");
-				System.out.print("thêm thành công");
+				message=message+"insert success";
+				model.addAttribute("message", "insert success");
+				System.out.print("insert success");
 			}
 		} else {
-			message=message+"thêm thất bại, đã tồn tại";
-			model.addAttribute("message", "thêm thất bại, đã tồn tại");
-			System.out.print("thêm thất bại đã tồn tại");
+			message=message+"insert failure, đã tồn tại";
+			model.addAttribute("message", "insert failure, đã tồn tại");
+			System.out.print("insert failure đã tồn tại");
 		}
 
 		return "redirect:/quanly/pgv/nhanvien/add"+message;
@@ -149,15 +149,15 @@ public class QLNhanVienController {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			message+="Sửa thất bại";
+			message+="alter failure";
 			return "redirect:/quanly/pgv/nhanvien"+message;
 
 		}
 
 		if (vtsave != null) {
-			message+="Sửa  thành công";
-			model.addAttribute("message", "Sửa  thành công");
-			System.out.print("Sửa thành công");
+			message+="alter  success";
+			model.addAttribute("message", "alter  success");
+			System.out.print("alter success");
 		}
 
 		return "redirect:/quanly/pgv/nhanvien"+message;
@@ -190,13 +190,13 @@ public class QLNhanVienController {
 			if (request.getParameter("xacNhan").equals("YES")) {
 //				VatTuEntity nvsave = vtrepo.findOne(id);
 				repo.deleteById(id);
-				message+="xoá thành công";
-				model.addAttribute("message", "xoá thành công");
+				message+="delete success";
+				model.addAttribute("message", "delete success");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			message+="xoá thất bại";
-			model.addAttribute("message", "xoá thất bại");
+			message+="delete failure";
+			model.addAttribute("message", "delete failure");
 		}
 		return "redirect:/quanly/pgv/nhanvien"+message;
 
