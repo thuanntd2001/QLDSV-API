@@ -34,7 +34,7 @@ public class LoginUIController {
 	ResourceBundle resourceBundle = ResourceBundle.getBundle("message");
 	DSPMDAO dspmDAO = new DSPMDAO();
 
-	@GetMapping("dang-nhap")
+	@GetMapping({"/","dang-nhap"})
 	private String doGet(ModelMap model, HttpServletRequest request) {
 		// tao dspm set ra view
 		if (application.getAttribute("DSPM") == null) {
