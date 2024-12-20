@@ -1,5 +1,7 @@
 package com.qlsvtc.controller.pgv;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -80,7 +82,7 @@ public class QLGiangVienController {
 
 	@PostMapping("giangvien/add")
 	public <R extends JpaRepository<GiangVien, String>> String addVTCN1(HttpSession session, ModelMap model,
-			@ModelAttribute("item") GiangVienDTO item) {
+			@ModelAttribute("item") GiangVienDTO item) throws UnsupportedEncodingException {
 		String message = "?message=";
 		R repo;
 		Khoa khoa;
@@ -97,14 +99,15 @@ public class QLGiangVienController {
 		if (repo.findById(item.getMaGV()).isEmpty()) {
 			GiangVien itemsave = modelMapper.map(item, GiangVien.class);
 			itemsave.setKhoa(khoa);
-			
+
 			GiangVien nvsave = null;
 
 			try {
 				nvsave = repo.save(itemsave);
 			} catch (Exception e) {
 				e.printStackTrace();
-				message = message + "insert failure";
+				message = message + URLEncoder.encode("insert failure: " + e.getMessage(), "UTF-8");
+
 				model.addAttribute("message", "insert failure");
 				System.out.print("insert failure");
 			}

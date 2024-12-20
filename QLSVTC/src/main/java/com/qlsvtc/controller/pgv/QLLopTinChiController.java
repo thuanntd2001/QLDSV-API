@@ -1,5 +1,7 @@
 package com.qlsvtc.controller.pgv;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -119,11 +121,11 @@ public class QLLopTinChiController {
 
 	@PostMapping("ltc/add")
 	public <R extends JpaRepository<LTC, Integer>> String addVTCN1(HttpSession session, ModelMap model,
-			@ModelAttribute("item") LTCDTO item) {
+			@ModelAttribute("item") LTCDTO item) throws UnsupportedEncodingException {
 		String message = "?message=";
 		R repo;
 		Khoa khoa;
-		int idnkhk = Integer.parseInt((String)session.getAttribute("MANKHK"));
+		int idnkhk = (Integer)session.getAttribute("MANKHK");
 		login = (NhanVienLoginModel) session.getAttribute("USERMODEL");
 		if ("VT".equals(login.getKhoa())) {
 			repo = (R) vtrepo; // Cast to the generic type
@@ -145,7 +147,7 @@ public class QLLopTinChiController {
 				nvsave = repo.save(itemsave);
 			} catch (Exception e) {
 				e.printStackTrace();
-				message = message + "insert failure";
+				message = message + URLEncoder.encode("insert failure: "+e.getMessage(), "UTF-8");
 				model.addAttribute("message", "insert failure");
 				System.out.print("insert failure");
 			}

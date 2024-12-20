@@ -1,5 +1,7 @@
 package com.qlsvtc.controller.pgv;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -64,7 +66,7 @@ public class QLNKHKController {
 
 	@PostMapping("nkhk/add")
 	public <R extends JpaRepository<NKHK, Integer>> String addVTCN1(HttpSession session, ModelMap model,
-			@ModelAttribute("item") NKHK item) {
+			@ModelAttribute("item") NKHK item) throws UnsupportedEncodingException {
 		String message="?message=";
 		R repo;
 		login = (NhanVienLoginModel) session.getAttribute("USERMODEL");
@@ -83,7 +85,7 @@ public class QLNKHKController {
 				nvsave = repo.save(item);
 			} catch (Exception e) {
 				e.printStackTrace();
-				message=message+"insert failure";
+				message = message + URLEncoder.encode("insert failure: "+e.getMessage(), "UTF-8");
 				model.addAttribute("message", "insert failure");
 				System.out.print("insert vật tư failure");
 			}

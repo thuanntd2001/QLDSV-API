@@ -1,5 +1,8 @@
 package com.qlsvtc.controller.pgv;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -63,7 +66,7 @@ public class QLMonHocController {
 
 	@PostMapping("monhoc/add")
 	public <R extends JpaRepository<MonHoc, String>> String addVTCN1(HttpSession session, ModelMap model,
-			@ModelAttribute("item") MonHoc item) {
+			@ModelAttribute("item") MonHoc item) throws UnsupportedEncodingException {
 		String message="?message=";
 		R repo;
 		login = (NhanVienLoginModel) session.getAttribute("USERMODEL");
@@ -81,7 +84,7 @@ public class QLMonHocController {
 				nvsave = repo.save(item);
 			} catch (Exception e) {
 				e.printStackTrace();
-				message=message+"insert failure";
+				message = message + URLEncoder.encode("insert failure: "+e.getMessage(), "UTF-8");
 				model.addAttribute("message", "insert failure");
 				System.out.print("insert vật tư failure");
 			}

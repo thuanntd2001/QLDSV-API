@@ -1,5 +1,6 @@
 package com.qlsvtc.controller.pgv;
 
+import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -121,7 +122,7 @@ public class QLGiangDayController {
 
 	@PostMapping("giangday/add")
 	public <R extends JpaRepository<GiangDay, Integer>> String addVTCN1(HttpSession session, ModelMap model,
-			@ModelAttribute("item") GiangDayDTO item) {
+			@ModelAttribute("item") GiangDayDTO item) throws UnsupportedEncodingException {
 		String message = "?message=";
 		R repo;
 
@@ -146,7 +147,7 @@ public class QLGiangDayController {
 			nvsave = repo.save(itemsave);
 		} catch (Exception e) {
 			e.printStackTrace();
-			message = message + "error: failure";
+			message = message + URLEncoder.encode("insert failure: "+e.getMessage(), "UTF-8");
 			model.addAttribute("message", message);
 			System.out.println("insert failure");
 		}
@@ -170,7 +171,7 @@ public class QLGiangDayController {
 
 	@RequestMapping(value = "giangday/xoa", method = RequestMethod.POST)
 	public <R extends JpaRepository<GiangDay, Integer>> String xoaNVCN1P(HttpSession session, ModelMap model,
-			HttpServletRequest request) {
+			HttpServletRequest request) throws UnsupportedEncodingException {
 		Integer idltc = (Integer) session.getAttribute("MALTC");
 		String message = "?message=";
 		R repo;
@@ -194,7 +195,7 @@ public class QLGiangDayController {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			message += "error: failure";
+			message += URLEncoder.encode("delete failure: "+e.getMessage(), "UTF-8");
 			model.addAttribute("message", "delete failure");
 		}
 		return "redirect:/quanly/pgv/giangday" + message;
