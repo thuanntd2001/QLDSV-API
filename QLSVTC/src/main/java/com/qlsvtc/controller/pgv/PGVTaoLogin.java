@@ -51,12 +51,12 @@ public class PGVTaoLogin {
 			int kq=dao.taologin(session, lg.getLgName(), lg.getPass(), lg.getMaNV(), "PGV");
 			System.out.println("thành công");
 		
-			model.addAttribute("message", "thêm login thành  công");
+			model.addAttribute("message", "Success");
 		
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			model.addAttribute("message", "thêm login thất bại,bạn hãy kiểm tra lại Giảng viên đã có account chưa ?");
+			model.addAttribute("message", "error:"+e.getMessage()+" thêm login thất bại,bạn hãy kiểm tra lại Giảng viên đã có account chưa ?");
 		}
 
 		return "pgv/taologin";

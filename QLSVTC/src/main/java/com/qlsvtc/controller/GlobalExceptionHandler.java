@@ -18,6 +18,7 @@ public class GlobalExceptionHandler {
         ModelAndView modelAndView = new ModelAndView("chung/error");
         model.addAttribute("status", HttpStatus.INTERNAL_SERVER_ERROR.value());
         model.addAttribute("message", ex.getMessage());
+        ex.printStackTrace();
         return modelAndView;
     }
     @ResponseStatus(HttpStatus.NOT_FOUND)

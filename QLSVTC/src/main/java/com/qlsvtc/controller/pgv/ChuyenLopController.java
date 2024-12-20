@@ -98,6 +98,9 @@ public class ChuyenLopController {
 
 		return "pgv/form/fchuyenlop";
 	}
+	
+	
+	
 	ChuyenLopDAO cldao = new ChuyenLopDAO();
 	@PostMapping("chuyenlop")
 	public  String addVTCN1(HttpSession session, ModelMap model,
@@ -108,6 +111,7 @@ public class ChuyenLopController {
 		
 		try {
 			cldao.ChuyenLop(session, item.getMaSV(), item.getMaLop(), item.getMaCN());
+			message+=" Success";
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			message+=" error:" + e.getMessage();

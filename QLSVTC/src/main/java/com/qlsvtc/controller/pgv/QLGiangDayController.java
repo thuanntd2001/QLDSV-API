@@ -1,5 +1,7 @@
 package com.qlsvtc.controller.pgv;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -123,7 +125,7 @@ public class QLGiangDayController {
 		String message = "?message=";
 		R repo;
 
-		int idltc = Integer.parseInt((String) session.getAttribute("MALTC"));
+		int idltc = (Integer) session.getAttribute("MALTC");
 		login = (NhanVienLoginModel) session.getAttribute("USERMODEL");
 		if ("VT".equals(login.getKhoa())) {
 			repo = (R) vtrepo; // Cast to the generic type
@@ -144,13 +146,13 @@ public class QLGiangDayController {
 			nvsave = repo.save(itemsave);
 		} catch (Exception e) {
 			e.printStackTrace();
-			message = message + "thêm thất bại";
-			model.addAttribute("message", "thêm thất bại");
+			message = message + "error: failure";
+			model.addAttribute("message", message);
 			System.out.println("thêm thất bại");
 		}
 		if (nvsave != null) {
-			message = message + "thêm thành công";
-			model.addAttribute("message", "thêm thành công");
+			message = message + "Susscess";
+			model.addAttribute("message", message);
 			System.out.println("thêm thành công");
 		}
 
@@ -169,7 +171,7 @@ public class QLGiangDayController {
 	@RequestMapping(value = "giangday/xoa", method = RequestMethod.POST)
 	public <R extends JpaRepository<GiangDay, Integer>> String xoaNVCN1P(HttpSession session, ModelMap model,
 			HttpServletRequest request) {
-		String idltc = (String) session.getAttribute("MALTC");
+		Integer idltc = (Integer) session.getAttribute("MALTC");
 		String message = "?message=";
 		R repo;
 		Integer id = Integer.parseInt(request.getParameter("id"));
@@ -187,15 +189,15 @@ public class QLGiangDayController {
 			if (request.getParameter("xacNhan").equals("YES")) {
 
 				repo.deleteById(id);
-				message += "xoá thành công";
+				message += "Success";
 				model.addAttribute("message", "xoá thành công");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			message += "xoá thất bại";
+			message += "error: failure";
 			model.addAttribute("message", "xoá thất bại");
 		}
-		return "redirect:/quanly/pgv/giangday" + message + "&idltc=" + idltc;
+		return "redirect:/quanly/pgv/giangday" + message;
 
 	}
 

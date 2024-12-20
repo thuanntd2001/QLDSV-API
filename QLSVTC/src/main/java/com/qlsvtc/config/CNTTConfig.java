@@ -5,10 +5,12 @@ import java.util.Properties;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
@@ -75,14 +77,14 @@ public class CNTTConfig {
 		return properties;
 	}
 
-/*	@Autowired
-	@Bean(name = "transactionManager")
+	@Autowired
+	@Bean(name = "transactionManagerCN")
 	public DataSourceTransactionManager getTransactionManager(DataSource dataSource) {
 		DataSourceTransactionManager txManager = new DataSourceTransactionManager();
 
 		txManager.setDataSource(dataSource);
 
 		return txManager;
-	}*/
+	}
 	
 }
