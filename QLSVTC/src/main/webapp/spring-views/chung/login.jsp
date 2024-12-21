@@ -68,7 +68,7 @@
 
 
 					<div class="form-group">
-						<label for="username">User name</label> <input type="text"
+						<label for="username">Username</label> <input type="text"
 							class="form-control" name="userName" id="userName"
 							aria-describedby="helpId" placeholder="Username">
 						<!-- <small

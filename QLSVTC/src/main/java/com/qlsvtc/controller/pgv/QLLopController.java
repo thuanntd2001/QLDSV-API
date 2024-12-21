@@ -4,6 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -86,17 +87,21 @@ public class QLLopController {
 		String message = "?message=";
 		R repo;
 		Khoa khoa;
+		Optional<Lop> lop2;
 		login = (NhanVienLoginModel) session.getAttribute("USERMODEL");
 		if ("VT".equals(login.getKhoa())) {
 			repo = (R) vtrepo; // Cast to the generic type
 			khoa = vtrepokhoa.findAll().get(0);
+			lop2=cnrepo.findById(item.getMaLop());
 		} else {
 			repo = (R) cnrepo; // Cast to the generic type
 			khoa = cnrepokhoa.findAll().get(0);
+			lop2=vtrepo.findById(item.getMaLop());
+
 		}
 		System.out.println(item.getMaLop());
 
-		if (repo.findById(item.getMaLop()).isEmpty()) {
+		if (repo.findById(item.getMaLop()).isEmpty() && lop2.isEmpty()) {
 			Lop itemsave = modelMapper.map(item, Lop.class);
 			itemsave.setKhoa(khoa);
 			

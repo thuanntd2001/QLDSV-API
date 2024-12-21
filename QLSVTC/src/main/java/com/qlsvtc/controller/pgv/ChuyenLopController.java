@@ -1,5 +1,7 @@
 package com.qlsvtc.controller.pgv;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -104,20 +106,20 @@ public class ChuyenLopController {
 	ChuyenLopDAO cldao = new ChuyenLopDAO();
 	@PostMapping("chuyenlop")
 	public  String addVTCN1(HttpSession session, ModelMap model,
-			@ModelAttribute("item") ParaChuyenLop item) {
+			@ModelAttribute("item") ParaChuyenLop item) throws UnsupportedEncodingException {
 		String message = "?message=-";
 		
 		login = (NhanVienLoginModel) session.getAttribute("USERMODEL");
 		
 		try {
 			cldao.ChuyenLop(session, item.getMaSV(), item.getMaLop(), item.getMaCN());
-			message+=" Success";
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			message+=" error";
+			message = message + URLEncoder.encode("failure: "+e.getMessage(), "UTF-8");
+			return "redirect:/quanly/pgv/sinhvien"+message+"&idlop="+(String)session.getAttribute("MALOP");
 
 		}
-		
+		message+="Running SP_CHUYENLOP_SV";
 		return "redirect:/quanly/pgv/sinhvien"+message+"&idlop="+(String)session.getAttribute("MALOP");
 	}
 	

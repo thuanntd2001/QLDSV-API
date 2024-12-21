@@ -4,6 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -49,7 +50,6 @@ public class QLSinhVienController {
 	@Autowired
 	ChuyenNganhRepositoryVT vtrepochuyennganh;
 
-
 	@Autowired
 	KhoaRepositoryCNTT cnrepokhoa;
 	@Autowired
@@ -65,10 +65,12 @@ public class QLSinhVienController {
 
 	@GetMapping("sinhvien")
 	public String getVTCN(HttpServletRequest request, HttpSession session, ModelMap model) {
-	
+
 		idLop = request.getParameter("idlop");
-		if (idLop==null) idLop=(String)session.getAttribute("MALOP");
-		if (idLop==null) return "redirect:dang-nhap?action=login";
+		if (idLop == null)
+			idLop = (String) session.getAttribute("MALOP");
+		if (idLop == null)
+			return "redirect:dang-nhap?action=login";
 		List<ChuyenNganh> lstCN;
 		session.setAttribute("MALOP", idLop);
 		String message = request.getParameter("message");
@@ -76,17 +78,17 @@ public class QLSinhVienController {
 		List<SinhVien> lstEntity;
 		login = (NhanVienLoginModel) session.getAttribute("USERMODEL");
 		if ("VT".equals(login.getKhoa())) {
-			lstEntity = vtrepo.findAllByLop_MaLopAndDaNghiHoc(idLop,false); 
+			lstEntity = vtrepo.findAllByLop_MaLopAndDaNghiHoc(idLop, false);
 			lstCN = vtrepochuyennganh.findAll();
 		} else {
-			lstEntity = cnrepo.findAllByLop_MaLopAndDaNghiHoc(idLop,false); 
+			lstEntity = cnrepo.findAllByLop_MaLopAndDaNghiHoc(idLop, false);
 			lstCN = cnrepochuyennganh.findAll();
 
 		}
 		List<SinhVienDTO> lst = new ArrayList<SinhVienDTO>();
 		for (SinhVien item : lstEntity) {
 			SinhVienDTO dto = modelMapper.map(item, SinhVienDTO.class);
-			dto.setTenCN(dto.getMaCN()+" - "+timTenChuyenNganhTheoMa(lstCN,dto.getMaCN()));
+			dto.setTenCN(dto.getMaCN() + " - " + timTenChuyenNganhTheoMa(lstCN, dto.getMaCN()));
 			lst.add(dto);
 		}
 
@@ -109,8 +111,6 @@ public class QLSinhVienController {
 		SinhVienDTO item = new SinhVienDTO();
 		model.addAttribute("item", item);
 
-
-
 		return "pgv/form/sinhvien/fadd-sinhvien";
 	}
 
@@ -122,25 +122,27 @@ public class QLSinhVienController {
 		Khoa khoa;
 		Lop lop;
 		ChuyenNganh chuyenNganh;
-
-		String idlop =(String)session.getAttribute("MALOP");
+		Optional<SinhVien> sv2;
+		String idlop = (String) session.getAttribute("MALOP");
 		login = (NhanVienLoginModel) session.getAttribute("USERMODEL");
 		if ("VT".equals(login.getKhoa())) {
 			repo = (R) vtrepo; // Cast to the generic type
 			khoa = vtrepokhoa.findAll().get(0);
 			lop = vtrepolop.findById(idlop).get();
 			chuyenNganh = vtrepochuyennganh.findById(item.getMaCN()).get();
-
+			sv2=cnrepo.findById(item.getMaSV());
 
 		} else {
 			repo = (R) cnrepo; // Cast to the generic type
 			khoa = cnrepokhoa.findAll().get(0);
-			lop = cnrepolop.findById((String)session.getAttribute("MALOP")).get();
+			lop = cnrepolop.findById((String) session.getAttribute("MALOP")).get();
 			chuyenNganh = cnrepochuyennganh.findById(item.getMaCN()).get();
+			sv2=vtrepo.findById(item.getMaSV());
+
 
 		}
 
-		if (item.getMaSV()== null || repo.findById(item.getMaSV()).isEmpty()) {
+		if (item.getMaSV() == null || (repo.findById(item.getMaSV()).isEmpty()&&sv2.isEmpty())) {
 			SinhVien itemsave = modelMapper.map(item, SinhVien.class);
 			itemsave.setCN(chuyenNganh);
 			itemsave.setLop(lop);
@@ -149,14 +151,14 @@ public class QLSinhVienController {
 
 			try {
 				if (itemsave.getMaSV() == null || itemsave.getMaSV().equals("")) {
-				itemsave.setMaSV(dao.taoSV(session,idlop,item.getMaCN()).get(0).getStr());		
+					itemsave.setMaSV(dao.taoSV(session, idlop, item.getMaCN()).get(0).getStr());
 				}
 				System.out.println(itemsave.getMaSV());
 
 				nvsave = repo.save(itemsave);
 			} catch (Exception e) {
 				e.printStackTrace();
-				message = message + URLEncoder.encode("insert failure: "+e.getMessage(), "UTF-8");
+				message = message + URLEncoder.encode("insert failure: " + e.getMessage(), "UTF-8");
 				model.addAttribute("message", "insert failure");
 				System.out.println("insert failure");
 			}
@@ -171,53 +173,44 @@ public class QLSinhVienController {
 			System.out.println("insert failure existed");
 		}
 
-		return "redirect:/quanly/pgv/sinhvien/add"+ message;
+		return "redirect:/quanly/pgv/sinhvien/add" + message;
 	}
-	/*@PostMapping("sinhvien/add")
-	public <R extends JpaRepository<SinhVien, String>> String addVTCN1(HttpSession session, ModelMap model,
-			@ModelAttribute("item") SinhVienDTO item) {
-		String message = "?message=";
-		R repo;
 
-		String idlop =(String)session.getAttribute("MALOP");
-		login = (NhanVienLoginModel) session.getAttribute("USERMODEL");
-		if ("VT".equals(login.getKhoa())) {
-			repo = (R) vtrepo; // Cast to the generic type
-			
-
-		} else {
-			repo = (R) cnrepo; // Cast to the generic type
-			
-
-		}
-		System.out.println(item.getMaSV());
-
-		if (item.getMaSV()== null || repo.findById(item.getMaSV()).isEmpty()) {
-			SinhVien itemsave = modelMapper.map(item, SinhVien.class);
-		
-			itemsave.setDaNghiHoc(false);
-			int nvsave ;
-
-			try {
-				dao.taoSV(session,idlop,item.getMaCN());
-			} catch (Exception e) {
-				e.printStackTrace();
-				message = message + "insert failure";
-				model.addAttribute("message", "insert failure");
-				System.out.println("insert failure");
-			}
-		} else {
-			message = message + "insert failure, existed";
-			model.addAttribute("message", "insert failure, existed");
-			System.out.println("insert failure existed");
-		}
-
-		return "redirect:/quanly/pgv/sinhvien/add"+ message;
-	}*/
+	/*
+	 * @PostMapping("sinhvien/add") public <R extends JpaRepository<SinhVien,
+	 * String>> String addVTCN1(HttpSession session, ModelMap model,
+	 * 
+	 * @ModelAttribute("item") SinhVienDTO item) { String message = "?message="; R
+	 * repo;
+	 * 
+	 * String idlop =(String)session.getAttribute("MALOP"); login =
+	 * (NhanVienLoginModel) session.getAttribute("USERMODEL"); if
+	 * ("VT".equals(login.getKhoa())) { repo = (R) vtrepo; // Cast to the generic
+	 * type
+	 * 
+	 * 
+	 * } else { repo = (R) cnrepo; // Cast to the generic type
+	 * 
+	 * 
+	 * } System.out.println(item.getMaSV());
+	 * 
+	 * if (item.getMaSV()== null || repo.findById(item.getMaSV()).isEmpty()) {
+	 * SinhVien itemsave = modelMapper.map(item, SinhVien.class);
+	 * 
+	 * itemsave.setDaNghiHoc(false); int nvsave ;
+	 * 
+	 * try { dao.taoSV(session,idlop,item.getMaCN()); } catch (Exception e) {
+	 * e.printStackTrace(); message = message + "insert failure";
+	 * model.addAttribute("message", "insert failure");
+	 * System.out.println("insert failure"); } } else { message = message +
+	 * "insert failure, existed"; model.addAttribute("message",
+	 * "insert failure, existed"); System.out.println("insert failure existed"); }
+	 * 
+	 * return "redirect:/quanly/pgv/sinhvien/add"+ message; }
+	 */
 	@GetMapping(value = "sinhvien/edit")
 	public String editVTCN1(HttpSession session, ModelMap model, HttpServletRequest request) {
 		List<ChuyenNganh> lstCN;
-
 
 		SinhVien itemEntity;
 		String id = request.getParameter("id");
@@ -241,7 +234,7 @@ public class QLSinhVienController {
 
 		else {
 			System.out.println("không tồn tại item");
-			return "redirect:/quanly/pgv/sinhvien"+"?idlop="+(String)session.getAttribute("MALOP");
+			return "redirect:/quanly/pgv/sinhvien" + "?idlop=" + (String) session.getAttribute("MALOP");
 		}
 
 		return "pgv/form/sinhvien/fedit-sinhvien";
@@ -256,17 +249,16 @@ public class QLSinhVienController {
 		Khoa khoa;
 		Lop lop;
 		ChuyenNganh chuyenNganh;
-		String idlop =(String)session.getAttribute("MALOP");
+		String idlop = (String) session.getAttribute("MALOP");
 		login = (NhanVienLoginModel) session.getAttribute("USERMODEL");
 		if ("VT".equals(login.getKhoa())) {
 			repo = (R) vtrepo; // Cast to the generic type
- 			lop = vtrepolop.findById(idlop).get();
+			lop = vtrepolop.findById(idlop).get();
 			chuyenNganh = vtrepochuyennganh.findById(item.getMaCN()).get();
-
 
 		} else {
 			repo = (R) cnrepo; // Cast to the generic type
-			lop = cnrepolop.findById((String)session.getAttribute("MALOP")).get();
+			lop = cnrepolop.findById((String) session.getAttribute("MALOP")).get();
 			chuyenNganh = cnrepochuyennganh.findById(item.getMaCN()).get();
 
 		}
@@ -282,7 +274,7 @@ public class QLSinhVienController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			message += "alter failure có thể ban dang sua du lieu cua khoa khac";
-			return "redirect:/quanly/pgv/sinhvien" + message+"&idlop="+(String)session.getAttribute("MALOP");
+			return "redirect:/quanly/pgv/sinhvien" + message + "&idlop=" + (String) session.getAttribute("MALOP");
 
 		}
 
@@ -290,7 +282,7 @@ public class QLSinhVienController {
 		model.addAttribute("message", "alter  success");
 		System.out.println("alter success");
 
-		return "redirect:/quanly/pgv/sinhvien" + message+"&idlop="+(String)session.getAttribute("MALOP");
+		return "redirect:/quanly/pgv/sinhvien" + message + "&idlop=" + (String) session.getAttribute("MALOP");
 
 	}
 
@@ -306,7 +298,7 @@ public class QLSinhVienController {
 	@RequestMapping(value = "sinhvien/xoa", method = RequestMethod.POST)
 	public <R extends JpaRepository<SinhVien, String>> String xoaNVCN1P(HttpSession session, ModelMap model,
 			HttpServletRequest request) {
-		String idlop =(String)session.getAttribute("MALOP");
+		String idlop = (String) session.getAttribute("MALOP");
 		String message = "?message=";
 		SinhVien itemEntity;
 		R repo;
@@ -336,17 +328,16 @@ public class QLSinhVienController {
 			message += "delete failure";
 			model.addAttribute("message", "delete failure");
 		}
-		return "redirect:/quanly/pgv/sinhvien" + message+"&idlop="+idlop;
+		return "redirect:/quanly/pgv/sinhvien" + message + "&idlop=" + idlop;
 
 	}
 
-
 	public String timTenChuyenNganhTheoMa(List<ChuyenNganh> danhSachChuyenNganh, String maMH) {
-        for (ChuyenNganh monHoc : danhSachChuyenNganh) {
-            if (monHoc.getMaCN().equals(maMH)) {
-                return monHoc.getTenCN(); // Tr? v? ??i t??ng ChuyenNganh tìm th?y
-            }
-        }
-        return null; // Tr? v? null n?u không tìm th?y
-    }
+		for (ChuyenNganh monHoc : danhSachChuyenNganh) {
+			if (monHoc.getMaCN().equals(maMH)) {
+				return monHoc.getTenCN(); // Tr? v? ??i t??ng ChuyenNganh tìm th?y
+			}
+		}
+		return null; // Tr? v? null n?u không tìm th?y
+	}
 }
